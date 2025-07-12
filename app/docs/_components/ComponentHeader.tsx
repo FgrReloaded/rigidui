@@ -30,7 +30,7 @@ export function ComponentHeader({
             <div className="flex flex-wrap gap-4 pt-2">
               {githubPath && (
                 <Link
-                  href={`https://github.com/rigidui/rigidui/blob/main/${githubPath}`}
+                  href={`https://github.com/FgrReloaded/rigidui/blob/main/${githubPath}`}
                   target="_blank"
                   className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
                 >
