@@ -73,7 +73,6 @@ export default function CompactAutoGenerateExample() {
         enableAutoGenerate={true}
         autoGenerateLength={12}
         showRequirements={false}
-        size="sm"
         segments={3}
         className="max-w-md"
       />
@@ -98,7 +97,6 @@ export default function CustomSegmentsExample() {
     component: (
       <PasswordStrengthMeter
         segments={5}
-        size="lg"
         placeholder="Password with 5 segments"
         className="max-w-md"
       />

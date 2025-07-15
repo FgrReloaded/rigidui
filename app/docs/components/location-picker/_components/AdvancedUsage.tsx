@@ -56,7 +56,6 @@ export default function AutoDetectExample() {
       <LocationPicker
         variant="inline"
         autoDetectOnLoad={true}
-        showLabel={false}
         className="max-w-md"
       />
     ),
@@ -115,7 +114,6 @@ export default function HandlerExample() {
       <div className="space-y-4 max-w-md">
         <LocationPicker
           variant="inline"
-          showLabel={true}
           onChange={(location) => console.log("Location changed:", location)}
         />
         <p className="text-sm text-muted-foreground">

@@ -90,12 +90,6 @@ export default function StrengthMeterPage() {
       description: "Placeholder text for the password input",
     },
     {
-      name: "size",
-      type: "'default' | 'sm' | 'lg'",
-      defaultValue: "'default'",
-      description: "Size of the strength meter",
-    },
-    {
       name: "animated",
       type: "boolean",
       defaultValue: "true",
