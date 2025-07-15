@@ -24,22 +24,19 @@ type LocationSuggestion = {
   };
 }
 
-// Theme interface for complete customization
-interface LocationPickerTheme {
+export interface LocationPickerTheme {
   container?: string;
   input?: string;
   searchButton?: string;
   locateButton?: string;
-  currentLocation?: string;
   suggestionsContainer?: string;
   suggestionItem?: string;
   suggestionIcon?: string;
+  suggestionLocation?: string;
+  suggestionAddress?: string;
   errorContainer?: string;
   loadingContainer?: string;
   popoverContent?: string;
-  popoverHeader?: string;
-  popoverTitle?: string;
-  popoverDescription?: string;
   popoverTrigger?: string;
 }
 
@@ -77,20 +74,17 @@ export function LocationPicker({
     input: "border-border focus:border-primary focus:ring-primary/20 bg-background text-foreground",
     searchButton: "rounded-md h-10 w-10 p-0 bg-primary hover:bg-primary/90 text-primary-foreground",
     locateButton: "rounded-md h-10 w-10 p-0 bg-secondary hover:bg-secondary/80 text-secondary-foreground",
-    currentLocation: "flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 p-2 rounded-md",
     suggestionsContainer: "w-full bg-background rounded-md border border-border shadow-lg max-h-60 overflow-y-auto",
     suggestionItem: "px-4 py-2 hover:bg-muted cursor-pointer border-b border-border last:border-0 transition-colors",
+    suggestionLocation: "text-sm font-medium text-foreground",
+    suggestionAddress: "text-xs text-muted-foreground truncate max-w-[250px]",
     suggestionIcon: "text-primary",
     errorContainer: "w-full bg-destructive/10 rounded-md border border-destructive/20 p-3 text-center",
     loadingContainer: "w-full bg-background rounded-md border border-border shadow-md p-4 text-center",
     popoverContent: "w-80 p-0 shadow-lg dark:bg-background",
-    popoverHeader: "p-4 border-b dark:border-border",
-    popoverTitle: "font-medium text-lg mb-1 dark:text-foreground",
-    popoverDescription: "text-sm text-muted-foreground",
     popoverTrigger: "flex items-center gap-2 text-muted-foreground hover:text-foreground border-b border-transparent hover:border-primary cursor-pointer px-3 py-2 transition-colors"
   }
 
-  // Merge with provided theme
   const appliedTheme = { ...defaultTheme, ...theme }
 
   const getLocation = async (lat: number, long: number) => {
@@ -125,6 +119,8 @@ export function LocationPicker({
         const city = place.address?.city || place.address?.county || place.address?.state || ''
 
         setActiveCity(city)
+        setLocationSearch('')
+        setSuggestions([])
         setIsPopoverOpen(false)
       } else {
         console.log("No location found")
@@ -195,8 +191,9 @@ export function LocationPicker({
   const selectSuggestion = (suggestion: LocationSuggestion) => {
     const city = suggestion.address?.city || suggestion.address?.county || suggestion.address?.state || '';
     setActiveCity(city);
-    setLocationSearch(city);
+    setLocationSearch("");
     setSuggestions([]);
+    setIsPopoverOpen(false);
   };
 
   const formatLocationName = (suggestion: LocationSuggestion) => {
@@ -246,8 +243,14 @@ export function LocationPicker({
             <div className="relative flex-1">
               <Input
                 placeholder={placeholder}
-                value={locationSearch}
-                onChange={(e) => setLocationSearch(e.target.value)}
+                value={activeCity || locationSearch}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setLocationSearch(value);
+                  if (activeCity && value !== activeCity) {
+                    setActiveCity('');
+                  }
+                }}
                 onKeyUp={(e) => e.key === 'Enter' && suggestions.length === 0 && searchLocation()}
                 aria-label="Search for location"
                 aria-describedby={suggestions.length > 0 ? "suggestions-list" : undefined}
@@ -279,13 +282,6 @@ export function LocationPicker({
             </Button>
           </div>
 
-          {activeCity && (
-            <div className={appliedTheme.currentLocation}>
-              <MapPin size={14} className={cn("text-primary", appliedTheme.suggestionIcon)} />
-              <span>Current: {activeCity}</span>
-            </div>
-          )}
-
           {suggestions.length > 0 && (
             <div
               id="suggestions-list"
@@ -311,10 +307,10 @@ export function LocationPicker({
                   <div className="flex items-start">
                     <MapPinned size={16} className={cn("mt-0.5 mr-2 shrink-0", appliedTheme.suggestionIcon)} />
                     <div>
-                      <p className="text-sm font-medium text-foreground">
+                      <p className={appliedTheme.suggestionLocation}>
                         {formatLocationName(suggestion)}
                       </p>
-                      <p className="text-xs text-muted-foreground truncate max-w-[250px]">
+                      <p className={appliedTheme.suggestionAddress}>
                         {suggestion.display_name}
                       </p>
                     </div>
@@ -365,13 +361,8 @@ export function LocationPicker({
         </div>
       </PopoverTrigger>
       <PopoverContent className={appliedTheme.popoverContent} side="bottom" align="start" sideOffset={4}>
-        <div className={appliedTheme.popoverHeader}>
-          <h4 className={appliedTheme.popoverTitle}>Change location</h4>
-          <p className={appliedTheme.popoverDescription}>Find products near you</p>
-        </div>
-
         <div className="p-4">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2">
             <div className="relative flex-1">
               <Input
                 placeholder={placeholder}
@@ -419,10 +410,10 @@ export function LocationPicker({
                   <div className="flex items-start">
                     <MapPinned size={16} className={cn("mt-0.5 mr-2 shrink-0", appliedTheme.suggestionIcon)} />
                     <div>
-                      <p className="text-sm font-medium text-foreground">
+                      <p className={appliedTheme.suggestionLocation}>
                         {formatLocationName(suggestion)}
                       </p>
-                      <p className="text-xs text-muted-foreground truncate max-w-[250px]">
+                      <p className={appliedTheme.suggestionAddress}>
                         {suggestion.display_name}
                       </p>
                     </div>

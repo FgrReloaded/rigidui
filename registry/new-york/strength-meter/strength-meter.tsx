@@ -4,51 +4,6 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Eye, EyeOff, Check, X, RefreshCw } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { cva, type VariantProps } from "class-variance-authority"
-
-const strengthMeterVariants = cva(
-  "transition-all w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 mt-1 flex gap-1",
-  {
-    variants: {
-      size: {
-        default: "h-2",
-        sm: "h-1.5",
-        lg: "h-3",
-      },
-      animated: {
-        true: "",
-        false: "",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-      animated: true,
-    },
-  }
-)
-
-const strengthBarSegmentVariants = cva(
-  "h-full rounded-full transition-all duration-300 ease-in-out",
-  {
-    variants: {
-      strength: {
-        empty: "bg-transparent",
-        weak: "bg-red-500",
-        fair: "bg-orange-500",
-        good: "bg-yellow-500",
-        strong: "bg-green-500",
-      },
-      animated: {
-        true: "animate-pulse",
-        false: "",
-      },
-    },
-    defaultVariants: {
-      strength: "empty",
-      animated: false,
-    },
-  }
-)
 
 export type StrengthLevel = "empty" | "weak" | "fair" | "good" | "strong"
 
@@ -57,9 +12,28 @@ export interface PasswordStrengthRequirement {
   validator: (password: string) => boolean
 }
 
+export interface StrengthMeterTheme {
+  container?: string
+  input?: string
+  inputContainer?: string
+  meterContainer?: string
+  meterSegment?: string
+  strengthText?: string
+  requirementsContainer?: string
+  requirementItem?: string
+  requirementIcon?: string
+  requirementText?: string
+  strengthColors?: {
+    empty?: string
+    weak?: string
+    fair?: string
+    good?: string
+    strong?: string
+  }
+}
+
 export interface PasswordStrengthMeterProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-  VariantProps<typeof strengthMeterVariants> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   value?: string
   onValueChange?: (value: string) => void
   showText?: boolean
@@ -76,6 +50,7 @@ export interface PasswordStrengthMeterProps
   placeholder?: string
   enableAutoGenerate?: boolean
   autoGenerateLength?: number
+  theme?: StrengthMeterTheme
 }
 
 const defaultRequirements: PasswordStrengthRequirement[] = [
@@ -117,6 +92,26 @@ const defaultStrengthThresholds = {
   strong: 90,
 }
 
+const defaultTheme: StrengthMeterTheme = {
+  container: "space-y-3",
+  inputContainer: "relative",
+  input: "pr-20 border-border focus:border-primary focus:ring-primary/20 bg-background text-foreground",
+  meterContainer: "w-full h-2 rounded-full bg-muted flex gap-1 overflow-hidden",
+  meterSegment: "h-full rounded-sm transition-all duration-300 ease-in-out flex-1",
+  strengthText: "text-sm font-medium",
+  requirementsContainer: "space-y-2",
+  requirementItem: "flex items-center gap-2 text-sm",
+  requirementIcon: "h-4 w-4 flex-shrink-0",
+  requirementText: "text-muted-foreground",
+  strengthColors: {
+    empty: "bg-transparent",
+    weak: "bg-red-500 dark:bg-red-600",
+    fair: "bg-amber-500 dark:bg-amber-600",
+    good: "bg-blue-500 dark:bg-blue-600",
+    strong: "bg-emerald-500 dark:bg-emerald-600"
+  }
+}
+
 export function PasswordStrengthMeter({
   value = "",
   onValueChange,
@@ -132,14 +127,15 @@ export function PasswordStrengthMeter({
   meterClassName,
   inputClassName,
   placeholder = "Enter password",
-  size,
-  animated = true,
   enableAutoGenerate = false,
   autoGenerateLength = 10,
+  theme,
   ...props
 }: PasswordStrengthMeterProps) {
   const [password, setPassword] = React.useState(value)
   const [showPassword, setShowPassword] = React.useState(false)
+
+  const appliedTheme = { ...defaultTheme, ...theme }
 
   React.useEffect(() => {
     setPassword(value)
@@ -235,39 +231,44 @@ export function PasswordStrengthMeter({
   }
 
   const getStrengthColor = (): string => {
+    if (!appliedTheme.strengthColors) {
+      switch (strengthLevel) {
+        case "strong": return "text-emerald-500"
+        case "good": return "text-blue-500"
+        case "fair": return "text-amber-500"
+        case "weak": return "text-red-500"
+        default: return "text-muted-foreground"
+      }
+    }
+
     switch (strengthLevel) {
-      case "strong":
-        return "text-green-500"
-      case "good":
-        return "text-yellow-500"
-      case "fair":
-        return "text-orange-500"
-      case "weak":
-        return "text-red-500"
-      default:
-        return "text-gray-400"
+      case "strong": return "text-emerald-500 dark:text-emerald-400"
+      case "good": return "text-blue-500 dark:text-blue-400"
+      case "fair": return "text-amber-500 dark:text-amber-400"
+      case "weak": return "text-red-500 dark:text-red-400"
+      default: return "text-muted-foreground"
     }
   }
 
+  const getSegmentColor = (segmentStrength: StrengthLevel): string => {
+    return appliedTheme.strengthColors?.[segmentStrength] || appliedTheme.strengthColors?.empty || "bg-transparent"
+  }
+
   return (
-    <div className={cn("space-y-2", className)} {...props}>
-      <div className="relative">
+    <div className={cn(appliedTheme.container, className)} {...props}>
+      <div className={cn(appliedTheme.inputContainer)}>
         <Input
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={handleChange}
-          className={cn(
-            showPasswordToggle && enableAutoGenerate ? "pr-20" : showPasswordToggle || enableAutoGenerate ? "pr-10" : "",
-            inputClassName
-          )}
+          className={cn(appliedTheme.input, inputClassName)}
           placeholder={placeholder}
         />
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
           {enableAutoGenerate && (
             <button
               type="button"
               onClick={handleGeneratePassword}
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
               aria-label="Generate strong password"
               title="Generate strong password"
             >
@@ -278,7 +279,6 @@ export function PasswordStrengthMeter({
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
@@ -291,21 +291,13 @@ export function PasswordStrengthMeter({
         </div>
       </div>
 
-      <div
-        className={cn(
-          strengthMeterVariants({ size, animated }),
-          meterClassName
-        )}
-      >
+      <div className={cn(appliedTheme.meterContainer, meterClassName)}>
         {Array.from({ length: segments }).map((_, i) => (
           <div
             key={i}
             className={cn(
-              strengthBarSegmentVariants({
-                strength: getSegmentStrength(i),
-                animated: animated && getSegmentStrength(i) !== "empty" && strengthLevel !== "strong",
-              }),
-              "flex-1"
+              appliedTheme.meterSegment,
+              getSegmentColor(getSegmentStrength(i))
             )}
             style={{
               transitionDelay: `${i * 75}ms`,
@@ -316,19 +308,19 @@ export function PasswordStrengthMeter({
 
       {showText && password && (
         <div className="flex items-center">
-          <span className={cn("text-sm font-medium", getStrengthColor())}>
+          <span className={cn(appliedTheme.strengthText, getStrengthColor())}>
             {strengthLabels[strengthLevel]}
           </span>
-          <span className="ml-auto text-xs text-gray-500 dark:text-gray-400">
+          <span className="ml-auto text-xs text-muted-foreground">
             {getPassedRequirements().length} of {requirements.length} requirements met
           </span>
         </div>
       )}
 
       {showRequirements && (
-        <div className="space-y-3">
+        <div className={cn(appliedTheme.requirementsContainer)}>
           {enableAutoGenerate && (
-            <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 gap-4">
               <div className="flex items-center gap-2">
                 <RefreshCw className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
@@ -344,72 +336,30 @@ export function PasswordStrengthMeter({
               </button>
             </div>
           )}
-          <ul className="space-y-1.5">
+          <ul className="space-y-2">
             {requirements.map((requirement, index) => {
               const passed = requirement.validator(password)
               return (
                 <li
                   key={index}
-                  className={cn(
-                    "flex items-center gap-2 text-sm",
-                    passed
-                      ? "text-green-600 dark:text-green-500"
-                      : "text-gray-500 dark:text-gray-400"
-                  )}
+                  className={cn(appliedTheme.requirementItem)}
                 >
                   {passed ? (
-                    <Check className="h-4 w-4 text-green-500" />
+                    <Check className={cn(appliedTheme.requirementIcon, "text-emerald-500 dark:text-emerald-400")} />
                   ) : (
-                    <X className="h-4 w-4 text-gray-400" />
+                    <X className={cn(appliedTheme.requirementIcon, "text-muted-foreground")} />
                   )}
-                  {requirement.label}
+                  <span className={cn(
+                    appliedTheme.requirementText,
+                    passed ? "text-foreground" : "text-muted-foreground"
+                  )}>
+                    {requirement.label}
+                  </span>
                 </li>
               )
             })}
           </ul>
         </div>
-      )}
-    </div>
-  )
-}
-
-export function PasswordInput({
-  value,
-  onChange,
-  className,
-  showToggle = true,
-  ...props
-}: React.InputHTMLAttributes<HTMLInputElement> & {
-  showToggle?: boolean
-}) {
-  const [showPassword, setShowPassword] = React.useState(false)
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
-
-  return (
-    <div className="relative">
-      <Input
-        type={showPassword ? "text" : "password"}
-        className={cn("pr-10", className)}
-        value={value}
-        onChange={onChange}
-        {...props}
-      />
-      {showToggle && (
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="absolute right-3 top-1/2 -translate-y-1/2 "
-          aria-label={showPassword ? "Hide password" : "Show password"}
-        >
-          {showPassword ? (
-            <EyeOff className="h-4 w-4" />
-          ) : (
-            <Eye className="h-4 w-4" />
-          )}
-        </button>
       )}
     </div>
   )

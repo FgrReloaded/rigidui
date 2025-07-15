@@ -40,6 +40,35 @@ export interface FileWithPreview {
   originalFile?: File;
 }
 
+export interface FileUploaderTheme {
+  container?: string;
+  dropZone?: string;
+  dropZoneActive?: string;
+  dropZoneIcon?: string;
+  dropZoneTitle?: string;
+  dropZoneDescription?: string;
+  badge?: string;
+  uploadButton?: string;
+  fileList?: string;
+  fileListHeader?: string;
+  clearButton?: string;
+  fileCard?: string;
+  fileCardContent?: string;
+  filePreview?: string;
+  fileIcon?: string;
+  fileName?: string;
+  fileSize?: string;
+  fileStatus?: string;
+  removeButton?: string;
+  cropButton?: string;
+  progress?: string;
+  errorContainer?: string;
+  successContainer?: string;
+  dialogContent?: string;
+  dialogHeader?: string;
+  dialogTitle?: string;
+}
+
 export interface FileUploaderProps {
   onFilesReady?: (files: File[]) => void;
   maxFiles?: number;
@@ -50,6 +79,7 @@ export interface FileUploaderProps {
   cropAspectRatio?: number;
   cropMinWidth?: number;
   cropMinHeight?: number;
+  theme?: FileUploaderTheme;
 }
 
 export function FileUploader({
@@ -62,6 +92,7 @@ export function FileUploader({
   cropAspectRatio,
   cropMinWidth = 50,
   cropMinHeight = 50,
+  theme,
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [dragActive, setDragActive] = useState(false);
@@ -72,6 +103,37 @@ export function FileUploader({
   const [imgRef, setImgRef] = useState<HTMLImageElement | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const defaultTheme: FileUploaderTheme = {
+    container: "w-full space-y-4",
+    dropZone: "relative border-2 border-dashed transition-colors duration-200 border-muted",
+    dropZoneActive: "border-primary bg-primary/5",
+    dropZoneIcon: "bg-muted/50 text-muted-foreground",
+    dropZoneTitle: "text-lg font-semibold mb-2",
+    dropZoneDescription: "text-sm text-muted-foreground mb-4",
+    badge: "text-xs",
+    uploadButton: "transition-all duration-200 hover:bg-primary hover:text-primary-foreground",
+    fileList: "space-y-3",
+    fileListHeader: "text-sm font-medium",
+    clearButton: "text-xs hover:bg-destructive/10 hover:text-destructive",
+    fileCard: "relative overflow-hidden group",
+    fileCardContent: "p-4 relative",
+    filePreview: "w-12 h-12 rounded-md overflow-hidden flex-shrink-0 border",
+    fileIcon: "w-12 h-12 bg-muted rounded-md flex items-center justify-center flex-shrink-0 border",
+    fileName: "text-sm font-medium truncate",
+    fileSize: "text-xs text-muted-foreground mb-2",
+    fileStatus: "text-xs",
+    removeButton: "hover:bg-destructive/10 hover:text-destructive",
+    cropButton: "hover:bg-primary/10 hover:text-primary",
+    progress: "h-1 rounded-full bg-secondary",
+    errorContainer: "bg-destructive/5",
+    successContainer: "bg-primary/5",
+    dialogContent: "max-w-4xl max-h-[90vh] overflow-auto",
+    dialogHeader: "",
+    dialogTitle: "",
+  }
+
+  const appliedTheme = { ...defaultTheme, ...theme }
 
   useEffect(() => {
     return () => {
@@ -336,11 +398,11 @@ export function FileUploader({
   }, [accept]);
 
   return (
-    <div className={cn("w-full space-y-4", className)}>
+    <div className={cn(appliedTheme.container, className)}>
       <Card
         className={cn(
-          "relative border-2 border-dashed transition-colors duration-200",
-          dragActive ? "border-primary bg-primary/5" : "border-muted",
+          appliedTheme.dropZone,
+          dragActive ? appliedTheme.dropZoneActive : "",
           files.length >= maxFiles && "opacity-50 pointer-events-none"
         )}
         onDragEnter={handleDrag}
@@ -353,16 +415,16 @@ export function FileUploader({
             "flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-colors",
             dragActive
               ? "bg-primary text-primary-foreground"
-              : "bg-muted/50 text-muted-foreground"
+              : appliedTheme.dropZoneIcon
           )}>
             <Upload className="w-8 h-8" />
           </div>
 
-          <h3 className="text-lg font-semibold mb-2">
+          <h3 className={appliedTheme.dropZoneTitle}>
             {dragActive ? "Drop files here" : "Upload Files"}
           </h3>
 
-          <p className="text-sm text-muted-foreground mb-4">
+          <p className={appliedTheme.dropZoneDescription}>
             Drag and drop files here or click to browse
             {enableCropping && accept.includes('image/*') && (
               <span className="block text-xs text-primary mt-1">
@@ -373,7 +435,7 @@ export function FileUploader({
 
           <div className="flex flex-wrap gap-2 mb-4 justify-center">
             {getReadableFileTypes().map((type, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
+              <Badge key={index} variant="secondary" className={appliedTheme.badge}>
                 {type}
               </Badge>
             ))}
@@ -382,7 +444,7 @@ export function FileUploader({
           <Button
             onClick={openFileDialog}
             variant="outline"
-            className="transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
+            className={appliedTheme.uploadButton}
             disabled={files.length >= maxFiles}
           >
             Choose Files
@@ -404,29 +466,29 @@ export function FileUploader({
       </Card>
 
       {files.length > 0 && (
-        <div className="space-y-3">
+        <div className={appliedTheme.fileList}>
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-medium">Uploaded Files ({files.length}/{maxFiles})</h4>
+            <h4 className={appliedTheme.fileListHeader}>Uploaded Files ({files.length}/{maxFiles})</h4>
             <Button
               variant="ghost"
               size="sm"
               onClick={clearAllFiles}
-              className="text-xs hover:bg-destructive/10 hover:text-destructive"
+              className={appliedTheme.clearButton}
             >
               Clear All
             </Button>
           </div>
 
           {files.map((fileData) => (
-            <Card key={fileData.id} className="relative overflow-hidden group">
+            <Card key={fileData.id} className={appliedTheme.fileCard}>
               <div className={cn(
                 "absolute inset-0 opacity-0 transition-opacity duration-200",
-                fileData.error ? "bg-destructive/5" : "bg-primary/5"
+                fileData.error ? appliedTheme.errorContainer : appliedTheme.successContainer
               )} />
-              <CardContent className="p-4 relative">
+              <CardContent className={appliedTheme.fileCardContent}>
                 <div className="flex items-start gap-3">
                   {fileData.preview ? (
-                    <div className="relative w-12 h-12 rounded-md overflow-hidden flex-shrink-0 border">
+                    <div className={appliedTheme.filePreview}>
                       <img
                         src={fileData.croppedPreview || fileData.preview}
                         alt={fileData.name}
@@ -434,7 +496,7 @@ export function FileUploader({
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 bg-muted rounded-md flex items-center justify-center flex-shrink-0 border">
+                    <div className={appliedTheme.fileIcon}>
                       {fileData.error ? (
                         <AlertCircle className="w-6 h-6 text-destructive" />
                       ) : (
@@ -445,25 +507,25 @@ export function FileUploader({
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="text-sm font-medium truncate">{fileData.name}</p>
+                      <p className={appliedTheme.fileName}>{fileData.name}</p>
                       {fileData.status === 'complete' && !fileData.error && (
                         <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
                       )}
                       {fileData.croppedPreview && (
-                        <Badge variant="secondary" className="text-xs">Cropped</Badge>
+                        <Badge variant="secondary" className={appliedTheme.badge}>Cropped</Badge>
                       )}
                     </div>
 
-                    <p className="text-xs text-muted-foreground mb-2">
+                    <p className={appliedTheme.fileSize}>
                       {formatFileSize(fileData.size)} • {fileData.type}
                     </p>
 
                     {fileData.error ? (
-                      <p className="text-xs text-destructive flex items-center gap-1">
+                      <p className={cn(appliedTheme.fileStatus, "text-destructive flex items-center gap-1")}>
                         <AlertCircle className="w-3 h-3" /> {fileData.error}
                       </p>
                     ) : (
-                      <Progress value={fileData.progress} className="h-2" />
+                      <Progress value={fileData.progress} className={appliedTheme.progress} />
                     )}
                   </div>
 
@@ -474,7 +536,7 @@ export function FileUploader({
                           variant="ghost"
                           size="icon"
                           onClick={() => openCropDialog(fileData)}
-                          className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100"
+                          className={cn("flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.cropButton)}
                           title="Crop image"
                         >
                           <CropIcon className="w-4 h-4" />
@@ -485,7 +547,7 @@ export function FileUploader({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeFile(fileData.id)}
-                      className="flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+                      className={cn("flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.removeButton)}
                     >
                       <X className="w-4 h-4" />
                     </Button>
@@ -498,9 +560,9 @@ export function FileUploader({
       )}
 
       <Dialog open={cropDialogOpen} onOpenChange={setCropDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
-          <DialogHeader>
-            <DialogTitle>Crop Image</DialogTitle>
+        <DialogContent className={appliedTheme.dialogContent}>
+          <DialogHeader className={appliedTheme.dialogHeader}>
+            <DialogTitle className={appliedTheme.dialogTitle}>Crop Image</DialogTitle>
           </DialogHeader>
           {currentCropFile && (
             <div className="space-y-4">

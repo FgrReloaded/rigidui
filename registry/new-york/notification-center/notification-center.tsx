@@ -39,6 +39,94 @@ export interface Notification {
   priority?: 'low' | 'medium' | 'high'
 }
 
+export interface NotificationCenterTheme {
+  container: string
+  header: string
+  title: string
+  badge: string
+  notificationItem: {
+    base: string
+    unread: string
+    read: string
+    hover: string
+  }
+  notificationContent: {
+    title: string
+    titleRead: string
+    message: string
+    messageRead: string
+    newBadge: string
+    timestamp: string
+  }
+  priorityBadge: {
+    high: string
+    medium: string
+    low: string
+  }
+  buttons: {
+    filter: string
+    markAllRead: string
+    actionButton: string
+  }
+  popover: {
+    content: string
+    header: string
+    trigger: string
+    unreadIndicator: string
+  }
+  emptyState: {
+    container: string
+    icon: string
+    title: string
+    description: string
+  }
+  scrollArea: string
+}
+
+const defaultTheme: NotificationCenterTheme = {
+  container: "w-full max-w-2xl shadow-sm border-border/50",
+  header: "pb-3",
+  title: "flex items-center gap-3",
+  badge: "text-xs px-2 py-1",
+  notificationItem: {
+    base: "group relative flex items-start gap-3 p-4 rounded-lg border transition-all duration-200",
+    unread: "border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-950/10 dark:border-l-blue-400",
+    read: "border-border hover:border-muted-foreground/20",
+    hover: "hover:bg-muted/30 hover:shadow-sm"
+  },
+  notificationContent: {
+    title: "text-sm leading-tight font-semibold text-foreground",
+    titleRead: "text-sm leading-tight font-medium text-muted-foreground",
+    message: "text-sm leading-relaxed text-foreground/80",
+    messageRead: "text-sm leading-relaxed text-muted-foreground",
+    newBadge: "inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+    timestamp: "text-xs text-muted-foreground font-medium"
+  },
+  priorityBadge: {
+    high: "text-red-500",
+    medium: "text-yellow-500",
+    low: "text-green-500"
+  },
+  buttons: {
+    filter: "h-8 text-xs",
+    markAllRead: "h-8 text-xs",
+    actionButton: "h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+  },
+  popover: {
+    content: "w-80 p-0 shadow-xl border-border/50",
+    header: "p-4 border-b bg-muted/20",
+    trigger: "relative hover:bg-muted transition-all duration-200 hover:scale-105",
+    unreadIndicator: "absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium animate-pulse"
+  },
+  emptyState: {
+    container: "flex flex-col items-center justify-center py-12 px-4 text-center",
+    icon: "h-16 w-16 text-muted-foreground/40 mb-4",
+    title: "font-semibold text-lg text-foreground mb-2",
+    description: "text-sm text-muted-foreground max-w-sm"
+  },
+  scrollArea: "h-96"
+}
+
 export interface NotificationCenterProps {
   className?: string
   variant?: 'full' | 'popover'
@@ -48,7 +136,6 @@ export interface NotificationCenterProps {
   onMarkAllAsRead?: () => Promise<void>
   onDeleteNotification?: (id: string) => Promise<void>
   onNotificationClick?: (notification: Notification) => void
-  maxHeight?: string
   showFilter?: boolean
   showMarkAllRead?: boolean
   enableRealTimeUpdates?: boolean
@@ -58,6 +145,7 @@ export interface NotificationCenterProps {
     title?: string
     description?: string
   }
+  theme?: NotificationCenterTheme
 }
 
 const defaultFetchNotifications = async (): Promise<Notification[]> => {
@@ -92,14 +180,14 @@ const formatTimeAgo = (dateString: string) => {
   return `${days}d ago`
 }
 
-const getPriorityColor = (priority?: 'low' | 'medium' | 'high') => {
+const getPriorityColor = (priority?: 'low' | 'medium' | 'high', theme: NotificationCenterTheme = defaultTheme) => {
   switch (priority) {
     case 'high':
-      return 'text-red-500'
+      return theme.priorityBadge.high
     case 'medium':
-      return 'text-yellow-500'
+      return theme.priorityBadge.medium
     case 'low':
-      return 'text-green-500'
+      return theme.priorityBadge.low
     default:
       return 'text-gray-500'
   }
@@ -109,12 +197,14 @@ const NotificationItem = ({
   notification,
   onMarkAsRead,
   onDelete,
-  onClick
+  onClick,
+  theme = defaultTheme
 }: {
   notification: Notification
   onMarkAsRead?: (id: string) => void
   onDelete?: (id: string) => void
   onClick?: (notification: Notification) => void
+  theme?: NotificationCenterTheme
 }) => {
   const handleClick = () => {
     if (onClick) {
@@ -125,15 +215,15 @@ const NotificationItem = ({
   return (
     <div
       className={cn(
-        'group relative flex items-start gap-3 p-4 rounded-lg border transition-all duration-200 hover:bg-muted/30 hover:shadow-sm',
-        !notification.isRead && 'border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-950/10 dark:border-l-blue-400',
-        notification.isRead && 'border-border hover:border-muted-foreground/20',
+        theme.notificationItem.base,
+        theme.notificationItem.hover,
+        !notification.isRead ? theme.notificationItem.unread : theme.notificationItem.read,
         onClick && 'cursor-pointer'
       )}
       onClick={handleClick}
     >
       <div className="mt-0.5 flex-shrink-0">
-        <Bell className={cn('h-4 w-4', getPriorityColor(notification.priority))} />
+        <Bell className={cn('h-4 w-4', getPriorityColor(notification.priority, theme))} />
       </div>
 
       <div className="flex-1 min-w-0 space-y-1">
@@ -141,27 +231,25 @@ const NotificationItem = ({
           <div className="flex-1 space-y-1">
             <div className="flex items-center gap-2">
               <h4 className={cn(
-                'text-sm leading-tight',
-                !notification.isRead ? 'font-semibold text-foreground' : 'font-medium text-muted-foreground'
+                !notification.isRead ? theme.notificationContent.title : theme.notificationContent.titleRead
               )}>
                 {notification.title}
               </h4>
               {!notification.isRead && (
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                <span className={theme.notificationContent.newBadge}>
                   New
                 </span>
               )}
             </div>
 
             <p className={cn(
-              'text-sm leading-relaxed',
-              !notification.isRead ? 'text-foreground/80' : 'text-muted-foreground'
+              !notification.isRead ? theme.notificationContent.message : theme.notificationContent.messageRead
             )}>
               {notification.message}
             </p>
 
             <div className="flex items-center justify-between mt-3 pt-2 border-t border-border/40">
-              <span className="text-xs text-muted-foreground font-medium">
+              <span className={theme.notificationContent.timestamp}>
                 {formatTimeAgo(notification.createdAt)}
               </span>
 
@@ -185,7 +273,7 @@ const NotificationItem = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className={theme.buttons.actionButton}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <MoreHorizontal className="h-4 w-4" />
@@ -231,7 +319,6 @@ export function NotificationCenter({
   onMarkAllAsRead = defaultMarkAllAsRead,
   onDeleteNotification = defaultDeleteNotification,
   onNotificationClick,
-  maxHeight = "h-96",
   showFilter = true,
   showMarkAllRead = true,
   enableRealTimeUpdates = false,
@@ -240,7 +327,8 @@ export function NotificationCenter({
   emptyState = {
     title: "No notifications",
     description: "New notifications will appear here."
-  }
+  },
+  theme = defaultTheme
 }: NotificationCenterProps) {
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -341,7 +429,7 @@ export function NotificationCenter({
   )
 
   const NotificationList = () => (
-    <ScrollArea className={cn(maxHeight)}>
+    <ScrollArea className={cn(theme.scrollArea)}>
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-3">
@@ -350,12 +438,12 @@ export function NotificationCenter({
           </div>
         </div>
       ) : filteredNotifications.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-          <BellRing className="h-16 w-16 text-muted-foreground/40 mb-4" />
-          <h3 className="font-semibold text-lg text-foreground mb-2">
+        <div className={theme.emptyState.container}>
+          <BellRing className={theme.emptyState.icon} />
+          <h3 className={theme.emptyState.title}>
             {filter === 'unread' ? 'All caught up!' : emptyState.title}
           </h3>
-          <p className="text-sm text-muted-foreground max-w-sm">
+          <p className={theme.emptyState.description}>
             {filter === 'unread'
               ? 'You have no unread notifications. Great job staying on top of things!'
               : emptyState.description
@@ -371,6 +459,7 @@ export function NotificationCenter({
               onMarkAsRead={staticNotifications ? undefined : markAsReadMutation.mutate}
               onDelete={staticNotifications ? undefined : deleteMutation.mutate}
               onClick={onNotificationClick}
+              theme={theme}
             />
           ))}
         </div>
@@ -385,26 +474,23 @@ export function NotificationCenter({
           <Button
             variant="outline"
             size="icon"
-            className={cn(
-              "relative hover:bg-muted transition-all duration-200 hover:scale-105",
-              className
-            )}
+            className={cn(theme.popover.trigger, className)}
           >
             <Bell className="h-4 w-4" />
             {unreadCount > 0 && (
-              <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium animate-pulse">
+              <div className={theme.popover.unreadIndicator}>
                 {unreadCount > 9 ? '9+' : unreadCount}
               </div>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-80 p-0 shadow-xl border-border/50" side="bottom" align="end" sideOffset={8}>
-          <div className="p-4 border-b bg-muted/20">
+        <PopoverContent className={theme.popover.content} side="bottom" align="end" sideOffset={8}>
+          <div className={theme.popover.header}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h4 className="font-semibold text-lg text-foreground">Notifications</h4>
                 {unreadCount > 0 && (
-                  <Badge variant="secondary" className="text-xs px-2 py-1">
+                  <Badge variant="secondary" className={theme.badge}>
                     {unreadCount} new
                   </Badge>
                 )}
@@ -427,7 +513,7 @@ export function NotificationCenter({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 text-xs"
+                    className={theme.buttons.filter}
                     onClick={() => setFilter(filter === 'all' ? 'unread' : 'all')}
                   >
                     <Filter className="mr-1.5 h-3 w-3" />
@@ -439,7 +525,7 @@ export function NotificationCenter({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 text-xs"
+                    className={theme.buttons.markAllRead}
                     onClick={() => markAllAsReadMutation.mutate()}
                     disabled={markAllAsReadMutation.isPending}
                   >
@@ -464,10 +550,10 @@ export function NotificationCenter({
   }
 
   return (
-    <Card className={cn("w-full max-w-2xl shadow-sm border-border/50", className)}>
-      <CardHeader className="pb-3">
+    <Card className={cn(theme.container, className)}>
+      <CardHeader className={theme.header}>
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-3">
+          <CardTitle className={theme.title}>
             <div className="relative">
               <Bell className="h-5 w-5 text-foreground" />
               {unreadCount > 0 && (
@@ -478,7 +564,7 @@ export function NotificationCenter({
             </div>
             <span className="text-xl font-semibold">Notifications</span>
             {unreadCount > 0 && (
-              <Badge variant="secondary" className="text-xs px-2 py-1">
+              <Badge variant="secondary" className={theme.badge}>
                 {unreadCount} new
               </Badge>
             )}
@@ -489,7 +575,7 @@ export function NotificationCenter({
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs"
+                className={theme.buttons.filter}
                 onClick={() => setFilter(filter === 'all' ? 'unread' : 'all')}
               >
                 <Filter className="mr-1.5 h-3 w-3" />
@@ -501,7 +587,7 @@ export function NotificationCenter({
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs"
+                className={theme.buttons.markAllRead}
                 onClick={() => markAllAsReadMutation.mutate()}
                 disabled={markAllAsReadMutation.isPending}
               >
