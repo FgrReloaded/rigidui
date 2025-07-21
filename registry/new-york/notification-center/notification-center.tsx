@@ -87,7 +87,7 @@ const defaultTheme: NotificationCenterTheme = {
   container: "w-full max-w-2xl shadow-sm border-border/50",
   header: "pb-3",
   title: "flex items-center gap-3",
-  badge: "text-xs px-2 py-1",
+  badge: "text-xs px-2 py-1 max-sm:hidden",
   notificationItem: {
     base: "group relative flex items-start gap-3 p-4 rounded-lg border transition-all duration-200",
     unread: "border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-950/10 dark:border-l-blue-400",
@@ -488,7 +488,7 @@ export function NotificationCenter({
           <div className={theme.popover.header}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h4 className="font-semibold text-lg text-foreground">Notifications</h4>
+                <h4 className="font-semibold text-lg text-foreground max-sm:text-xs">Notifications</h4>
                 {unreadCount > 0 && (
                   <Badge variant="secondary" className={theme.badge}>
                     {unreadCount} new
@@ -562,7 +562,7 @@ export function NotificationCenter({
                 </div>
               )}
             </div>
-            <span className="text-xl font-semibold">Notifications</span>
+            <span className="text-xl font-semibold max-sm:text-sm">Notifications</span>
             {unreadCount > 0 && (
               <Badge variant="secondary" className={theme.badge}>
                 {unreadCount} new
@@ -579,7 +579,9 @@ export function NotificationCenter({
                 onClick={() => setFilter(filter === 'all' ? 'unread' : 'all')}
               >
                 <Filter className="mr-1.5 h-3 w-3" />
-                {filter === 'all' ? 'Show Unread' : 'Show All'}
+                <span className="max-md:hidden">
+                  {filter === 'all' ? 'Show Unread' : 'Show All'}
+                </span>
               </Button>
             )}
 
@@ -596,7 +598,9 @@ export function NotificationCenter({
                 ) : (
                   <CheckCheck className="mr-1.5 h-3 w-3" />
                 )}
-                Mark All Read
+                <span className="max-md:hidden">
+                  Mark All Read
+                </span>
               </Button>
             )}
           </div>
