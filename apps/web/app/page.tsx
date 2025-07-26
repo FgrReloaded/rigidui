@@ -34,7 +34,7 @@ export default function Home() {
 
       <Sidebar />
 
-      <main className="relative z-10 max-lg:mt-32">
+      <main className="relative z-10 mt-12">
         <div className="min-h-screen flex items-center">
           <div className="container mx-auto md:px-6 px-2">
             <div className="grid lg:grid-cols-12 gap-8 items-center">

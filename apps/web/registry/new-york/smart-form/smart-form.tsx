@@ -69,6 +69,7 @@ export function SmartForm<T extends FieldValues>({
   const queryClient = useQueryClient()
 
   const form = useForm<T>({
+    // @ts-ignore // TODO: fix this
     resolver: zodResolver(schema),
     defaultValues: (defaultValues || {}) as any
   })
