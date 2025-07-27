@@ -100,10 +100,10 @@ const TourOverlay: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[10000] pointer-events-auto"
+      className="fixed inset-0 z-10000 pointer-events-auto"
     >
       <div
-        className="fixed inset-0 bg-black/30 z-[10001] backdrop-blur-sm pointer-events-auto"
+        className="fixed inset-0 bg-black/30 z-10001 backdrop-blur-xs pointer-events-auto"
       />
       <div
         className="absolute rounded-xl pointer-events-none"
@@ -287,7 +287,7 @@ const GlobalTourPopover: React.FC = () => {
   return (
     <div
       ref={popoverRef}
-      className="fixed z-[10003] w-80"
+      className="fixed z-10003 w-80"
       style={{
         top: `${popoverPosition.top}px`,
         left: `${popoverPosition.left}px`,
@@ -295,7 +295,7 @@ const GlobalTourPopover: React.FC = () => {
       }}
     >
 
-      <Card className="border-2 border-primary/20 backdrop-blur-sm shadow-2xl">
+      <Card className="border-2 border-primary/20 backdrop-blur-xs shadow-2xl">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -519,7 +519,7 @@ export const TourStep: React.FC<{
       ref={elementRef}
       data-tour-step={id}
       data-tour-config={JSON.stringify({ id, title, content, order, position })}
-      className={isCurrentStep ? "relative z-[10002]" : "relative"}
+      className={isCurrentStep ? "relative z-10002" : "relative"}
     >
       {children}
     </div>

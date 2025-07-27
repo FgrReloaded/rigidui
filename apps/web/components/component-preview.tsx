@@ -13,7 +13,7 @@ export function ComponentPreview({ componentName }: ComponentPreviewProps) {
   switch (componentName) {
     case 'currency-manager':
       return (
-        <Card className="w-full max-w-xs bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 border-green-200 dark:border-green-800">
+        <Card className="w-full max-w-xs bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 border-green-200 dark:border-green-800">
           <CardContent className="p-4 space-y-3">
             <div className="flex items-center justify-between">
               <Wallet className="h-5 w-5 text-green-600" />
@@ -140,9 +140,9 @@ export function ComponentPreview({ componentName }: ComponentPreviewProps) {
       return (
         <Card className="w-full max-w-xs">
           <CardContent className="p-0">
-            <div className="relative bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 aspect-video rounded-t-lg flex items-center justify-center">
+            <div className="relative bg-linear-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 aspect-video rounded-t-lg flex items-center justify-center">
               <ImageIcon className="w-8 h-8 text-blue-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] animate-pulse"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-pulse"></div>
             </div>
             <div className="p-3">
               <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
@@ -180,7 +180,7 @@ export function ComponentPreview({ componentName }: ComponentPreviewProps) {
       return (
         <Card className="w-full max-w-xs">
           <CardContent className="p-0">
-            <div className="relative bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 aspect-video rounded-t-lg flex items-center justify-center">
+            <div className="relative bg-linear-to-br from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 aspect-video rounded-t-lg flex items-center justify-center">
               <Map className="w-8 h-8 text-green-600" />
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-red-500 rounded-full animate-bounce"></div>
             </div>

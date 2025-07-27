@@ -107,7 +107,7 @@ const defaultFileSystemData: FolderType = {
               content: `import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline-solid';
   size?: 'sm' | 'md' | 'lg';
   onClick?: () => void;
 }
@@ -547,7 +547,7 @@ export function FileExplorer({
                   )}
                 </div>
 
-                <div className="flex-grow overflow-auto p-0">
+                <div className="grow overflow-auto p-0">
                   {selectedFile.isImage || isImageFile(selectedFile.name) ? (
                     <div className="flex items-center justify-center h-full p-6">
                       <div className="max-w-full max-h-full flex flex-col items-center">

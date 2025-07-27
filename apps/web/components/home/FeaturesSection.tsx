@@ -2,18 +2,18 @@ import { Code, Component, Layers, Package, Zap, Stars, Shield } from "lucide-rea
 
 const FeaturesSection = () => {
   return (
-    <section className="py-32 px-6 bg-gradient-to-br from-muted/30 via-background to-primary/5 relative overflow-hidden">
+    <section className="py-32 px-6 bg-linear-to-br from-muted/30 via-background to-primary/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
-      <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-      <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent" />
+      <div className="absolute top-0 left-1/4 w-px h-full bg-linear-to-b from-transparent via-primary/20 to-transparent" />
+      <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-transparent via-purple-500/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-gradient-to-r from-primary/15 to-purple-500/15 px-4 py-2 rounded-full border border-primary/20 mb-6">
+          <div className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-linear-to-r from-primary/15 to-purple-500/15 px-4 py-2 rounded-full border border-primary/20 mb-6">
             <Stars className="w-4 h-4" />
             <span>Built on shadcn/ui</span>
           </div>
-          <h2 className="text-4xl md:text-6xl py-4 font-bold mb-8 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl py-4 font-bold mb-8 bg-linear-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
             Powerful Component Library
           </h2>
           <p className="text-muted-foreground max-w-3xl mx-auto text-xl leading-relaxed">
@@ -71,9 +71,9 @@ const FeaturesSection = () => {
               key={index}
               className="group relative bg-card/50 backdrop-blur-xl p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-3xl overflow-hidden"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br from-${feature.color}/5 via-transparent to-${feature.color}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className={`absolute inset-0 bg-linear-to-br from-${feature.color}/5 via-transparent to-${feature.color}/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 via-transparent to-purple-500/20 p-px opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-primary/20 via-transparent to-purple-500/20 p-px opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <div className="w-full h-full bg-card/80 rounded-2xl" />
               </div>
 

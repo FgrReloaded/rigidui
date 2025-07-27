@@ -47,7 +47,7 @@ export default function ContentGridPage() {
 
     return (
       <Card key={item.id} className={`hover:shadow-md transition-shadow ${isListMode ? 'flex items-center gap-4' : ''}`}>
-        <div className={`bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg ${isListMode ? 'w-16 h-16 flex-shrink-0 ml-4' : 'w-full h-24 mb-3'}`} />
+        <div className={`bg-linear-to-br from-blue-500 to-purple-600 rounded-lg ${isListMode ? 'w-16 h-16 shrink-0 ml-4' : 'w-full h-24 mb-3'}`} />
         <div className={`flex-1 ${isListMode ? 'mr-4' : ''}`}>
           <CardHeader className="pb-2">
             <div className="flex items-start justify-between">
@@ -178,7 +178,7 @@ export default function MyComponent() {
 
     return (
       <Card key={item.id} className={\`hover:shadow-md transition-shadow \${isListMode ? 'flex items-center gap-4' : ''}\`}>
-        <div className={\`bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg \${isListMode ? 'w-16 h-16 flex-shrink-0 ml-4' : 'w-full h-24 mb-3'}\`} />
+        <div className={\`bg-linear-to-br from-blue-500 to-purple-600 rounded-lg \${isListMode ? 'w-16 h-16 shrink-0 ml-4' : 'w-full h-24 mb-3'}\`} />
         <div className={\`flex-1 \${isListMode ? 'mr-4' : ''}\`}>
           <CardHeader className="pb-2">
             <div className="flex items-start justify-between">

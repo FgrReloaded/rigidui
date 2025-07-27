@@ -344,7 +344,7 @@ export function SmartSearch({
       </div>
 
       {showSuggestions && (filteredSuggestions.length > 0 || filteredHistory.length > 0) && (
-        <div className="absolute top-full left-0 right-0 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 max-h-64 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 z-50 min-w-32 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 max-h-64 overflow-y-auto">
           {filteredSuggestions.length > 0 && (
             <div className="p-1">
               <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
@@ -355,7 +355,7 @@ export function SmartSearch({
                   key={`suggestion-${index}`}
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={cn(
-                    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent hover:text-accent-foreground",
+                    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground",
                     selectedIndex === index && "bg-accent text-accent-foreground"
                   )}
                 >
@@ -385,7 +385,7 @@ export function SmartSearch({
                   key={`history-${index}`}
                   onClick={() => handleSuggestionClick(historyItem)}
                   className={cn(
-                    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent hover:text-accent-foreground",
+                    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground",
                     selectedIndex === filteredSuggestions.length + index && "bg-accent text-accent-foreground"
                   )}
                 >

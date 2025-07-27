@@ -14,7 +14,7 @@ export const NavThemeToggle = () => {
             setTheme(resolvedTheme === "dark" ? "light" : "dark")
           })
         }}
-        className="flex items-center lg:gap-3 gap-1.5 px-4 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 group border border-transparent hover:border-slate-100 dark:hover:border-slate-700 hover:shadow-sm dark:hover:shadow-slate-900/20"
+        className="flex items-center lg:gap-3 gap-1.5 px-4 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 group border border-transparent hover:border-slate-100 dark:hover:border-slate-700 hover:shadow-xs dark:hover:shadow-slate-900/20"
       >
         <div className="sm:p-1.5 p-px rounded-md bg-slate-100 dark:bg-slate-800/60 group-hover:bg-slate-200 dark:group-hover:bg-slate-700/80 transition-colors">
           <div className="relative w-4 h-4 overflow-hidden">

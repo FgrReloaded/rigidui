@@ -16,7 +16,7 @@ export function PropsTable({ props }: PropsTableProps) {
   const hasRequiredProps = props.some(prop => prop.required)
 
   return (
-    <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+    <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xs">
       {hasRequiredProps && (
         <div className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
           <p className="text-xs text-gray-600 dark:text-gray-400">

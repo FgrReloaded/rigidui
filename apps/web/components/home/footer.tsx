@@ -4,7 +4,7 @@ import Link from "next/link"
 const Footer = () => {
   return (
 
-    <footer className="py-16 px-6 border-t border-primary/10 bg-gradient-to-br from-muted/20 via-background to-primary/5 relative overflow-hidden">
+    <footer className="py-16 px-6 border-t border-primary/10 bg-linear-to-br from-muted/20 via-background to-primary/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.01] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
@@ -19,10 +19,10 @@ const Footer = () => {
                   height={60}
                   className="group-hover:scale-110 transition-all duration-300 drop-shadow-lg"
                 />
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary/30 to-purple-500/30 rounded-full blur opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                <div className="absolute -inset-2 bg-linear-to-r from-primary/30 to-purple-500/30 rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
               </div>
               <div className="flex flex-col">
-                <span className="font-black text-2xl bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                <span className="font-black text-2xl bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                   RigidUI
                 </span>
                 <span className="text-sm text-muted-foreground font-medium">

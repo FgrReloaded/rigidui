@@ -57,7 +57,7 @@ const HookCard = ({ name, description, image, href }: HookCardProps) => {
               style={{ backgroundImage: `url(${image})` }} />
           )}
         </div>
-        <div className="p-4 md:p-5 border-t border-slate-200 dark:border-slate-800/60 flex-grow">
+        <div className="p-4 md:p-5 border-t border-slate-200 dark:border-slate-800/60 grow">
           <div className="flex items-start justify-between">
             <h3 className="text-base md:text-lg font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">{name}</h3>
             <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:transform group-hover:translate-x-0.5 transition-all mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +76,7 @@ function UseLocationDemo() {
 
   return (
     <div className="w-full max-w-sm space-y-3">
-      <Card className="p-3 shadow-sm bg-white dark:bg-transparent">
+      <Card className="p-3 shadow-xs bg-white dark:bg-transparent">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <MapPin className="h-4 w-4 mr-2 text-primary" />
@@ -131,7 +131,7 @@ function UseToggleDemo() {
 
   return (
     <div className="w-full max-w-sm">
-      <Card className="p-3 shadow-sm bg-white dark:bg-transparent">
+      <Card className="p-3 shadow-xs bg-white dark:bg-transparent">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <Settings className="h-4 w-4 mr-2 text-primary" />
@@ -147,7 +147,7 @@ function UseToggleDemo() {
             <span className="text-sm text-slate-600 dark:text-slate-300">Dark Mode</span>
             <button
               onClick={() => setIsToggled(!isToggled)}
-              className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
               style={{ backgroundColor: isToggled ? '#3b82f6' : '#d1d5db' }}
             >
               <span
@@ -183,7 +183,7 @@ function UseLocalStorageDemo() {
 
   return (
     <div className="w-full max-w-sm">
-      <Card className="p-3 shadow-sm bg-white dark:bg-transparent">
+      <Card className="p-3 shadow-xs bg-white dark:bg-transparent">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <Database className="h-4 w-4 mr-2 text-primary" />
@@ -241,7 +241,7 @@ function UseDebounceDemo() {
 
   return (
     <div className="w-full max-w-sm">
-      <Card className="p-3 shadow-sm bg-white dark:bg-transparent">
+      <Card className="p-3 shadow-xs bg-white dark:bg-transparent">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <Zap className="h-4 w-4 mr-2 text-primary" />
@@ -283,7 +283,7 @@ function UseClickOutsideDemo() {
 
   return (
     <div className="w-full max-w-sm">
-      <Card className="p-3 shadow-sm bg-white dark:bg-transparent">
+      <Card className="p-3 shadow-xs bg-white dark:bg-transparent">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center">
             <Code className="h-4 w-4 mr-2 text-primary" />
@@ -306,7 +306,7 @@ function UseClickOutsideDemo() {
           {isOpen && (
             <div className="relative">
               <div className="absolute inset-0 bg-black/20 rounded-md"></div>
-              <div className="relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md p-3 shadow-sm">
+              <div className="relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md p-3 shadow-xs">
                 <div className="text-xs text-slate-600 dark:text-slate-300 mb-2">
                   Click outside to close
                 </div>
@@ -382,7 +382,7 @@ const HooksPage = () => {
             <div key={category.category} className="mb-12 md:mb-16">
               <div className="flex items-center mb-6 md:mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">{category.category}</h2>
-                <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 flex-grow"></div>
+                <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
                 <Badge variant="outline" className="ml-3 px-2.5 py-1 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800">{category.items.length}</Badge>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -394,7 +394,7 @@ const HooksPage = () => {
           ))}
         </>
       ) : (
-        <div className="text-center py-16 md:py-20 bg-white dark:bg-slate-800/30 rounded-xl shadow-sm">
+        <div className="text-center py-16 md:py-20 bg-white dark:bg-slate-800/30 rounded-xl shadow-xs">
           <svg
             className="w-16 h-16 mx-auto text-slate-400 dark:text-slate-500/70 mb-5"
             xmlns="http://www.w3.org/2000/svg"

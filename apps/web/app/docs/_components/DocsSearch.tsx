@@ -73,10 +73,10 @@ const DocsSearch = ({ collapsed }: { collapsed?: boolean }) => {
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="w-full flex items-center text-left p-2 text-sm text-primary dark:text-primary/90 bg-background/80 backdrop-blur-sm border border-primary/20 dark:border-primary/30 rounded-lg shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 mb-4 group"
+          className="w-full flex items-center text-left p-2 text-sm text-primary dark:text-primary/90 bg-background/80 backdrop-blur-xs border border-primary/20 dark:border-primary/30 rounded-lg shadow-xs hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 mb-4 group"
         >
           <Search className="w-5 h-5 mr-3 text-primary/70 group-hover:text-primary transition-colors" />
-          <p className="flex-grow font-medium">Search docs</p>
+          <p className="grow font-medium">Search docs</p>
           <kbd
             className="pointer-events-none inline-flex h-6 select-none items-center gap-1 rounded border border-primary/20 dark:border-primary/30 bg-primary/5 dark:bg-primary/10 px-2 font-mono text-xs font-medium text-primary/70"
           >

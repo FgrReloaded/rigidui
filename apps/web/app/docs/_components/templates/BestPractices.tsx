@@ -9,7 +9,7 @@ const BestPractices = ({ bestPractices }: { bestPractices: BestPractice[] }) => 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {bestPractices.map((practice, index) => (
           practice.type === 'do' ? (
-            <div key={index} className="rounded-xl border border-green-100 dark:border-green-900/30 bg-green-50/50 dark:bg-green-900/10 md:p-8 p-4 shadow-sm">
+            <div key={index} className="rounded-xl border border-green-100 dark:border-green-900/30 bg-green-50/50 dark:bg-green-900/10 md:p-8 p-4 shadow-xs">
               <h3 className="flex items-center text-lg font-semibold text-green-800 dark:text-green-400 mb-6">
                 <Check className="text-green-500 mr-3 h-6 w-6 bg-green-100 dark:bg-green-800/50 p-1 rounded-full" /> Do
               </h3>
@@ -20,7 +20,7 @@ const BestPractices = ({ bestPractices }: { bestPractices: BestPractice[] }) => 
               </ul>
             </div>
           ) : (
-            <div key={index} className="rounded-xl border border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 md:p-8 p-4 shadow-sm">
+            <div key={index} className="rounded-xl border border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 md:p-8 p-4 shadow-xs">
               <h3 className="flex items-center text-lg font-semibold text-red-800 dark:text-red-400 mb-6">
                 <X className="text-red-500 mr-3 h-6 w-6 bg-red-100 dark:bg-red-800/50 p-1 rounded-full" /> Don&apos;t
               </h3>

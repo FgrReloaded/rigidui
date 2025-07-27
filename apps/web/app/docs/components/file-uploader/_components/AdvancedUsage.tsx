@@ -299,7 +299,7 @@ export default function CustomStyledExample() {
       accept={['image/jpeg', 'image/png', 'image/webp']}
       maxSize={1024 * 1024 * 3} // 3MB
       onFilesReady={(files) => console.log('Custom upload:', files)}
-      className="w-full max-w-md bg-gradient-to-br from-indigo-50 to-blue-50
+      className="w-full max-w-md bg-linear-to-br from-indigo-50 to-blue-50
                  border-2 border-indigo-200 rounded-xl"
     />
   )
@@ -310,7 +310,7 @@ export default function CustomStyledExample() {
         accept={['image/jpeg', 'image/png', 'image/webp']}
         maxSize={1024 * 1024 * 3}
         onFilesReady={(files) => console.log('Custom styled:', files)}
-        className="w-full max-w-md bg-gradient-to-br from-indigo-50 to-blue-50
+        className="w-full max-w-md bg-linear-to-br from-indigo-50 to-blue-50
                    border-2 border-indigo-200 rounded-xl"
       />
     ),

@@ -380,7 +380,7 @@ export default function MyDashboard() {
             The DraggableWrapper component wraps individual dashboard items and provides the drag-and-drop functionality.
           </p>
 
-          <div className="bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+          <div className="bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-900/50">

@@ -101,7 +101,7 @@ const defaultTheme: StrengthMeterTheme = {
   strengthText: "text-sm font-medium",
   requirementsContainer: "space-y-2",
   requirementItem: "flex items-center gap-2 text-sm",
-  requirementIcon: "h-4 w-4 flex-shrink-0",
+  requirementIcon: "h-4 w-4 shrink-0",
   requirementText: "text-muted-foreground",
   strengthColors: {
     empty: "bg-transparent",

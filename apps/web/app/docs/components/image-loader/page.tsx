@@ -29,7 +29,7 @@ export default function ImageLoaderPage() {
       name: 'blurIntensity',
       type: 'string',
       defaultValue: "'blur(50px)'",
-      description: 'CSS blur filter intensity for the loading state',
+      description: 'CSS blur-sm filter intensity for the loading state',
     },
     {
       name: 'width',

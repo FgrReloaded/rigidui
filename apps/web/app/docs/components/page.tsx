@@ -144,14 +144,14 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
               alt="Component preview"
               width={250}
               height={180}
-              className="rounded-lg shadow-sm"
+              className="rounded-lg shadow-xs"
             />
           </div>
         )
       case 'Content Grid':
         return (
           <div className="p-2 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <div className="flex items-center gap-2">
                   <Grid2X2 className="h-4 w-4 text-primary" />
@@ -187,7 +187,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'File Explorer':
         return (
           <div className="p-2 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2 space-x-2">
                 <div className="flex items-center">
                   <FolderOpen className="h-4 w-4 mr-2 text-amber-500" />
@@ -215,7 +215,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Multi-Step Form Wrapper':
         return (
           <div className="p-2 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full flex flex-col justify-between">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center mb-2.5">
                   {[1, 2, 3].map((step) => (
@@ -261,7 +261,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Currency Manager':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 space-x-2">
                 <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200">Currency Manager</h3>
                 <div className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 rounded-full px-2 py-0.5 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
@@ -292,7 +292,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Infinite Scroll':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200">Data Feed</h3>
                 <Badge variant="outline" className="text-xs px-1.5 py-0.5 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300">Loading...</Badge>
@@ -320,7 +320,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Location Picker':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm h-full bg-transparent">
+            <Card className="p-3 shadow-xs h-full bg-transparent">
               <div className="mb-2.5 text-sm font-medium flex items-center text-slate-700 dark:text-slate-200">
                 <MapPin className="h-4 w-4 mr-2 text-primary" />
                 Select Location
@@ -332,7 +332,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Notification Center':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full w-3/4 mx-auto">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full w-3/4 mx-auto">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <div className="flex items-center gap-2">
                   <div className="relative">
@@ -349,14 +349,14 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
               </div>
               <div className="space-y-2 max-h-20 overflow-y-auto">
                 <div className="flex items-start gap-2 p-2 bg-blue-50/30 dark:bg-blue-950/10 rounded-md border-l-2 border-l-blue-500">
-                  <Bell className="h-3 w-3 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <Bell className="h-3 w-3 text-blue-500 mt-0.5 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-medium text-slate-700 dark:text-slate-200">Welcome Message</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 truncate">Your account has been created successfully</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md">
-                  <Bell className="h-3 w-3 text-slate-500 mt-0.5 flex-shrink-0" />
+                  <Bell className="h-3 w-3 text-slate-500 mt-0.5 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="text-xs text-slate-600 dark:text-slate-300">System Update</div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 truncate">New features available</div>
@@ -369,7 +369,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Smart Form':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200">Smart Form</h3>
                 <Badge variant="outline" className="text-xs px-1.5 py-0.5 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300">Form</Badge>
@@ -385,7 +385,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Guided Tour':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <div className="flex items-center gap-2">
                   <Route className="h-4 w-4 text-primary" />
@@ -424,7 +424,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Smart Search':
         return (
           <div className="p-3 h-full">
-            <Card className="p-3 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-3 shadow-xs bg-white dark:bg-transparent h-full">
               <div className="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">
                 <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200">Smart Search</h3>
                 <Badge variant="outline" className="text-xs px-1.5 py-0.5 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300">Search</Badge>
@@ -446,7 +446,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
       case 'Draggable Dashboard':
         return (
           <div className="p-2 h-full">
-            <Card className="p-2 shadow-sm bg-white dark:bg-transparent h-full">
+            <Card className="p-2 shadow-xs bg-white dark:bg-transparent h-full">
               <DraggableDashboard
                 showLockToggle={false}
                 showHandles={true}
@@ -518,7 +518,7 @@ const ComponentCard = ({ name, description, image, href }: ComponentCardProps) =
               style={{ backgroundImage: `url(${image})` }} />
           )}
         </div>
-        <div className="p-4 md:p-5 border-t border-slate-200 dark:border-slate-800/60 flex-grow">
+        <div className="p-4 md:p-5 border-t border-slate-200 dark:border-slate-800/60 grow">
           <div className="flex items-start justify-between">
             <h3 className="text-base md:text-lg font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">{name}</h3>
             <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:transform group-hover:translate-x-0.5 transition-all mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -612,7 +612,7 @@ const Components = () => {
                 >
                   <div className="flex items-center mb-6 md:mb-8">
                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">{category.category}</h2>
-                    <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 flex-grow"></div>
+                    <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
                     <Badge variant="outline" className="ml-3 px-2.5 py-1 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800">{category.items.length}</Badge>
                   </div>
                 </TourStep>
@@ -638,7 +638,7 @@ const Components = () => {
             ))}
           </>
         ) : (
-          <div className="text-center py-16 md:py-20 bg-white dark:bg-slate-800/30 rounded-xl shadow-sm">
+          <div className="text-center py-16 md:py-20 bg-white dark:bg-slate-800/30 rounded-xl shadow-xs">
             <svg
               className="w-16 h-16 mx-auto text-slate-400 dark:text-slate-500/70 mb-5"
               xmlns="http://www.w3.org/2000/svg"

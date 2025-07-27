@@ -387,18 +387,18 @@ export default function MyComponent() {
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs overflow-hidden">
                   <Tabs defaultValue="preview" className="w-full">
                     <TabsList className="flex justify-start border-b border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/70">
                       <TabsTrigger
                         value="preview"
-                        className="data-[state=active]:bg-white dark:data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                        className="data-[state=active]:bg-white dark:data-[state=active]:bg-background data-[state=active]:shadow-xs"
                       >
                         Preview
                       </TabsTrigger>
                       <TabsTrigger
                         value="code"
-                        className="data-[state=active]:bg-white dark:data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                        className="data-[state=active]:bg-white dark:data-[state=active]:bg-background data-[state=active]:shadow-xs"
                       >
                         Code
                       </TabsTrigger>

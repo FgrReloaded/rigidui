@@ -173,7 +173,7 @@ export default function MyComponent() {
               The hook returns an object containing location data and control functions:
             </p>
 
-            <div className="bg-white dark:bg-transparent rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="bg-white dark:bg-transparent rounded-xl shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>

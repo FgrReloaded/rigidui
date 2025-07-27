@@ -118,8 +118,8 @@ export function FileUploader({
     clearButton: "text-xs hover:bg-destructive/10 hover:text-destructive",
     fileCard: "relative overflow-hidden group",
     fileCardContent: "p-4 relative",
-    filePreview: "w-12 h-12 rounded-md overflow-hidden flex-shrink-0 border",
-    fileIcon: "w-12 h-12 bg-muted rounded-md flex items-center justify-center flex-shrink-0 border",
+    filePreview: "w-12 h-12 rounded-md overflow-hidden shrink-0 border",
+    fileIcon: "w-12 h-12 bg-muted rounded-md flex items-center justify-center shrink-0 border",
     fileName: "text-sm font-medium truncate",
     fileSize: "text-xs text-muted-foreground mb-2",
     fileStatus: "text-xs",
@@ -509,7 +509,7 @@ export function FileUploader({
                     <div className="flex items-center gap-2 mb-1">
                       <p className={appliedTheme.fileName}>{fileData.name}</p>
                       {fileData.status === 'complete' && !fileData.error && (
-                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <Check className="w-4 h-4 text-green-500 shrink-0" />
                       )}
                       {fileData.croppedPreview && (
                         <Badge variant="secondary" className={appliedTheme.badge}>Cropped</Badge>
@@ -536,7 +536,7 @@ export function FileUploader({
                           variant="ghost"
                           size="icon"
                           onClick={() => openCropDialog(fileData)}
-                          className={cn("flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.cropButton)}
+                          className={cn("shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.cropButton)}
                           title="Crop image"
                         >
                           <CropIcon className="w-4 h-4" />
@@ -547,7 +547,7 @@ export function FileUploader({
                       variant="ghost"
                       size="icon"
                       onClick={() => removeFile(fileData.id)}
-                      className={cn("flex-shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.removeButton)}
+                      className={cn("shrink-0 h-8 w-8 rounded-full opacity-70 hover:opacity-100", appliedTheme.removeButton)}
                     >
                       <X className="w-4 h-4" />
                     </Button>

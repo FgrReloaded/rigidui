@@ -99,7 +99,7 @@ export function DraggableWrapper({
           {...listeners}
           className={cn(
             "absolute top-2 right-2 z-10 cursor-grab hover:cursor-grabbing",
-            "p-1 bg-background/80 backdrop-blur-sm rounded shadow-sm",
+            "p-1 bg-background/80 backdrop-blur-xs rounded shadow-xs",
             "opacity-0 group-hover:opacity-100 transition-opacity",
             "hover:bg-muted"
           )}
@@ -113,7 +113,7 @@ export function DraggableWrapper({
         <div
           className={cn(
             "absolute top-2 right-2 z-10 cursor-grab hover:cursor-grabbing",
-            "p-1 bg-background/80 backdrop-blur-sm rounded shadow-sm",
+            "p-1 bg-background/80 backdrop-blur-xs rounded shadow-xs",
             "opacity-0 group-hover:opacity-100 transition-opacity",
             "hover:bg-muted"
           )}

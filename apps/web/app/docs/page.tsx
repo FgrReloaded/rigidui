@@ -57,7 +57,7 @@ const Docs = () => {
   return (
     <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 min-h-screen">
       <div className="mb-12 md:mb-16 text-center">
-        <div className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-gradient-to-r from-primary/15 to-purple-500/15 px-4 py-2 rounded-full border border-primary/20 mb-6">
+        <div className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-linear-to-r from-primary/15 to-purple-500/15 px-4 py-2 rounded-full border border-primary/20 mb-6">
           <Sparkles className="w-4 h-4" />
           Documentation
         </div>
@@ -94,7 +94,7 @@ const Docs = () => {
       <div className="mb-16">
         <div className="flex items-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">Documentation</h2>
-          <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 flex-grow"></div>
+          <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
           <Badge variant="outline" className="ml-3 px-2.5 py-1 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800">
             {filteredCategories.length} sections
           </Badge>
@@ -105,9 +105,9 @@ const Docs = () => {
             const Icon = category.icon
             return (
               <Link href={category.href} key={category.name} className="group w-full">
-                <div className={`bg-gradient-to-br ${category.color} ${category.borderColor} border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary/30 h-full`}>
+                <div className={`bg-linear-to-br ${category.color} ${category.borderColor} border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary/30 h-full`}>
                   <div className="flex items-start gap-4">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${category.iconBg} flex-shrink-0`}>
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${category.iconBg} shrink-0`}>
                       <Icon className={`h-6 w-6 ${category.iconColor}`} />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -115,7 +115,7 @@ const Docs = () => {
                         <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">
                           {category.name}
                         </h3>
-                        <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                        <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
                       </div>
                       <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
                         {category.description}
@@ -130,7 +130,7 @@ const Docs = () => {
       </div>
 
 
-      <div className="bg-gradient-to-br from-muted/30 via-background to-primary/5 border border-slate-200 dark:border-slate-800 rounded-xl p-8">
+      <div className="bg-linear-to-br from-muted/30 via-background to-primary/5 border border-slate-200 dark:border-slate-800 rounded-xl p-8">
         <div className="text-center mb-6">
           <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
             Ready to start building?

@@ -84,7 +84,7 @@ export interface NotificationCenterTheme {
 }
 
 const defaultTheme: NotificationCenterTheme = {
-  container: "w-full max-w-2xl shadow-sm border-border/50",
+  container: "w-full max-w-2xl shadow-xs border-border/50",
   header: "pb-3",
   title: "flex items-center gap-3",
   badge: "text-xs px-2 py-1 max-sm:hidden",
@@ -92,7 +92,7 @@ const defaultTheme: NotificationCenterTheme = {
     base: "group relative flex items-start gap-3 p-4 rounded-lg border transition-all duration-200",
     unread: "border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-950/10 dark:border-l-blue-400",
     read: "border-border hover:border-muted-foreground/20",
-    hover: "hover:bg-muted/30 hover:shadow-sm"
+    hover: "hover:bg-muted/30 hover:shadow-xs"
   },
   notificationContent: {
     title: "text-sm leading-tight font-semibold text-foreground",
@@ -222,7 +222,7 @@ const NotificationItem = ({
       )}
       onClick={handleClick}
     >
-      <div className="mt-0.5 flex-shrink-0">
+      <div className="mt-0.5 shrink-0">
         <Bell className={cn('h-4 w-4', getPriorityColor(notification.priority, theme))} />
       </div>
 

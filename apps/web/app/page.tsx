@@ -5,7 +5,7 @@ import { ArrowRight, Code, Sparkles, Zap, Layers, Palette } from "lucide-react"
 import localFont from 'next/font/local'
 import { ComponentPreview } from "@/components/component-preview"
 import { components } from "@/lib/constants"
-import Sidebar from "@/components/sidebar"
+import Sidebar from "@/components/navbar"
 import Footer from "@/components/home/footer"
 
 const titleFont = localFont({ src: './Nippo-Variable.ttf' })
@@ -15,8 +15,8 @@ export default function Home() {
     <div className="min-h-screen relative overflow-hidden bg-background">
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-background">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 transform -skew-y-6 origin-top-left scale-110" />
-          <div className="absolute top-1/3 left-0 right-0 h-64 bg-gradient-to-r from-transparent via-primary/3 to-transparent transform skew-y-3" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10 transform -skew-y-6 origin-top-left scale-110" />
+          <div className="absolute top-1/3 left-0 right-0 h-64 bg-linear-to-r from-transparent via-primary/3 to-transparent transform skew-y-3" />
 
           <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -34,7 +34,7 @@ export default function Home() {
 
       <Sidebar />
 
-      <main className="relative z-10 mt-12">
+      <main className="relative z-10 pt-20">
         <div className="min-h-screen flex items-center">
           <div className="container mx-auto md:px-6 px-2">
             <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -86,7 +86,7 @@ export default function Home() {
                       Start Building
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-primary to-primary/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                   </Link>
 
                   <div className="flex items-center gap-4">
@@ -139,9 +139,9 @@ export default function Home() {
                         <span className="text-xs font-mono">ACCESSIBLE</span>
                       </div>
                       <div className="space-y-2">
-                        <div className="h-3 bg-gradient-to-r from-primary/20 to-primary/60 rounded"></div>
-                        <div className="h-3 bg-gradient-to-r from-primary/40 to-primary/20 rounded w-4/5"></div>
-                        <div className="h-3 bg-gradient-to-r from-primary/60 to-primary/40 rounded w-2/3"></div>
+                        <div className="h-3 bg-linear-to-r from-primary/20 to-primary/60 rounded"></div>
+                        <div className="h-3 bg-linear-to-r from-primary/40 to-primary/20 rounded w-4/5"></div>
+                        <div className="h-3 bg-linear-to-r from-primary/60 to-primary/40 rounded w-2/3"></div>
                       </div>
                     </div>
                   </div>
@@ -156,7 +156,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative py-32 bg-gradient-to-br from-background via-primary/2 to-background transform -skew-y-1 origin-top-left">
+        <div className="relative py-32 bg-linear-to-br from-background via-primary/2 to-background transform -skew-y-1 origin-top-left">
           <div className="transform skew-y-1">
             <div className="container mx-auto px-6">
               <div className="text-center mb-20">
@@ -166,7 +166,7 @@ export default function Home() {
                     <br />
                     <span className="text-foreground">SHOWCASE</span>
                   </h2>
-                  <div className="h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+                  <div className="h-1 bg-linear-to-r from-transparent via-primary to-transparent"></div>
                 </div>
                 <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
                   Battle-tested components used by teams at scale. Each component is crafted with attention to detail,
@@ -181,10 +181,10 @@ export default function Home() {
                     href={`/docs/components/${component.name}`}
                     className="group block h-full"
                   >
-                    <div className="relative overflow-hidden rounded-2xl border bg-card/30 backdrop-blur-sm hover:bg-card/60 transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                    <div className="relative overflow-hidden rounded-2xl border bg-card/30 backdrop-blur-xs hover:bg-card/60 transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
                       <div className="flex items-center justify-between p-6 border-b border-border/50 min-h-[100px]">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0">
                             <span className="text-lg font-bold text-primary font-mono">
                               {String(index + 1).padStart(2, '0')}
                             </span>
@@ -204,20 +204,20 @@ export default function Home() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 flex-shrink-0">
+                        <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 shrink-0">
                           <span>View</span>
                           <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                         </div>
                       </div>
 
                       <div className="p-6 flex-1 flex flex-col">
-                        <p className="text-muted-foreground leading-relaxed mb-6 flex-shrink-0 line-clamp-3 min-h-[72px]">
+                        <p className="text-muted-foreground leading-relaxed mb-6 shrink-0 line-clamp-3 min-h-[72px]">
                           {component.description}
                         </p>
 
                         <div className="relative bg-muted/20 rounded-xl min-h-[200px] flex items-center justify-center overflow-hidden flex-1">
                           <div className="absolute inset-0 opacity-5">
-                            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_35%,rgba(255,255,255,.1)_50%,transparent_65%)] bg-[length:16px_16px]"></div>
+                            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_35%,rgba(255,255,255,.1)_50%,transparent_65%)] bg-size-[16px_16px]"></div>
                           </div>
 
                           <div className="relative z-10 w-full h-full flex items-center justify-center p-6">
@@ -226,9 +226,9 @@ export default function Home() {
                             </div>
                           </div>
 
-                          <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <div className="absolute inset-0 bg-linear-to-t from-card/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                          <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-sm border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-xs border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <Code className="w-4 h-4 text-primary" />
                           </div>
                         </div>

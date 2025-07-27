@@ -17,7 +17,7 @@ export default function GettingStartedPage() {
       </div>
 
       <div className="mt-8 border-t pt-8">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800/50 rounded-xl p-6">
+        <div className="bg-linear-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800/50 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white">
               <Sparkles className="h-4 w-4" />
@@ -80,7 +80,7 @@ export default function GettingStartedPage() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50 rounded-xl p-6">
+          <div className="bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white">
                 <Zap className="h-4 w-4" />
@@ -191,7 +191,7 @@ export default function GettingStartedPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <Link
               href="/docs/components"
-              className="group flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800 rounded-lg hover:border-blue-300 dark:hover:border-blue-700 transition-colors"
+              className="group flex items-center justify-between p-6 bg-linear-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800 rounded-lg hover:border-blue-300 dark:hover:border-blue-700 transition-colors"
             >
               <div>
                 <h3 className="font-semibold text-blue-900 dark:text-blue-100">Browse Components</h3>
@@ -206,7 +206,7 @@ export default function GettingStartedPage() {
               href="https://github.com/FgrReloaded/rigidui"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between p-6 bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-950/30 dark:to-slate-950/30 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-colors"
+              className="group flex items-center justify-between p-6 bg-linear-to-r from-gray-50 to-slate-50 dark:from-gray-950/30 dark:to-slate-950/30 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-colors"
             >
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-gray-100">View on GitHub</h3>

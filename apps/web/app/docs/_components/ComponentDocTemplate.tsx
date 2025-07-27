@@ -151,7 +151,7 @@ export default function ComponentDocTemplate({
           {usageDescription}
         </p>
 
-        <div className="mt-8 bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+        <div className="mt-8 bg-white dark:bg-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-xs overflow-hidden">
           <Tabs defaultValue="preview" className="w-full">
             <TabsList className="flex justify-between border-b border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/70">
               <div className="flex">
@@ -224,7 +224,7 @@ export default function ComponentDocTemplate({
             <Zap className="h-7 w-7 text-indigo-500 dark:text-indigo-400" />
             <h2 id="api-reference" className="md:text-3xl text-2xl font-bold text-gray-900 dark:text-white">API Reference</h2>
           </div>
-          <div className="bg-white dark:bg-transparent rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-transparent rounded-xl shadow-xs border border-gray-200 dark:border-gray-700 overflow-hidden">
             <PropsTable props={propsData} />
           </div>
         </section>
@@ -234,7 +234,7 @@ export default function ComponentDocTemplate({
 
       <div className="flex justify-between items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
         {prevRoute ? (
-          <Link href={prevRoute.href} className={cn(buttonVariants({ variant: "outline" }), "flex items-center md:space-x-2 max-sm:text-xs max-sm:px-3")}>
+          <Link href={prevRoute.href} className={cn(buttonVariants({ variant: "outline-solid" }), "flex items-center md:space-x-2 max-sm:text-xs max-sm:px-3")}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
@@ -245,7 +245,7 @@ export default function ComponentDocTemplate({
           <div />
         )}
         {nextRoute ? (
-          <Link href={nextRoute.href} className={cn(buttonVariants({ variant: "outline" }), "flex items-center md:space-x-2 max-sm:text-xs max-sm:px-3")}>
+          <Link href={nextRoute.href} className={cn(buttonVariants({ variant: "outline-solid" }), "flex items-center md:space-x-2 max-sm:text-xs max-sm:px-3")}>
             <span className='sm:hidden'>{nextRoute.title.slice(0, 10).concat('...')}</span>
             <span className='max-sm:hidden'>{nextRoute.title}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">

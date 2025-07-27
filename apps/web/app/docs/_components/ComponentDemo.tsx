@@ -32,11 +32,11 @@ export function ComponentDemo({
       {title && <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">{title}</h3>}
       {description && <p className="mb-3 text-gray-600 dark:text-gray-400 text-sm">{description}</p>}
 
-      <div className="overflow-hidden border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm">
+      <div className="overflow-hidden border border-gray-200 dark:border-gray-800 rounded-lg shadow-xs">
         <div className="flex items-center border-b border-gray-200 dark:border-gray-800">
           <button
             onClick={() => setActiveTab('preview')}
-            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium focus:outline-none transition-colors ${activeTab === 'preview'
+            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium focus:outline-hidden transition-colors ${activeTab === 'preview'
                 ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-b-2 border-blue-500 dark:border-blue-400'
                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
               }`}
@@ -46,7 +46,7 @@ export function ComponentDemo({
           </button>
           <button
             onClick={() => setActiveTab('code')}
-            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium focus:outline-none transition-colors ${activeTab === 'code'
+            className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium focus:outline-hidden transition-colors ${activeTab === 'code'
                 ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-b-2 border-blue-500 dark:border-blue-400'
                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
               }`}
