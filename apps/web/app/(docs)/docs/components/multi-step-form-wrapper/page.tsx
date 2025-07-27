@@ -1,6 +1,6 @@
 "use client"
 
-import ComponentDocTemplate from "@/app/docs/_components/ComponentDocTemplate"
+import ComponentDocTemplate from "@/app/(docs)/docs/_components/ComponentDocTemplate"
 import { MultiStepFormDemo } from "@/registry/new-york/multi-step-form-wrapper/multi-step-form-wrapper-demo"
 import { advancedUsageExamples } from "./_components/AdvancedUsage"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
