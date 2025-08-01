@@ -1,0 +1,362 @@
+---
+title: Smart Form
+description: A flexible grid/list component that provides seamless switching between grid and list layouts with customizable card rendering.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import SmartFormPreview from "@/components/previews/smart-form";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <SmartFormPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="smart-form.tsx"
+import { SmartForm, SmartFormField } from "@/components/smart-form"
+import { z } from "zod"
+
+const demoSchema = z.object({
+name: z.string().min(2, "Name must be at least 2 characters"),
+email: z.string().email("Invalid email address"),
+role: z.enum(["admin", "user", "moderator"]),
+adminCode: z.string().optional(),
+isActive: z.boolean(),
+bio: z.string().optional(),
+})
+
+type DemoFormData = z.infer<typeof demoSchema>
+
+export default function MyForm() {
+  const mockMutationFn = async (data: DemoFormData) => {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    console.log('Form submitted:', data)
+    return { success: true, data }
+  }
+
+return (
+
+<div className="max-w-md">
+  <SmartForm
+    schema={demoSchema}
+    mutationFn={mockMutationFn}
+    defaultValues={{
+      isActive: false,
+    }}
+    onSuccess={(data) => {
+      console.log("Success:", data);
+    }}
+    onError={(error) => {
+      console.error("Error:", error);
+    }}
+  >
+    {(form) => (
+      <>
+        <SmartFormField
+          form={form}
+          name="name"
+          type="text"
+          label="Name"
+          placeholder="Enter your name"
+          description="Your full name"
+        />
+        <SmartFormField
+          form={form}
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="Enter your email"
+        />
+        <SmartFormField
+          form={form}
+          name="role"
+          type="select"
+          label="Role"
+          options={[
+            { value: "admin", label: "Admin" },
+            { value: "user", label: "User" },
+            { value: "moderator", label: "Moderator" },
+          ]}
+        />
+        <SmartFormField
+          form={form}
+          name="isActive"
+          type="checkbox"
+          label="Active user"
+          description="Check if the user should be active"
+        />
+        <SmartFormField
+          form={form}
+          name="bio"
+          type="textarea"
+          label="Bio"
+          placeholder="Tell us about yourself..."
+          description="Optional biography"
+        />
+      </>
+    )}
+  </SmartForm>
+</div>
+) }
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Smart Form component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/smart-form
+````
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Smart Form component is packed with powerful features designed to provide
+  an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Zod Schema Validation">
+    Built-in integration with Zod for runtime type safety and comprehensive
+    validation rules.
+  </Card>
+  <Card title="TanStack Query Integration">
+    Seamless integration with TanStack Query for mutations, loading states, and
+    cache invalidation.
+  </Card>
+  <Card title="Multiple Field Types">
+    Support for text, email, password, number, textarea, select, checkbox,
+    radio, and color field types.
+  </Card>
+  <Card title="TypeScript Support">
+    Full TypeScript support with type inference from Zod schemas for complete
+    type safety.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+#### SmartForm Props [!toc]
+
+<TypeTable
+  type={{
+    schema: {
+      description: "Zod schema for form validation and type safety",
+      type: "z.ZodSchema<T>",
+      required: true,
+      default: "undefined",
+    },
+    mutationFn: {
+      description: "Async function to handle form submission (API call)",
+      type: "(data: T) => Promise<any>",
+      required: true,
+      default: "undefined",
+    },
+    children: {
+      description:
+        "Render function that receives the form instance for building form fields",
+      type: "(form: UseFormReturn<T>) => React.ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    queryKey: {
+      description:
+        "TanStack Query key for cache invalidation after successful submission",
+      type: "string[]",
+      default: "[]",
+    },
+    mode: {
+      description: "Form mode that affects submit button text and behavior",
+      type: "'create' | 'edit'",
+      default: "'create'",
+    },
+    defaultValues: {
+      description: "Default values for form fields",
+      type: "Partial<T>",
+      default: "undefined",
+    },
+    onSuccess: {
+      description: "Callback function called on successful form submission",
+      type: "(data: any) => void",
+      default: "undefined",
+    },
+    onError: {
+      description: "Callback function called when form submission fails",
+      type: "(error: Error) => void",
+      default: "undefined",
+    },
+    submitText: {
+      description: "Custom text for submit button (overrides mode-based text)",
+      type: "string",
+      default: "undefined",
+    },
+    className: {
+      description: "Additional CSS classes for the form container",
+      type: "string",
+      default: "''",
+    },
+  }}
+/>
+
+#### SmartFormField Props [!toc]
+
+<TypeTable
+  type={{
+    form: {
+      description: "React Hook Form instance passed from SmartForm",
+      type: "UseFormReturn<T>",
+      required: true,
+      default: "undefined",
+    },
+    name: {
+      description: "Field name that matches the schema property",
+      type: "FieldPath<T>",
+      required: true,
+      default: "undefined",
+    },
+    type: {
+      description: "Input type that determines the rendered field component",
+      type: "'text' | 'email' | 'password' | 'number' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'color'",
+      required: true,
+      default: "undefined",
+    },
+    label: {
+      description: "Label text displayed above the field",
+      type: "string",
+      default: "undefined",
+    },
+    placeholder: {
+      description: "Placeholder text for input fields",
+      type: "string",
+      default: "undefined",
+    },
+    description: {
+      description: "Help text displayed below the field",
+      type: "string",
+      default: "undefined",
+    },
+    options: {
+      description: "Options for select and radio field types",
+      type: "FormFieldOption[]",
+      default: "[]",
+    },
+    disabled: {
+      description: "Whether the field is disabled",
+      type: "boolean",
+      default: "false",
+    },
+    className: {
+      description: "Additional CSS classes for the field container",
+      type: "string",
+      default: "''",
+    },
+  }}
+/>
+
+#### ConditionalField Props [!toc]
+
+<TypeTable
+  type={{
+    form: {
+      description: "React Hook Form instance passed from SmartForm",
+      type: "UseFormReturn<T>",
+      required: true,
+      default: "undefined",
+    },
+    when: {
+      description: "The field name to watch for changes",
+      type: "FieldPath<T>",
+      required: true,
+      default: "undefined",
+    },
+    equals: {
+      description: "The value to compare against the watched field",
+      type: "any",
+      required: true,
+      default: "undefined",
+    },
+    children: {
+      description: "Content to render when the condition is met",
+      type: "React.ReactNode",
+      required: true,
+      default: "undefined",
+    },
+  }}
+/>
+
+#### FormSection Props [!toc]
+
+<TypeTable
+  type={{
+    title: {
+      description: "The title text displayed for the form section",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    children: {
+      description: "Form fields and other content to display in the section",
+      type: "React.ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    description: {
+      description: "Optional description text displayed below the title",
+      type: "string",
+      default: "undefined",
+    },
+    className: {
+      description: "Additional CSS classes for styling the section",
+      type: "string",
+      default: "''",
+    },
+  }}
+/>

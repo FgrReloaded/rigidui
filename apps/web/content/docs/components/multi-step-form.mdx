@@ -1,0 +1,225 @@
+---
+title: Multi Step Form
+description: A flexible grid/list component that provides seamless switching between grid and list layouts with customizable card rendering.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import MultiStepFormPreview from "@/components/previews/multi-step-form";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <MultiStepFormPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="multi-step-form.tsx"
+import { MultiStepFormWrapper, Step } from "@/components/multi-step-form-wrapper"
+
+export default function MyComponent() {
+  return (
+    <MultiStepFormWrapper>
+      <Step title="Step 1">Step 1 Content</Step>
+      <Step title="Step 2">Step 2 Content</Step>
+    </MultiStepFormWrapper>
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Multi-Step Form Wrapper component using your preferred package
+  manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/multi-step-form-wrapper
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Multi-Step Form Wrapper component is packed with powerful features
+  designed to provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Step-by-Step Form Flow">
+    Guide users through complex forms with a clear step-by-step interface and
+    visual progress tracking.
+  </Card>
+  <Card title="Advanced Validation">
+    Comprehensive step-by-step validation with Zod schemas, custom error
+    messages, and validation error callbacks.
+  </Card>
+  <Card title="Auto-Save & Persistence">
+    Automatically save form progress to localStorage with configurable
+    debouncing and persistent form state.
+  </Card>
+  <Card title="Smooth Animations">
+    Beautiful step transitions with configurable animation duration and seamless
+    user experience.
+  </Card>
+  <Card title="Flexible Configuration">
+    Highly customizable with step lifecycle hooks, optional steps, progress
+    bars, and accessibility features.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    children: {
+      description: "Step components to render within the form",
+      type: "React.ReactNode",
+      required: true,
+      default: "-",
+    },
+    onComplete: {
+      description: "Callback function called when the form is completed",
+      type: "(data: FormData) => void",
+      default: "undefined",
+    },
+    initialData: {
+      description: "Initial data for the form",
+      type: "Record<string, unknown>",
+      default: "{}",
+    },
+    schema: {
+      description: "Zod schema for overall form validation",
+      type: "ZodSchema",
+      default: "undefined",
+    },
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "''",
+    },
+    showStepIndicator: {
+      description: "Whether to show the step indicator",
+      type: "boolean",
+      default: "true",
+    },
+    showStepTitle: {
+      description: "Whether to show the step title and description",
+      type: "boolean",
+      default: "true",
+    },
+    showProgressBar: {
+      description: "Whether to show progress bar with percentage",
+      type: "boolean",
+      default: "false",
+    },
+    allowSkipSteps: {
+      description: "Whether to allow skipping to other steps",
+      type: "boolean",
+      default: "false",
+    },
+    navigationPosition: {
+      description: "Position of the navigation buttons",
+      type: "'bottom' | 'top'",
+      default: "'bottom'",
+    },
+    nextButtonText: {
+      description: "Text for the next button",
+      type: "string",
+      default: '"Next"',
+    },
+    prevButtonText: {
+      description: "Text for the previous button",
+      type: "string",
+      default: '"Back"',
+    },
+    completeButtonText: {
+      description: "Text for the complete button",
+      type: "string",
+      default: '"Complete"',
+    },
+    allowStepReset: {
+      description: "Whether to show a reset button to go back to first step",
+      type: "boolean",
+      default: "false",
+    },
+    onStepChange: {
+      description: "Callback function called when the step changes",
+      type: "(prevStep: number, nextStep: number) => void",
+      default: "undefined",
+    },
+    onStepValidationError: {
+      description: "Callback function called when step validation fails",
+      type: "(step: number, errors: FieldErrors) => void",
+      default: "undefined",
+    },
+    persistKey: {
+      description: "Key for localStorage persistence of form data",
+      type: "string",
+      default: "undefined",
+    },
+    autoSave: {
+      description: "Whether to automatically save form data to localStorage",
+      type: "boolean",
+      default: "false",
+    },
+    autoSaveDelay: {
+      description: "Delay in milliseconds for auto-save debouncing",
+      type: "number",
+      default: "1000",
+    },
+    animateStepChange: {
+      description: "Whether to animate step transitions",
+      type: "boolean",
+      default: "true",
+    },
+    transitionDuration: {
+      description: "Duration of step transition animations in milliseconds",
+      type: "number",
+      default: "300",
+    },
+  }}
+/>

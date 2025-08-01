@@ -1,0 +1,213 @@
+---
+title: Content Grid
+description: A flexible grid/list component that provides seamless switching between grid and list layouts with customizable card rendering.
+---
+
+import { Code, Package, ListTree, Home, Zap } from "lucide-react";
+import ContentGridPreview from "@/components/previews/content-grid";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <ContentGridPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="content-grid.tsx"
+import { ContentGrid } from "@/components/content-grid"
+
+export default function MyComponent() {
+      const renderCard = (item: ContentItem, viewMode: 'grid' | 'list') => {
+        const isListMode = viewMode === 'list'
+
+        return (
+          <Card
+            key={item.id}
+            className={`hover:shadow-md transition-shadow ${isListMode ? 'flex items-center gap-4' : ''}`}
+          >
+            <div
+              className={`bg-linear-to-br from-blue-500 to-purple-600 rounded-lg ${
+                isListMode ? 'w-16 h-16 shrink-0 ml-4' : 'w-full h-24 mb-3'
+              }`}
+            />
+            <div className={`flex-1 ${isListMode ? 'mr-4' : ''}`}>
+              <CardHeader className="pb-2">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-base">{item.title}</CardTitle>
+                    <Badge variant="outline" className="mt-1 text-xs">
+                      {item.category}
+                    </Badge>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-primary">{item.price}</div>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                      {item.rating}
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                  {item.description}
+                </p>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                  <div className="flex items-center gap-1">
+                    <Eye className="h-4 w-4" />
+                    {item.views.toLocaleString()}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Download className="h-4 w-4" />
+                    {item.downloads.toLocaleString()}
+                  </div>
+                </div>
+                <Button size="sm" className="w-full">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download
+                </Button>
+              </CardContent>
+            </div>
+          </Card>
+        )
+      }
+
+      return (
+        <ContentGrid
+          items={sampleItems}
+          renderCard={renderCard}
+          defaultViewMode="grid"
+          gridColumns={3}
+          className="w-full"
+        />
+      )
+
+}
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2 mt-8">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Content-Grid component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/content-grid
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2 mt-8">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+The Content Grid component is packed with powerful features designed to provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card
+    icon={<svg className="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>}
+    title="Grid & List Views"
+  >
+    Seamlessly switch between grid and list layouts with smooth transitions and optimized rendering.
+  </Card>
+  <Card
+    icon={<svg className="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a1 1 0 01-1-1V9a1 1 0 011-1h1a2 2 0 100-4H4a1 1 0 01-1-1V4a1 1 0 011-1h3a1 1 0 011 1v1z" /></svg>}
+    title="Flexible Rendering"
+  >
+    Complete control over card rendering with custom render functions that adapt to view modes.
+  </Card>
+  <Card
+    icon={<svg className="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>}
+    title="Responsive Design"
+  >
+    Built-in responsive breakpoints ensure optimal display across all device sizes.
+  </Card>
+  <Card
+    icon={<svg className="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>}
+    title="Customizable Columns"
+  >
+    Configure exact column counts or use auto-responsive layouts that adapt to screen size.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    className: {
+      description: 'Additional CSS classes for the container',
+      type: 'string',
+      default: "''",
+    },
+    defaultViewMode: {
+      description: 'Default view mode when component loads',
+      type: "'grid' | 'list'",
+      default: "'grid'",
+    },
+    gridColumns: {
+      description: 'Number of columns in grid view. "auto" provides responsive columns.',
+      type: "'auto' | 1 | 2 | 3 | 4 | 5 | 6",
+      default: "'auto'",
+    },
+    items: {
+      description: 'Array of items to display in the grid/list',
+      type: 'ContentItem[]',
+      default: '[]',
+      required: true,
+    },
+    onViewModeChange: {
+      description: 'Callback function called when view mode changes',
+      type: '(mode: ViewMode) => void',
+      default: 'undefined',
+    },
+    renderCard: {
+      description: 'Function to render each card item. Receives the item and current view mode.',
+      type: '(item: ContentItem, viewMode: ViewMode) => React.ReactNode',
+      default: 'undefined',
+      required: true,
+    },
+  }}
+/>

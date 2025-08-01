@@ -1,0 +1,128 @@
+---
+title: Introduction
+---
+
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Zap, BookOpen, Component } from "lucide-react";
+
+{" "}
+
+<div className="mb-12 md:mb-16 text-center flex flex-col gap-4">
+  <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50">
+    RigidUI Documentation
+  </h1>
+  <p className="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+    A comprehensive guide to using RigidUI components and utilities for building
+    beautiful, accessible, and modern user interfaces with uncompromising
+    quality.
+  </p>
+</div>
+<div className="flex items-center mb-4">
+  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
+    Documentation
+  </h2>
+  <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
+  <Badge
+    variant="outline"
+    className="ml-3 px-2.5 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800"
+  >
+    3 sections
+  </Badge>
+</div>
+
+<Card
+  href="/docs/getting-started"
+  className="group bg-linear-to-br from-blue-500/10 to-indigo-500/10 border-blue-200 dark:border-blue-800/50 border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary/30"
+>
+  <div className="flex items-start gap-4">
+    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30 shrink-0">
+      <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">
+          Getting Started
+        </h3>
+        <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+      </div>
+      <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
+        Installation guide and basic setup for RigidUI components
+      </p>
+    </div>
+  </div>
+</Card>
+<Card
+  href="/docs/getting-started"
+  className="mt-4 group bg-linear-to-br from-purple-500/10 to-violet-500/10 border-purple-200 dark:border-purple-800/50 border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary/30"
+>
+  <div className="flex items-start gap-4">
+    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/30 shrink-0">
+      <Component className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">
+          Components
+        </h3>
+        <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+      </div>
+      <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
+        Production-ready UI components with live examples and documentation
+      </p>
+    </div>
+  </div>
+</Card>
+
+<Card
+  href="/docs/getting-started"
+  className="mt-4 group bg-linear-to-br from-amber-500/10 to-orange-500/10 border-amber-200 dark:border-amber-800/50 border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:border-primary/30"
+>
+  <div className="flex items-start gap-4">
+    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30 shrink-0">
+      <Zap className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors">
+  Hooks
+     </h3>
+        <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+      </div>
+      <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
+        Custom React hooks for enhanced functionality and state management
+      </p>
+    </div>
+
+  </div>
+</Card>
+
+<div className="mt-8 bg-linear-to-br from-muted/30 via-background to-primary/5 border border-slate-200 dark:border-slate-800 rounded-xl p-8">
+  <div className="text-center mb-6">
+    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
+      Ready to start building?
+    </h3>
+    <p className="text-slate-600 dark:text-slate-400 text-sm">
+      Jump into our getting started guide or explore components directly
+    </p>
+  </div>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <Card
+      href="/docs/getting-started"
+      className="flex items-center bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+    >
+    <div className="inline-flex items-center justify-center gap-2 text-black">
+      <BookOpen className="w-4 h-4" />
+      Get Started
+      </div>
+    </Card>
+    <Card
+      href="/docs/components"
+      className="flex items-center border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+    >
+    <div className="inline-flex items-center justify-center gap-2 text-white">
+      <Component className="w-4 h-4" />
+      View Components
+      </div>
+    </Card>
+  </div>
+</div>

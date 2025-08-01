@@ -132,8 +132,8 @@ export function MultiStepFormWrapper<T extends FormData = FormData>({
 
   const form = useForm<T>({
     defaultValues: prepareDefaultValues(initialData, schema),
-    // @ts-ignore // TODO: fix this
-    resolver: schema ? zodResolver(schema) : undefined, 
+    // @ts-expect-error-ignore // TODO: fix this
+    resolver: schema ? zodResolver(schema) : undefined,
     mode: "onChange"
   })
 

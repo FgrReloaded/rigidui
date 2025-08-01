@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "./globals.css";
+import { RootProvider } from "fumadocs-ui/provider";
 
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -50,7 +51,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={poppins.className}>
         <Providers>
-          {children}
+          <RootProvider>{children}</RootProvider>
         </Providers>
       </body>
     </html>

@@ -1,0 +1,206 @@
+---
+title: Smart Search
+description: A flexible grid/list component that provides seamless switching between grid and list layouts with customizable card rendering.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import SmartSearchPreview from "@/components/previews/smart-search";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <SmartSearchPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="smart-search.tsx"
+import { SmartSearch } from "@/components/smart-search"
+import { useState } from "react"
+import { User, Tag, Calendar } from "lucide-react"
+
+export default function MyComponent() {
+  const [searchResults, setSearchResults] = useState([])
+
+const suggestions = [
+'React Components',
+'TypeScript',
+'Next.js',
+'Tailwind CSS'
+]
+
+const searchFilters = [
+{ key: 'author', label: 'Author', icon: <User className="w-3 h-3" /> },
+{ key: 'tag', label: 'Tag', icon: <Tag className="w-3 h-3" /> },
+{ key: 'recent', label: 'Recent', icon: <Calendar className="w-3 h-3" /> }
+]
+
+const handleSearch = (query, filters) => {
+// Perform your search logic here
+console.log('Searching for:', query, 'with filters:', filters)
+// Update search results
+setSearchResults(/_ your search results _/)
+}
+
+return (
+
+<SmartSearch
+  placeholder="Search documentation..."
+  searchHistory={true}
+  suggestions={suggestions}
+  searchFilters={searchFilters}
+  onSearch={handleSearch}
+  onSuggestionSelect={(suggestion) => console.log("Selected:", suggestion)}
+  resultCount={searchResults.length}
+  debounceMs={300}
+  urlSync={true}
+/>
+) }
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Smart Search component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/smart-search
+````
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Smart Search component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Real-time Search">
+    Debounced search input with real-time results and visual feedback for search
+    states.
+  </Card>
+  <Card title="Search History">
+    Optional search history with local storage persistence and easy access to
+    recent searches.
+  </Card>
+  <Card title="Smart Filters">
+    Configurable filter chips and advanced query parsing with filter:value
+    syntax support.
+  </Card>
+  <Card title="Keyboard Navigation">
+    Full keyboard support with arrow keys for navigation, Enter to select, and
+    Ctrl+/ to focus.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "''",
+    },
+    placeholder: {
+      description: "Placeholder text for the search input",
+      type: "string",
+      default: "'Search...'",
+    },
+    debounceMs: {
+      description: "Debounce delay in milliseconds for search queries",
+      type: "number",
+      default: "300",
+    },
+    urlSync: {
+      description: "Whether to sync search query with URL parameters",
+      type: "boolean",
+      default: "true",
+    },
+    onSearch: {
+      description: "Callback function called when search query changes",
+      type: "(query: string, filters?: string[]) => void",
+      default: "undefined",
+    },
+    searchHistory: {
+      description: "Whether to enable search history functionality",
+      type: "boolean",
+      default: "false",
+    },
+    suggestions: {
+      description: "Array of search suggestions to display",
+      type: "string[]",
+      default: "[]",
+    },
+    onSuggestionSelect: {
+      description: "Callback function called when a suggestion is selected",
+      type: "(suggestion: string) => void",
+      default: "undefined",
+    },
+    searchFilters: {
+      description: "Array of filter buttons to display above the search input",
+      type: "SearchFilter[]",
+      default: "[]",
+    },
+    onFilterChange: {
+      description: "Callback function called when search filters change",
+      type: "(filters: string[]) => void",
+      default: "undefined",
+    },
+    resultCount: {
+      description: "Number of search results to display as a badge",
+      type: "number",
+      default: "undefined",
+    },
+    maxHistoryItems: {
+      description: "Maximum number of history items to store",
+      type: "number",
+      default: "10",
+    },
+  }}
+/>

@@ -1,0 +1,147 @@
+---
+title: Location Picker
+description: A location picker component that allows users to search and select locations.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import LocationPickerPreview from "@/components/previews/location-picker";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <LocationPickerPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="location-picker.tsx"
+import { LocationPicker } from "@/components/location-picker"
+
+export default function MyComponent() {
+  return (
+    <LocationPicker />
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Location Picker component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/location-picker
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Location Picker component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Location Search">
+    Users can search for locations by name, address, or postal code with
+    real-time suggestions.
+  </Card>
+  <Card title="Dual Variants">
+    Choose between popover variant for compact layouts or inline variant for
+    full-featured forms.
+  </Card>
+  <Card title="Autocomplete Suggestions">
+    As users type, the component provides autocomplete suggestions for locations
+    with debounced search.
+  </Card>
+  <Card title="Geolocation Support">
+    Allows users to quickly use their current location with browser geolocation
+    API.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    defaultLocation: {
+      description: "The default location to display",
+      type: "string",
+      default: "''",
+    },
+    autoDetectOnLoad: {
+      description: "Whether to automatically detect location on component load",
+      type: "boolean",
+      default: "false",
+    },
+    variant: {
+      description: "The display variant of the component",
+      type: "'popover' | 'inline'",
+      default: "'popover'",
+    },
+    placeholder: {
+      description: "Placeholder text for the search input",
+      type: "string",
+      default: "'Enter city, district, or area'",
+    },
+    showLabel: {
+      description:
+        "Whether to show the label section (only applies to inline variant)",
+      type: "boolean",
+      default: "true",
+    },
+    onChange: {
+      description: "Callback function called when location changes",
+      type: "(location: string) => void",
+      default: "undefined",
+    },
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "''",
+    },
+  }}
+/>

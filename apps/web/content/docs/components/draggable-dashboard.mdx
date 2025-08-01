@@ -1,0 +1,327 @@
+---
+title: Draggable Dashboard
+description: A flexible dashboard component with drag-and-drop functionality for rearranging layout items.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import DraggableDashboardPreview from "@/components/previews/draggable-dashboard";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <DraggableDashboardPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="draggable-dashboard.tsx"
+import DraggableDashboard, { DraggableWrapper } from "@/components/draggable-dashboard"
+
+export default function MyDashboard() {
+      return (
+          <div className="w-full max-w-4xl mx-auto">
+            <DraggableDashboard
+              showLockToggle={true}
+              showHandles={true}
+              gridCols={3}
+              gap={4}
+              defaultLocked={false}
+              persistenceKey="my-dashboard"
+            >
+                <DraggableWrapper id="revenue" gridSize={{ cols: 1, rows: 1 }}>
+                  <RevenueCard />
+                </DraggableWrapper>
+
+                <DraggableWrapper id="users" gridSize={{ cols: 1, rows: 1 }}>
+                  <UsersCard />
+                </DraggableWrapper>
+
+                <DraggableWrapper id="sales" gridSize={{ cols: 1, rows: 1 }}>
+                  <SalesCard />
+                </DraggableWrapper>
+
+                <DraggableWrapper id="performance" gridSize={{ cols: 1, rows: 1 }}>
+                  <PerformanceCard />
+                </DraggableWrapper>
+
+                <DraggableWrapper id="chart" gridSize={{ cols: 2, rows: 1 }}>
+                  <SimpleChart />
+                </DraggableWrapper>
+
+                <DraggableWrapper id="notifications" gridSize={{ cols: 1, rows: 1 }}>
+                  <NotificationCard />
+                </DraggableWrapper>
+            </DraggableDashboard>
+        </div>
+
+      )
+
+}
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Draggable Dashboard component using your preferred package
+  manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/draggable-dashboard
+````
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Draggable Dashboard component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card
+    icon={
+      <svg
+        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+        />
+      </svg>
+    }
+    title="Drag & Drop"
+  >
+    Intuitive drag and drop interface allows users to reorder dashboard
+    components easily.
+  </Card>
+  <Card
+    icon={
+      <svg
+        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"
+        />
+      </svg>
+    }
+    title="Grid Layout"
+  >
+    Responsive grid system with customizable columns and flexible item sizing.
+  </Card>
+  <Card
+    icon={
+      <svg
+        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+        />
+      </svg>
+    }
+    title="Lock/Unlock"
+  >
+    Toggle between edit and view modes to prevent accidental changes to the
+    layout.
+  </Card>
+  <Card
+    icon={
+      <svg
+        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+        />
+      </svg>
+    }
+    title="Flexible Sizing"
+  >
+    Components can span multiple columns and rows to create complex dashboard
+    layouts.
+  </Card>
+  <Card
+    icon={
+      <svg
+        className="h-6 w-6 text-indigo-600 dark:text-indigo-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        />
+      </svg>
+    }
+    title="State Persistence"
+  >
+    Dashboard layout is automatically saved to localStorage and persists across
+    page reloads and browser sessions.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+#### DraggableDashboard Props [!toc]
+
+<TypeTable
+  type={{
+    children: {
+      description:
+        "The draggable wrapper components to be rendered in the dashboard",
+      type: "ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    className: {
+      description: "Additional class names for styling the dashboard container",
+      type: "string",
+      default: "''",
+    },
+    showLockToggle: {
+      description: "Whether to show the lock/unlock toggle switch",
+      type: "boolean",
+      default: "true",
+    },
+    showHandles: {
+      description: "Whether to show drag handles on items",
+      type: "boolean",
+      default: "true",
+    },
+    gridCols: {
+      description: "Number of grid columns for the dashboard layout",
+      type: "number",
+      default: "3",
+    },
+    gap: {
+      description: "Gap between grid items (in Tailwind spacing units)",
+      type: "number",
+      default: "6",
+    },
+    defaultLocked: {
+      description: "Whether the dashboard should be locked by default",
+      type: "boolean",
+      default: "false",
+    },
+    onOrderChange: {
+      description: "Callback function called when item order changes",
+      type: "(newOrder: string[]) => void",
+      default: "undefined",
+    },
+    persistenceKey: {
+      description:
+        "Unique key for localStorage to persist item order across sessions",
+      type: "string",
+      default: "'draggable-dashboard-order'",
+    },
+  }}
+/>
+
+#### DraggableWrapper Props [!toc]
+
+<TypeTable
+  type={{
+    id: {
+      description: "Unique identifier for the draggable item",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    children: {
+      description: "The content to be wrapped and made draggable",
+      type: "ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    gridSize: {
+      description: "Size of the item in grid columns and rows",
+      type: "{ cols: number, rows: number }",
+      default: "{ cols: 1, rows: 1 }",
+    },
+    className: {
+      description: "Additional class names for styling the wrapper",
+      type: "string",
+      default: "''",
+    },
+    isLocked: {
+      description:
+        "Whether this specific item is locked (inherited from parent)",
+      type: "boolean",
+      default: "false",
+    },
+    showHandle: {
+      description:
+        "Whether to show the drag handle for this item (inherited from parent)",
+      type: "boolean",
+      default: "true",
+    },
+  }}
+/>
