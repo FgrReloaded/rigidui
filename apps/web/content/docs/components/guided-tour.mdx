@@ -1,0 +1,221 @@
+---
+title: GuidedTour
+description: A comprehensive guided tour component that helps users understand your interface through interactive step-by-step walkthroughs.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import GuidedTourPreview from "@/components/previews/guided-tour";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <GuidedTourPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="guided-tour.tsx"
+import { TourProvider, TourStep, TourTrigger } from "@/components/guided-tour"
+import { Button } from "@/components/ui/button"
+
+export default function MyComponent() {
+  return (
+    <TourProvider autoStart={false}>
+      <TourTrigger>
+        <Button>Start Guided Tour</Button>
+      </TourTrigger>
+      <TourStep id="step-1" title="Welcome" content="This is the first step." order={1}>
+        <div>Step 1 Content</div>
+      </TourStep>
+      <TourStep id="step-2" title="Next" content="This is the next step." order={2}>
+        <div>Step 2 Content</div>
+      </TourStep>
+    </TourProvider>
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Guided Tour component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/guided-tour
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Guided Tour component is packed with powerful features designed to provide
+  an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Interactive Guidance">
+    Highlight specific elements on your interface and provide contextual
+    explanations to guide users through complex workflows.
+  </Card>
+  <Card title="Smart Positioning">
+    Automatically calculates optimal popover positioning based on viewport
+    space, ensuring tours work perfectly on any screen size.
+  </Card>
+  <Card title="Completion Tracking">
+    Tracks tour completion status to prevent showing the tour repeatedly to
+    users who have already completed it.
+  </Card>
+  <Card title="Progress Tracking">
+    Built-in progress indicator shows users how many steps remain, with smooth
+    transitions between tour steps.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+#### TourProvider Props [!toc]
+
+<TypeTable
+  type={{
+    children: {
+      description: "The content to be wrapped by the tour provider",
+      type: "ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    autoStart: {
+      description:
+        "Whether to automatically start the tour when the component mounts",
+      type: "boolean",
+      default: "false",
+    },
+    ranOnce: {
+      description: "Whether the tour should only run once per user/device",
+      type: "boolean",
+      default: "true",
+    },
+    storageKey: {
+      description: "Key used to store tour completion status in localStorage",
+      type: "string",
+      default: "'rigidui-tour-completed'",
+    },
+    shouldStart: {
+      description:
+        "Whether the tour should start based on external conditions (e.g., user preferences)",
+      type: "boolean",
+      default: "true",
+    },
+    onTourComplete: {
+      description: "Callback function called when the tour is completed",
+      type: "() => void",
+      default: "undefined",
+    },
+    onTourSkip: {
+      description: "Callback function called when the tour is skipped",
+      type: "() => void",
+      default: "undefined",
+    },
+  }}
+/>
+
+#### TourSteps Props [!toc]
+
+<TypeTable
+  type={{
+    id: {
+      description: "Unique identifier for the tour step",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    title: {
+      description: "Title displayed in the tour step popover",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    content: {
+      description: "Content/description text for the tour step",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    order: {
+      description:
+        "The order in which this step should appear in the tour sequence",
+      type: "number",
+      required: true,
+      default: "undefined",
+    },
+    position: {
+      description:
+        "Preferred position for the popover relative to the target element",
+      type: "'top' | 'bottom' | 'left' | 'right'",
+      default: "'bottom'",
+    },
+    children: {
+      description:
+        "The element(s) to be highlighted and explained in this tour step",
+      type: "ReactNode",
+      required: true,
+      default: "undefined",
+    },
+  }}
+/>
+
+#### TourTrigger Props [!toc]
+
+<TypeTable
+  type={{
+    children: {
+      description: "The content to be rendered as the tour trigger button",
+      type: "ReactNode",
+      required: true,
+      default: "undefined",
+    },
+    className: {
+      description: "Additional CSS classes for styling the trigger",
+      type: "string",
+      default: "''",
+    },
+    hideAfterComplete: {
+      description:
+        "Whether to hide the trigger button after the tour is completed",
+      type: "boolean",
+      default: "false",
+    },
+  }}
+/>

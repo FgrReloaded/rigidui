@@ -1,0 +1,224 @@
+---
+title: Infinite Scroll
+description: A high-performance infinite scroll component that automatically loads more content as users scroll.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import InfiniteScrollPreview from "@/components/previews/infinite-scroll";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <InfiniteScrollPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="infinite-scroll.tsx"
+import { InfiniteScroll } from "@/components/infinite-scroll"
+import { useState, useCallback } from "react"
+
+export default function MyComponent() {
+  const [items, setItems] = useState([])
+  const [hasNext, setHasNext] = useState(true)
+  const [loading, setLoading] = useState(false)
+
+const loadMore = useCallback(async () => {
+setLoading(true)
+try {
+const response = await fetch(`/api/items?page=${Math.floor(items.length / 10) + 1}`)
+const data = await response.json()
+setItems(prev => [...prev, ...data.items])
+setHasNext(data.hasMore)
+} catch (error) {
+console.error('Failed to load items:', error)
+} finally {
+setLoading(false)
+}
+}, [items.length])
+
+return (
+
+<InfiniteScroll
+  items={items}
+  hasNextPage={hasNext}
+  isLoading={loading}
+  onLoadMore={loadMore}
+  threshold={200}
+  initialLoad={true}
+  renderItem={(item, index) => (
+    <div key={item.id} className="p-4 border rounded-lg">
+      <h3 className="font-semibold">{item.title}</h3>
+      <p className="text-muted-foreground">{item.description}</p>
+    </div>
+  )}
+  loader={() => (
+    <div className="flex justify-center py-4">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary" />
+    </div>
+  )}
+  endMessage={
+    <div className="text-center py-4 text-muted-foreground">
+      <p>You've reached the end! 🎉</p>
+    </div>
+  }
+/>
+) }
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Infinite Scroll component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/infinite-scroll
+````
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Infinite Scroll component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Automatic Loading">
+    Automatically loads more content when user scrolls near the bottom using
+    Intersection Observer API.
+  </Card>
+  <Card title="High Performance">
+    Uses efficient Intersection Observer instead of scroll events for better
+    performance and battery life.
+  </Card>
+  <Card title="Flexible Configuration">
+    Customizable loading triggers, custom loaders, error states, and support for
+    reverse loading.
+  </Card>
+  <Card title="Mobile Optimized">
+    Touch-friendly scrolling with optimized performance for mobile devices and
+    responsive design.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    items: {
+      description: "Array of items to display",
+      type: "T[]",
+      required: true,
+    },
+    hasNextPage: {
+      description: "Whether there are more items to load",
+      type: "boolean",
+      required: true,
+    },
+    isLoading: {
+      description: "Whether the component is currently loading",
+      type: "boolean",
+      required: true,
+    },
+    onLoadMore: {
+      description: "Function called when more items should be loaded",
+      type: "() => void | Promise<void>",
+      required: true,
+    },
+    renderItem: {
+      description: "Function to render each item",
+      type: "(item: T, index: number) => React.ReactNode",
+      required: true,
+    },
+    threshold: {
+      description: "Distance in pixels from bottom to trigger loading",
+      type: "number",
+      default: "100",
+    },
+    loader: {
+      description: "Custom loading component",
+      type: "React.ComponentType",
+      default: "DefaultLoader",
+    },
+    endMessage: {
+      description: "Message shown when all items are loaded",
+      type: "React.ReactNode",
+      default: "Default end message",
+    },
+    errorMessage: {
+      description: "Error message to display when loading fails",
+      type: "React.ReactNode",
+      default: "undefined",
+    },
+    className: {
+      description: "Additional CSS classes for the container",
+      type: "string",
+      default: "''",
+    },
+    itemClassName: {
+      description: "Additional CSS classes for each item wrapper",
+      type: "string",
+      default: "''",
+    },
+    reverse: {
+      description: "Whether to load items in reverse order (useful for chat)",
+      type: "boolean",
+      default: "false",
+    },
+    initialLoad: {
+      description: "Whether to automatically load initial data on mount",
+      type: "boolean",
+      default: "false",
+    },
+    scrollableTarget: {
+      description: "ID of custom scroll container element",
+      type: "string",
+      default: "undefined",
+    },
+  }}
+/>

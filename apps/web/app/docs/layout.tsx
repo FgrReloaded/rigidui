@@ -1,18 +1,12 @@
-import { RootProvider } from 'fumadocs-ui/provider';
+import { source } from '@/lib/source';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
+import { baseOptions } from '@/app/layout.config';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-        }}
-      >
-        <RootProvider>{children}</RootProvider>
-      </body>
-    </html>
+    <DocsLayout tree={source.pageTree} {...baseOptions}>
+      {children}
+    </DocsLayout>
   );
 }

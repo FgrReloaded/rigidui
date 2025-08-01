@@ -1,0 +1,212 @@
+---
+title: Notification Center
+description: A comprehensive notification management system with both full and popover variants for different UI contexts.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import NotificationCenterPreview from "@/components/previews/notification-center";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <NotificationCenterPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="notification-center.tsx"
+import { NotificationCenter } from "@/components/notification-center"
+
+export default function MyComponent() {
+  return (
+    <NotificationCenter
+      variant="full"
+      enableRealTimeUpdates={true}
+      updateInterval={30000}
+      showFilter={true}
+      showMarkAllRead={true}
+    />
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Notification Center component using your preferred package
+  manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/notification-center
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Notification Center component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Dual Variants">
+    Choose between full variant for comprehensive displays or popover variant
+    for compact navigation integration.
+  </Card>
+  <Card title="Read Status Management">
+    Track and manage notification read status with visual indicators and bulk
+    actions.
+  </Card>
+  <Card title="Priority System">
+    Organize notifications with high, medium, and low priority levels with
+    visual color coding.
+  </Card>
+  <Card title="Real-time Updates">
+    Optional real-time updates with configurable intervals to keep notifications
+    fresh and current.
+  </Card>
+  <Card title="Filtering Options">
+    Filter between all notifications or unread-only to help users focus on what
+    matters most.
+  </Card>
+  <Card title="Notification Management">
+    Complete CRUD operations with mark as read, mark all as read, and delete
+    functionality.
+  </Card>
+  <Card title="Browser Notifications">
+    Opt-in to receive native browser notifications for new updates, keeping you
+    informed even when the app is in the background.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "''",
+    },
+    variant: {
+      description:
+        "The display variant of the component - full for complete view or popover for compact trigger",
+      type: "'full' | 'popover'",
+      default: "'full'",
+    },
+    notifications: {
+      description:
+        "Static notifications array. If provided, will be used instead of fetchNotifications",
+      type: "Notification[]",
+      default: "undefined",
+    },
+    fetchNotifications: {
+      description: "Function to fetch notifications asynchronously",
+      type: "() => Promise<Notification[]>",
+      default: "defaultFetchNotifications",
+    },
+    onMarkAsRead: {
+      description:
+        "Callback function called when a notification is marked as read",
+      type: "(id: string) => Promise<void>",
+      default: "defaultMarkAsRead",
+    },
+    onMarkAllAsRead: {
+      description:
+        "Callback function called when all notifications are marked as read",
+      type: "() => Promise<void>",
+      default: "defaultMarkAllAsRead",
+    },
+    onDeleteNotification: {
+      description: "Callback function called when a notification is deleted",
+      type: "(id: string) => Promise<void>",
+      default: "defaultDeleteNotification",
+    },
+    onNotificationClick: {
+      description: "Callback function called when a notification is clicked",
+      type: "(notification: Notification) => void",
+      default: "undefined",
+    },
+    enableBrowserNotifications: {
+      description:
+        "If true, the component will ask for permission and send browser notifications for new updates.",
+      type: "boolean",
+      default: "false",
+    },
+    maxHeight: {
+      description: "Maximum height class for the notification list container",
+      type: "string",
+      default: "'h-96'",
+    },
+    showFilter: {
+      description: "Whether to show the filter toggle button",
+      type: "boolean",
+      default: "true",
+    },
+    showMarkAllRead: {
+      description: "Whether to show the mark all as read button",
+      type: "boolean",
+      default: "true",
+    },
+    enableRealTimeUpdates: {
+      description: "Whether to enable automatic real-time updates",
+      type: "boolean",
+      default: "false",
+    },
+    updateInterval: {
+      description:
+        "Interval in milliseconds for real-time updates (when enabled)",
+      type: "number",
+      default: "30000",
+    },
+    emptyState: {
+      description: "Custom empty state configuration",
+      type: "{ title?: string; description?: string }",
+      default:
+        '{ title: "No notifications", description: "New notifications will appear here." }',
+    },
+  }}
+/>

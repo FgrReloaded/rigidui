@@ -1,0 +1,191 @@
+---
+title: File Uploader
+description: A comprehensive file upload component with drag & drop support, progress tracking, file validation, and image cropping functionality.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import FileUploaderPreview from "@/components/previews/file-uploader";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <FileUploaderPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="file-uploader.tsx"
+import { FileUploader } from "@/components/file-uploader"
+
+export default function MyComponent() {
+  const handleFilesReady = (files) => {
+    console.log('Files ready:', files)
+    // Handle the uploaded files
+    // Example: Create FormData to send to server
+    const formData = new FormData()
+    files.forEach((file, index) => {
+      formData.append(`file-${index}`, file)
+    })
+    // fetch('/api/upload', { method: 'POST', body: formData })
+  }
+
+return (
+
+<FileUploader
+maxFiles={5}
+maxSize={1024 _ 1024 _ 5} // 5MB
+accept={['image/*', 'application/pdf']}
+onFilesReady={handleFilesReady}
+className="w-full max-w-lg"
+enableCropping={true}
+cropAspectRatio={16/9}
+cropMinWidth={100}
+cropMinHeight={56}
+/>
+)
+}
+
+````
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the File Uploader component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/file-uploader
+````
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The File Uploader component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Drag & Drop Support">
+    Users can drag and drop files directly onto the upload area for seamless
+    file selection.
+  </Card>
+  <Card title="File Validation">
+    Automatically validates file types, sizes, and counts with customizable
+    restrictions.
+  </Card>
+  <Card title="Upload Progress">
+    Real-time progress indicators show upload status with visual feedback for
+    each file.
+  </Card>
+  <Card title="Image Previews">
+    Automatically generates preview thumbnails for uploaded image files.
+  </Card>
+  <Card title="Image Cropping">
+    Built-in image cropping functionality with customizable aspect ratios and
+    minimum dimensions.
+  </Card>
+  <Card title="Multiple Files">
+    Support for uploading multiple files simultaneously with individual progress
+    tracking.
+  </Card>
+  <Card title="File Management">
+    Easy file removal with automatic cleanup of preview URLs.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    onFilesReady: {
+      description: "Callback function called when files are ready or changed",
+      type: "(files: File[]) => void",
+      default: "undefined",
+    },
+    maxFiles: {
+      description: "Maximum number of files that can be uploaded",
+      type: "number",
+      default: "10",
+    },
+    maxSize: {
+      description: "Maximum file size in bytes",
+      type: "number",
+      default: "10 * 1024 * 1024 (10MB)",
+    },
+    accept: {
+      description:
+        'Array of accepted file types (e.g., ["image/*", "application/pdf"])',
+      type: "string[]",
+      default: "['image/*', 'application/pdf', 'text/*']",
+    },
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "undefined",
+    },
+    enableCropping: {
+      description: "Enable image cropping functionality for uploaded images",
+      type: "boolean",
+      default: "false",
+    },
+    cropAspectRatio: {
+      description:
+        "Fixed aspect ratio for cropping (e.g., 16/9, 1, 4/3). If undefined, free cropping is allowed",
+      type: "number",
+      default: "undefined",
+    },
+    cropMinWidth: {
+      description: "Minimum width for the crop area in pixels",
+      type: "number",
+      default: "50",
+    },
+    cropMinHeight: {
+      description: "Minimum height for the crop area in pixels",
+      type: "number",
+      default: "50",
+    },
+  }}
+/>

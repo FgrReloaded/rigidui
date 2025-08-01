@@ -1,0 +1,169 @@
+---
+title: Getting Started
+---
+
+import { Badge } from "@/components/ui/badge";
+import {
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle,
+  Download,
+  Eye,
+  Layers,
+  Package,
+  Sparkles,
+  Terminal,
+  Workflow,
+  Zap,
+} from "lucide-react";
+
+<div className="mb-12 md:mb-16 text-center flex flex-col gap-4">
+  <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50">
+    Getting Started
+  </h1>
+  <p className="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+    Get up and running with RigidUI components in minutes.
+  </p>
+</div>
+
+<div className="flex items-center mb-4">
+  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
+    Prerequisites
+  </h2>
+  <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
+  <Badge
+    variant="outline"
+    className="ml-3 px-2.5 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800"
+  >
+    Setup
+  </Badge>
+</div>
+
+<div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-6 mb-8 space-y-2!">
+  <h3 className="font-semibold text-orange-900 dark:text-orange-200 mb-3">
+    ⚠️ Important: Tailwind CSS Setup Required
+  </h3>
+  <p className="text-orange-800 dark:text-orange-300 mb-4">
+    RigidUI components require a project with Tailwind CSS and shadcn/ui
+    properly configured.
+  </p>
+  <div className="space-y-3">
+    <div className="flex items-center gap-2">
+      <CheckCircle className="h-4 w-4 text-orange-600" />
+      <span className="text-sm text-orange-800 dark:text-orange-300">
+        Tailwind CSS installed and configured
+      </span>
+    </div>
+    <div className="flex items-center gap-2">
+      <CheckCircle className="h-4 w-4 text-orange-600" />
+      <span className="text-sm text-orange-800 dark:text-orange-300">
+        shadcn/ui initialized
+      </span>
+    </div>
+    <div className="flex items-center gap-2">
+      <CheckCircle className="h-4 w-4 text-orange-600" />
+      <span className="text-sm text-orange-800 dark:text-orange-300">
+        TypeScript support
+      </span>
+    </div>
+  </div>
+</div>
+
+<div className="flex items-center mb-4">
+  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
+    Install Components
+  </h2>
+  <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
+  <Badge
+    variant="outline"
+    className="ml-3 px-2.5 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800"
+  >
+    Installation
+  </Badge>
+</div>
+
+<div className="bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50 rounded-xl p-6 mb-8">
+  <div className="flex items-center gap-3 mb-4">
+    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white">
+      <Zap className="h-4 w-4" />
+    </div>
+    <h3 className="text-lg font-semibold text-green-900 dark:text-green-100">
+      One command installation
+    </h3>
+  </div>
+  <p className="text-green-800 dark:text-green-200 my-4!">
+    Copy and paste any of these commands to add components to your project:
+  </p>
+  <div className="grid gap-4">
+    <div className="bg-white dark:bg-gray-900 border border-green-200 dark:border-green-800 rounded-lg p-4">
+      <div className="flex items-center gap-2 mb-2">
+        <Package className="h-4 w-4 text-blue-600" />
+        <span className="font-medium text-sm">Component</span>
+      </div>
+      ```npm
+      npx shadcn@latest add https://rigidui.com/r/component-name.json
+      ```
+    </div>
+  </div>
+</div>
+
+<div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-8">
+  <h4 className="font-medium text-amber-900 dark:text-amber-200 mb-2">
+    💡 Pro Tip
+  </h4>
+  <p className="text-sm text-amber-800 dark:text-amber-300">
+    Components will be added to your{" "}
+      ```components/ui```
+    directory and are fully customizable.
+  </p>
+</div>
+
+<div className="flex items-center mb-4">
+  <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
+    Next Steps
+  </h2>
+  <div className="ml-4 h-px bg-slate-200 dark:bg-slate-700/50 grow"></div>
+  <Badge
+    variant="outline"
+    className="ml-3 px-2.5 text-sm border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800"
+  >
+    Explore
+  </Badge>
+</div>
+
+Now that you have RigidUI set up, explore what's possible:
+
+<div className="flex flex-col sm:flex-row gap-4 mt-6">
+  <Card
+    href="/docs/components"
+    className="flex-1 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-colors duration-150 cursor-pointer p-4 min-w-0"
+  >
+    <div className="flex items-center gap-2 mb-1">
+      <Sparkles className="h-5 w-5 text-blue-500 dark:text-blue-300" />
+      <h3 className="font-semibold text-base text-blue-900 dark:text-blue-100">
+        Browse Components
+      </h3>
+    </div>
+    <p className="text-sm text-blue-700 dark:text-blue-300">
+      Explore all available components
+    </p>
+  </Card>
+  <Card
+    href="https://github.com/FgrReloaded/rigidui"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex-1 p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-150 cursor-pointer min-w-0"
+  >
+    <div className="flex items-center gap-2 mb-1">
+      <Badge variant="secondary" className="bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 px-2 py-0.5 text-xs rounded">
+        GitHub
+      </Badge>
+      <h3 className="font-semibold text-base text-gray-900 dark:text-gray-100">
+        View on GitHub
+      </h3>
+    </div>
+    <p className="text-sm text-gray-700 dark:text-gray-300">
+      Star the repo and contribute
+    </p>
+  </Card>
+</div>

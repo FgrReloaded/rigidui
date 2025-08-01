@@ -1,0 +1,183 @@
+---
+title: Image Loader
+description: An advanced image loading component with beautiful loading states, error handling, and performance optimizations.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import ImageLoaderPreview from "@/components/previews/image-loader";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <ImageLoaderPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="image-loader.tsx"
+import { ImageLoader } from "@/components/image-loader"
+
+export default function MyComponent() {
+  return (
+    <ImageLoader
+      src="https://example.com/image.jpg"
+      alt="Description of the image"
+      width={400}
+      height={300}
+    />
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Image Loader component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/image-loader
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Image Loader component is packed with powerful features designed to
+  provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Beautiful Loading States">
+    Dynamic SVG patterns with gradient effects provide visually appealing
+    loading experiences.
+  </Card>
+  <Card title="Optimized Performance">
+    Lazy loading, async decoding, and efficient pattern generation for optimal
+    performance.
+  </Card>
+  <Card title="Responsive Design">
+    Automatically adapts to different screen sizes and container dimensions.
+  </Card>
+  <Card title="Error Handling">
+    Graceful fallback states with customizable error components for failed image
+    loads.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    src: {
+      description: "The source URL of the image to load",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    alt: {
+      description:
+        "Alternative text for the image (required for accessibility)",
+      type: "string",
+      required: true,
+      default: "undefined",
+    },
+    className: {
+      description: "Additional class names for styling",
+      type: "string",
+      default: "''",
+    },
+    blurIntensity: {
+      description: "CSS blur-sm filter intensity for the loading state",
+      type: "string",
+      default: "'blur(50px)'",
+    },
+    width: {
+      description: "Width of the image container in pixels or CSS units",
+      type: "number | string",
+      default: "400",
+    },
+    height: {
+      description: "Height of the image container in pixels or CSS units",
+      type: "number | string",
+      default: "300",
+    },
+    fallbackComponent: {
+      description: "Custom component to display when image fails to load",
+      type: "React.ReactNode",
+      default: "undefined",
+    },
+    onLoad: {
+      description: "Callback function called when image successfully loads",
+      type: "() => void",
+      default: "undefined",
+    },
+    onError: {
+      description: "Callback function called when image fails to load",
+      type: "(error: Event) => void",
+      default: "undefined",
+    },
+    loading: {
+      description: "Native browser loading behavior for the image",
+      type: "'lazy' | 'eager'",
+      default: "'lazy'",
+    },
+    objectFit: {
+      description: "How the image should be resized to fit its container",
+      type: "'cover' | 'contain' | 'fill' | 'none' | 'scale-down'",
+      default: "'cover'",
+    },
+    customColors: {
+      description: "Custom color combinations for the loading pattern",
+      type: "ColorCombination[]",
+      default: "undefined",
+    },
+    seed: {
+      description: "Seed value for generating consistent loading patterns",
+      type: "number",
+      default: "undefined",
+    },
+  }}
+/>

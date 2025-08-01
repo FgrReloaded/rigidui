@@ -1,0 +1,200 @@
+---
+title: Password Strength Meter
+description: A customizable password strength meter component that provides real-time visual feedback on password security.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import StrengthMeterPreview from "@/components/previews/strength-meter";
+
+## Basic [toc]
+
+<div className="flex items-center gap-2">
+  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="usage"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Usage
+  </span>
+</div>
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <StrengthMeterPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="strength-meter.tsx"
+import { PasswordStrengthMeter } from "@/components/strength-meter"
+
+export default function MyComponent() {
+  return (
+    <PasswordStrengthMeter
+      placeholder="Type your password"
+      className="max-w-md"
+    />
+  )
+}
+```
+  </Tab>
+</Tabs>
+
+## Installation [toc]
+
+<div className="flex items-center gap-2">
+  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="installation"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Installation
+  </span>
+</div>
+<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Password Strength Meter component using your preferred package
+  manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/strength-meter
+```
+
+## Features [toc]
+
+<div className="flex items-center gap-2">
+  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="features"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Features
+  </span>
+</div>
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Password Strength Meter component is packed with powerful features
+  designed to provide an exceptional user experience.
+</p>
+
+<Cards>
+  <Card title="Visual Strength Indicator">
+    Provides visual feedback on password strength with colored segments.
+  </Card>
+  <Card title="Customizable Segments">
+    Adjust the number and appearance of the strength meter segments.
+  </Card>
+  <Card title="Password Requirements">
+    Shows a checklist of requirements that help users create stronger passwords.
+  </Card>
+  <Card title="Password Visibility Toggle">
+    Allows users to show or hide their password with a toggle button.
+  </Card>
+  <Card title="Animated Feedback">
+    Provides animated visual feedback as the user types their password.
+  </Card>
+  <Card title="Auto Password Generation">
+    Generate strong, secure passwords automatically with customizable length and
+    complexity.
+  </Card>
+</Cards>
+
+## Props [toc]
+
+<div className="flex items-center gap-2 mt-4">
+  <Zap className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
+  <span
+    id="props"
+    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
+    style={{ marginBottom: 0 }}
+  >
+    Props
+  </span>
+</div>
+<TypeTable
+  type={{
+    value: {
+      description: "The current password value",
+      type: "string",
+      default: "''",
+    },
+    onValueChange: {
+      description: "Function called when the password value changes",
+      type: "function",
+      default: "undefined",
+    },
+    showText: {
+      description: "Whether to show the strength text label",
+      type: "boolean",
+      default: "true",
+    },
+    showRequirements: {
+      description: "Whether to show the password requirements list",
+      type: "boolean",
+      default: "true",
+    },
+    segments: {
+      description: "Number of segments in the strength meter",
+      type: "number",
+      default: "4",
+    },
+    strengthThresholds: {
+      description: "Score thresholds for each strength level",
+      type: "Record<StrengthLevel, number>",
+      default: "{ empty: 0, weak: 1, fair: 40, good: 70, strong: 90 }",
+    },
+    requirements: {
+      description: "Array of password requirements with validators",
+      type: "PasswordStrengthRequirement[]",
+      default: "defaultRequirements",
+    },
+    customCalculateStrength: {
+      description:
+        "Custom function to calculate password strength score (0-100)",
+      type: "(password: string) => number",
+      default: "undefined",
+    },
+    showPasswordToggle: {
+      description: "Whether to show the password visibility toggle",
+      type: "boolean",
+      default: "true",
+    },
+    strengthLabels: {
+      description: "Custom labels for each strength level",
+      type: "Record<StrengthLevel, string>",
+      default:
+        '{ empty: "Empty", weak: "Weak", fair: "Fair", good: "Good", strong: "Strong" }',
+    },
+    meterClassName: {
+      description: "Additional class names for the meter element",
+      type: "string",
+      default: "''",
+    },
+    inputClassName: {
+      description: "Additional class names for the input element",
+      type: "string",
+      default: "''",
+    },
+    placeholder: {
+      description: "Placeholder text for the password input",
+      type: "string",
+      default: "'Enter password'",
+    },
+    animated: {
+      description: "Whether to animate the strength meter segments",
+      type: "boolean",
+      default: "true",
+    },
+    enableAutoGenerate: {
+      description: "Whether to enable auto password generation feature",
+      type: "boolean",
+      default: "false",
+    },
+    autoGenerateLength: {
+      description: "Length of the auto-generated password",
+      type: "number",
+      default: "10",
+    },
+  }}
+/>
