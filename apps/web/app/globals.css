@@ -484,9 +484,9 @@ body{
   animation-name: slide-in-from-left;
 }
 
-p,
+/* p,
 h1,
 h2,
 h3{
   margin-block: 0 !important;
-}
+} */

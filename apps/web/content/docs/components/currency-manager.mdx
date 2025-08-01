@@ -6,18 +6,8 @@ description: A flexible set of components for managing currency display and sele
 import { Code, Package, ListTree, Zap } from "lucide-react";
 import CurrencyManagerPreview from "@/components/previews/currency-manager";
 
-## Basic [toc]
+## Usage
 
-<div className="flex items-center gap-2">
-  <Code className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
-  <span
-    id="usage"
-    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
-    style={{ marginBottom: 0 }}
-  >
-    Usage
-  </span>
-</div>
 
 <Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
@@ -66,69 +56,59 @@ export function MyDynamicRatesComponent() {
 
 function ShoppingCartLayout() {
 return (
+
 <div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-6 lg:px-8">
-<h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-Your Shopping Cart
-</h2>
-<div className="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-<div className="p-6">
-<h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-Cart Items
-</h3>
-{/* Cart items would be mapped here */}
+  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+    Your Shopping Cart
+  </h2>
+  <div className="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+    <div className="p-6">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        Cart Items
+      </h3>
+      {/* Cart items would be mapped here */}
+    </div>
+    <div className="border-t border-gray-200 dark:border-gray-700">
+      <div className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          Summary
+        </h3>
+        <div className="flex justify-between">
+          <span className="text-gray-700 dark:text-gray-300">Subtotal</span>
+          <span className="font-bold text-gray-900 dark:text-white">
+            <CurrencyDisplay value={100} sourceCurrency="USD" />
+          </span>
+        </div>
+        <div className="flex justify-between mt-4">
+          <span className="text-gray-700 dark:text-gray-300">Tax (10%)</span>
+          <span className="font-bold text-gray-900 dark:text-white">
+            <CurrencyDisplay value={10} sourceCurrency="USD" />
+          </span>
+        </div>
+        <div className="flex justify-between mt-4">
+          <span className="text-gray-700 dark:text-gray-300">Total</span>
+          <span className="font-bold text-gray-900 dark:text-white">
+            <CurrencyDisplay value={110} sourceCurrency="USD" />
+          </span>
+        </div>
+        <div className="mt-6">
+          <button className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-md shadow hover:bg-indigo-700 transition-all duration-200">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div className="border-t border-gray-200 dark:border-gray-700">
-<div className="p-6">
-<h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-Summary
-</h3>
-<div className="flex justify-between">
-<span className="text-gray-700 dark:text-gray-300">Subtotal</span>
-<span className="font-bold text-gray-900 dark:text-white">
-<CurrencyDisplay value={100} sourceCurrency="USD" />
-</span>
-</div>
-<div className="flex justify-between mt-4">
-<span className="text-gray-700 dark:text-gray-300">Tax (10%)</span>
-<span className="font-bold text-gray-900 dark:text-white">
-<CurrencyDisplay value={10} sourceCurrency="USD" />
-</span>
-</div>
-<div className="flex justify-between mt-4">
-<span className="text-gray-700 dark:text-gray-300">Total</span>
-<span className="font-bold text-gray-900 dark:text-white">
-<CurrencyDisplay value={110} sourceCurrency="USD" />
-</span>
-</div>
-<div className="mt-6">
-<button className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-md shadow hover:bg-indigo-700 transition-all duration-200">
-Proceed to Checkout
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-);
-}
+); }
 
 ````
   </Tab>
 </Tabs>
 
-## Installation [toc]
+## Installation
 
-<div className="flex items-center gap-2 mt-8">
-  <Package className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
-  <span
-    id="installation"
-    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
-    style={{ marginBottom: 0 }}
-  >
-    Installation
-  </span>
-</div>
-<p className="md:text-sm -mt-8 text-gray-700 dark:text-gray-300 max-w-3xl">
+<p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
   Install the Currency Manager component using your preferred package manager.
 </p>
 
@@ -136,20 +116,10 @@ Proceed to Checkout
 npx shadcn@latest add https://rigidui.com/registry/currency-manager
 ````
 
-## Features [toc]
+## Features
 
-<div className="flex items-center gap-2 mt-8">
-  <ListTree className="h-6 w-6 text-indigo-500 dark:text-indigo-400" />
-  <span
-    id="features"
-    className="md:text-xl text-lg font-semibold text-gray-900 dark:text-white leading-tight"
-    style={{ marginBottom: 0 }}
-  >
-    Features
-  </span>
-</div>
 
-<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+<p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
   The Currency Manager component is packed with powerful features designed to
   provide an exceptional user experience.
 </p>

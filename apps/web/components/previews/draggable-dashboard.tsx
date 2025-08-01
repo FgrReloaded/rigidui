@@ -129,7 +129,7 @@ export default function DraggableDashboardPreview() {
   )
 
   return (
-    <div className="w-full max-w-4xl mx-auto -mt-6!">
+    <div className="w-full max-w-4xl mx-auto">
       <DraggableDashboard
         showLockToggle={true}
         showHandles={true}
