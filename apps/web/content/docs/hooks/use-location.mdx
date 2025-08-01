@@ -2,3 +2,288 @@
 title: useLocation
 description: A React hook for location detection and reverse geocoding that provides easy access to user's current location with browser geolocation API.
 ---
+
+import { MapPin, Loader2, Settings, AlertCircle } from "lucide-react";
+import UseLocationPreview from "@/components/previews/use-location";
+
+## Usage
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <UseLocationPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="use-location-example.tsx"
+    import { useLocation } from "@/hooks/use-location"
+
+    export default function MyComponent() {
+      const {
+        location,
+        coordinates,
+        isLoading,
+        error,
+        getCurrentLocation,
+        getLocationFromCoordinates,
+        clearLocation
+      } = useLocation()
+
+      return (
+        <div className="space-y-4">
+          <button
+            onClick={getCurrentLocation}
+            disabled={isLoading}
+            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          >
+            {isLoading ? 'Getting Location...' : 'Get Current Location'}
+          </button>
+
+          {location && (
+            <div className="p-3 bg-green-100 rounded">
+              <p>Current location: {location}</p>
+              {coordinates && (
+                <p className="text-sm text-gray-600">
+                  Coordinates: {coordinates.latitude}, {coordinates.longitude}
+                </p>
+              )}
+              <button
+                onClick={clearLocation}
+                className="mt-2 px-3 py-1 text-sm bg-gray-500 text-white rounded"
+              >
+                Clear
+              </button>
+            </div>
+          )}
+
+          {error && (
+            <div className="p-3 bg-red-100 text-red-800 rounded">
+              {error}
+            </div>
+          )}
+        </div>
+      )
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Installation
+
+Install the useLocation hook using your preferred package manager.
+
+```npm
+npx shadcn@latest add https://rigidui.com/registry/use-location
+```
+
+## Features
+
+The useLocation hook provides comprehensive location detection capabilities with a simple and intuitive API.
+
+<Cards>
+  <Card title="Browser Geolocation" icon={<MapPin className="h-5 w-5" />}>
+    Leverages the browser's native geolocation API to detect user's current
+    position with high accuracy.
+  </Card>
+  <Card title="Reverse Geocoding" icon={<Settings className="h-5 w-5" />}>
+    Converts latitude/longitude coordinates into human-readable location names
+    using OpenStreetMap's Nominatim API.
+  </Card>
+  <Card title="Configurable Options" icon={<Settings className="h-5 w-5" />}>
+    Customizable API endpoints and geolocation settings including timeout,
+    accuracy, and cache options.
+  </Card>
+  <Card title="Error Handling" icon={<AlertCircle className="h-5 w-5" />}>
+    Comprehensive error handling for permission denials, timeouts, and network
+    failures with descriptive messages.
+  </Card>
+</Cards>
+
+## API Reference
+
+### Options
+
+<TypeTable
+  type={{
+    apiUrl: {
+      description: "The API endpoint URL for reverse geocoding requests",
+      type: "string",
+      default: "'https://nominatim.openstreetmap.org'",
+    },
+    geolocationOptions: {
+      description: "Configuration options for the browser geolocation API",
+      type: "PositionOptions",
+      default: "{ timeout: 10000, enableHighAccuracy: true }",
+    },
+  }}
+/>
+
+### Return Values
+
+<TypeTable
+  type={{
+    location: {
+      description: "The current location name (city, county, or state)",
+      type: "string",
+    },
+    coordinates: {
+      description:
+        "The latitude and longitude coordinates of the current location",
+      type: "LocationCoordinates | null",
+    },
+    isLoading: {
+      description: "Loading state indicator for location operations",
+      type: "boolean",
+    },
+    error: {
+      description: "Error message if location detection fails",
+      type: "string | null",
+    },
+    getCurrentLocation: {
+      description:
+        "Function to get the user's current location using browser geolocation",
+      type: "() => void",
+    },
+    getLocationFromCoordinates: {
+      description: "Function to get location name from specific coordinates",
+      type: "(lat: number, lon: number) => Promise<void>",
+    },
+    clearLocation: {
+      description: "Function to clear the current location and reset state",
+      type: "() => void",
+    },
+  }}
+/>
+
+## Examples
+
+### Basic Usage
+
+```tsx
+import { useLocation } from "@/hooks/use-location";
+
+export default function LocationDisplay() {
+  const { location, isLoading, getCurrentLocation } = useLocation();
+
+  return (
+    <div>
+      <button onClick={getCurrentLocation} disabled={isLoading}>
+        {isLoading ? "Detecting..." : "Get My Location"}
+      </button>
+      {location && <p>You are in: {location}</p>}
+    </div>
+  );
+}
+```
+
+### With Custom Options
+
+```tsx
+import { useLocation } from "@/hooks/use-location";
+
+export default function CustomLocationHook() {
+  const { location, error, getCurrentLocation } = useLocation({
+    apiUrl: "https://api.bigdatacloud.net/data/reverse-geocode-client",
+    geolocationOptions: {
+      timeout: 15000,
+      enableHighAccuracy: false,
+      maximumAge: 300000, // Cache for 5 minutes
+    },
+  });
+
+  return (
+    <div>
+      <button onClick={getCurrentLocation}>Get Location</button>
+      {location && <p>Location: {location}</p>}
+      {error && <p className="error">Error: {error}</p>}
+    </div>
+  );
+}
+```
+
+### Manual Coordinate Input
+
+```tsx
+import { useLocation } from "@/hooks/use-location";
+import { useState } from "react";
+
+export default function ManualLocation() {
+  const { location, isLoading, getLocationFromCoordinates } = useLocation();
+  const [lat, setLat] = useState("");
+  const [lon, setLon] = useState("");
+
+  const handleSubmit = () => {
+    const latitude = parseFloat(lat);
+    const longitude = parseFloat(lon);
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+      getLocationFromCoordinates(latitude, longitude);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <input
+          type="number"
+          placeholder="Latitude"
+          value={lat}
+          onChange={(e) => setLat(e.target.value)}
+          className="border rounded px-2 py-1"
+        />
+        <input
+          type="number"
+          placeholder="Longitude"
+          value={lon}
+          onChange={(e) => setLon(e.target.value)}
+          className="border rounded px-2 py-1"
+        />
+        <button onClick={handleSubmit} disabled={isLoading}>
+          Get Location
+        </button>
+      </div>
+      {location && <p>Location: {location}</p>}
+    </div>
+  );
+}
+```
+
+## Error Handling
+
+The hook provides detailed error messages for different failure scenarios:
+
+- **Permission Denied**: "Location access denied by user"
+- **Position Unavailable**: "Location information unavailable"
+- **Timeout**: "Location request timed out"
+- **Network Error**: Custom error message from the geocoding API
+- **Browser Support**: "Geolocation is not supported by this browser"
+
+## Types
+
+```typescript
+export type LocationCoordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+export interface UseLocationOptions {
+  apiUrl?: string;
+  geolocationOptions?: PositionOptions;
+}
+
+export interface UseLocationReturn {
+  location: string;
+  coordinates: LocationCoordinates | null;
+  isLoading: boolean;
+  error: string | null;
+  getCurrentLocation: () => void;
+  getLocationFromCoordinates: (lat: number, lon: number) => Promise<void>;
+  clearLocation: () => void;
+}
+```
+
+## Notes
+
+- The hook uses OpenStreetMap's Nominatim API by default for reverse geocoding
+- Browser geolocation requires HTTPS in production environments
+- Users will be prompted to allow location access on first use
+- The hook automatically prevents duplicate requests when a location is already available
+- Coordinates are cached until `clearLocation()` is called or the component unmounts
