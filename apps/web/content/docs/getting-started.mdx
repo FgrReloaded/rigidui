@@ -17,7 +17,7 @@ import {
   Zap,
 } from "lucide-react";
 
-<div className="mb-12 md:mb-16 text-center flex flex-col gap-4">
+<div className="mb-12 md:mb-16 text-center flex flex-col gap-4 intro">
   <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50">
     Getting Started
   </h1>
@@ -26,7 +26,7 @@ import {
   </p>
 </div>
 
-<div className="flex items-center mb-4">
+<div className="flex items-center mb-4 intro">
   <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
     Prerequisites
   </h2>
@@ -39,7 +39,7 @@ import {
   </Badge>
 </div>
 
-<div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-6 mb-8 space-y-2!">
+<div className="intro bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-6 mb-8 space-y-2!">
   <h3 className="font-semibold text-orange-900 dark:text-orange-200 mb-3">
     ⚠️ Important: Tailwind CSS Setup Required
   </h3>
@@ -69,7 +69,7 @@ import {
   </div>
 </div>
 
-<div className="flex items-center mb-4">
+<div className="flex items-center mb-4 intro">
   <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
     Install Components
   </h2>
@@ -82,7 +82,7 @@ import {
   </Badge>
 </div>
 
-<div className="bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50 rounded-xl p-6 mb-8">
+<div className="intro bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/50 rounded-xl p-6 mb-8">
   <div className="flex items-center gap-3 mb-4">
     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-white">
       <Zap className="h-4 w-4" />
@@ -107,18 +107,18 @@ import {
   </div>
 </div>
 
-<div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-8">
+<div className="intro bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-8">
   <h4 className="font-medium text-amber-900 dark:text-amber-200 mb-2">
     💡 Pro Tip
   </h4>
   <p className="text-sm text-amber-800 dark:text-amber-300">
     Components will be added to your{" "}
-      ```components/ui```
+      ```components```
     directory and are fully customizable.
   </p>
 </div>
 
-<div className="flex items-center mb-4">
+<div className="flex items-center mb-4 intro">
   <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">
     Next Steps
   </h2>
@@ -133,7 +133,7 @@ import {
 
 Now that you have RigidUI set up, explore what's possible:
 
-<div className="flex flex-col sm:flex-row gap-4 mt-6">
+<div className="intro flex flex-col sm:flex-row gap-4 mt-6">
   <Card
     href="/docs/components"
     className="flex-1 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-colors duration-150 cursor-pointer p-4 min-w-0"
