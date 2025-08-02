@@ -1,12 +1,12 @@
+import RigidLogo from '@/components/logo';
 import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import Image from 'next/image';
 
 export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
-      <>
-        <Image src="/logo.png" alt="Logo" width={80} height={80} />
-      </>
+      <div className="flex items-center gap-2 scale-[0.75]">
+        <RigidLogo /> <span className="text-gray-700 dark:text-gray-300 text-lg">Rigid UI</span>
+      </div>
     ),
   },
   githubUrl: "https://github.com/fgrreloaded/rigidui"
