@@ -1,8 +1,9 @@
 {
 	"pages": [
+    "--- Basic ---",
 		"index",
 		"getting-started",
-    "--- ---",
+    "--- Main ---",
     "components",
     "..."
 	]

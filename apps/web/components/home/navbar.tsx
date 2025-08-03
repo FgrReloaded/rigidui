@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import localFont from 'next/font/local'
 import dynamic from 'next/dynamic'
-import { GitHubStars } from './github-stars'
-import RigidLogo from './logo'
-const navFont = localFont({ src: '../app/34.otf' })
+import { GitHubStars } from '../github-stars'
+import RigidLogo from '../logo'
+const navFont = localFont({ src: '../../fonts/font-nav.otf' })
 
 
-const ThemeToggle = dynamic(() => import('./nav-theme-toggle').then(mod => ({ default: mod.NavThemeToggle })), {
+const ThemeToggle = dynamic(() => import('../nav-theme-toggle').then(mod => ({ default: mod.NavThemeToggle })), {
   ssr: false,
   loading: () => <div className="lg:ml-4 ml-2 lg:pl-4 pl-2 border-l border-gray-200 dark:border-gray-700">
     <div className="flex items-center lg:gap-3 gap-1.5 px-4 py-2.5 rounded-lg">
@@ -54,16 +54,14 @@ const Sidebar = () => {
             </span>
           </Link>
 
-          <Link href="/docs/components" className="flex items-center lg:gap-3 gap-1.5 sm:px-4 px-3 py-2.5 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all duration-200 group border border-transparent hover:border-purple-100 dark:hover:border-purple-800 hover:shadow-xs dark:hover:shadow-purple-900/20">
+          <Link href="/docs" className="flex items-center lg:gap-3 gap-1.5 sm:px-4 px-3 py-2.5 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all duration-200 group border border-transparent hover:border-purple-100 dark:hover:border-purple-800 hover:shadow-xs dark:hover:shadow-purple-900/20">
             <div className="p-1.5 rounded-md bg-purple-100 dark:bg-purple-900/50 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/60 transition-colors">
               <svg viewBox="0 0 24 24" className="w-4 h-4 text-purple-600 dark:text-purple-400 transition-colors" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                <line x1="8" y1="21" x2="16" y2="21" />
-                <line x1="12" y1="17" x2="12" y2="21" />
+                <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
             <span className="lg:text-sm text-xs max-sm:hidden font-medium text-gray-700 dark:text-gray-300 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">
-              Components
+              Docs
             </span>
           </Link>
 

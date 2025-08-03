@@ -5,10 +5,10 @@ import { ArrowRight, Code, Sparkles, Zap, Layers, Palette } from "lucide-react"
 import localFont from 'next/font/local'
 import { ComponentPreview } from "@/components/component-preview"
 import { components } from "@/lib/constants"
-import Sidebar from "@/components/navbar"
+import Sidebar from "@/components/home/navbar"
 import Footer from "@/components/home/footer"
 
-const titleFont = localFont({ src: './Nippo-Variable.ttf' })
+const titleFont = localFont({ src: '../fonts/nippo.ttf' })
 
 export default function Home() {
   return (

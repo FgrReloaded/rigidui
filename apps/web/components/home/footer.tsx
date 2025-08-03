@@ -26,7 +26,7 @@ const Footer = () => {
                   RigidUI
                 </span>
                 <span className="text-sm text-muted-foreground font-medium">
-                  v0.1.0 • Enterprise UI Components
+                  v1.0.0 • Enterprise UI Components
                 </span>
               </div>
             </Link>

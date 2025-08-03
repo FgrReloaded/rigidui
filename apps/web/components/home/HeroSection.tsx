@@ -1,7 +1,7 @@
 import { ArrowRight, Component, Layers, Code2, Zap, Box, Database, GitBranch } from "lucide-react"
 import Link from "next/link"
 import localFont from 'next/font/local'
-const titleFont = localFont({ src: '../../app/Nippo-Variable.ttf' })
+const titleFont = localFont({ src: '../../fonts/nippo.ttf' })
 
 const HeroSection = () => {
   return (
