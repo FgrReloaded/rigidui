@@ -1,6 +1,6 @@
 "use client"
 
-import { PasswordStrengthMeter } from "@/registry/new-york/strength-meter/strength-meter"
+import { PasswordStrengthMeter } from "@/r/new-york/strength-meter/strength-meter"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import * as TabsComponents from 'fumadocs-ui/components/tabs'

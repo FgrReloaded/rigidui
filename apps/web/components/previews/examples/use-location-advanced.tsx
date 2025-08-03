@@ -1,6 +1,6 @@
 "use client"
 
-import { useLocation } from "@/registry/new-york/use-location/use-location"
+import { useLocation } from "@/r/new-york/use-location/use-location"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { useLocation } from '@/registry/new-york/use-location/use-location'
+import { useLocation } from '@/r/new-york/use-location/use-location'
 import { MapPin, Loader2, ToggleLeft, ToggleRight, Database, Code, Zap, Settings } from 'lucide-react'
 
 const hooksData = [

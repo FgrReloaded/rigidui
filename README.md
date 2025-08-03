@@ -48,37 +48,37 @@ Add RigidUI components to your project with a single command:
 
 ```bash
 # Currency Manager
-npx shadcn@latest add https://rigidui.com/registry/currency-manager
+npx shadcn@latest add https://rigidui.com/r/currency-manager
 
 # Draggable Dashboard
-npx shadcn@latest add https://rigidui.com/registry/draggable-dashboard
+npx shadcn@latest add https://rigidui.com/r/draggable-dashboard
 
 # File Explorer
-npx shadcn@latest add https://rigidui.com/registry/file-explorer
+npx shadcn@latest add https://rigidui.com/r/file-explorer
 
 # File Uploader
-npx shadcn@latest add https://rigidui.com/registry/file-uploader
+npx shadcn@latest add https://rigidui.com/r/file-uploader
 
 # Infinite Scroll
-npx shadcn@latest add https://rigidui.com/registry/infinite-scroll
+npx shadcn@latest add https://rigidui.com/r/infinite-scroll
 
 # Location Picker
-npx shadcn@latest add https://rigidui.com/registry/location-picker
+npx shadcn@latest add https://rigidui.com/r/location-picker
 
 # Multi-Step Form Wrapper
-npx shadcn@latest add https://rigidui.com/registry/multi-step-form-wrapper
+npx shadcn@latest add https://rigidui.com/r/multi-step-form-wrapper
 
 # Notification Center
-npx shadcn@latest add https://rigidui.com/registry/notification-center
+npx shadcn@latest add https://rigidui.com/r/notification-center
 
 # Password Strength Meter
-npx shadcn@latest add https://rigidui.com/registry/strength-meter
+npx shadcn@latest add https://rigidui.com/r/strength-meter
 
 # Smart Form
-npx shadcn@latest add https://rigidui.com/registry/smart-form
+npx shadcn@latest add https://rigidui.com/r/smart-form
 
 # Smart Search
-npx shadcn@latest add https://rigidui.com/registry/smart-search
+npx shadcn@latest add https://rigidui.com/r/smart-search
 ```
 
 That's it! Components will be added to your `components/ui` directory and are fully customizable.

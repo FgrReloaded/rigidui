@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { ConditionalField, SmartForm, SmartFormField } from '@/registry/new-york/smart-form/smart-form'
+import { ConditionalField, SmartForm, SmartFormField } from '@/r/new-york/smart-form/smart-form'
 import { z } from 'zod'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 

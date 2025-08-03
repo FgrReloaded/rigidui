@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { Notification, NotificationCenter } from '@/registry/new-york/notification-center/notification-center'
+import { Notification, NotificationCenter } from '@/r/new-york/notification-center/notification-center'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 let masterNotifications: Notification[] = [

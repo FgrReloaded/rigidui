@@ -1,4 +1,4 @@
-import { ImageLoader } from '@/registry/new-york/image-loader/image-loader'
+import { ImageLoader } from '@/r/new-york/image-loader/image-loader'
 
 export default function ImageLoaderPreview() {
   return (

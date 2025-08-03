@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { PasswordStrengthMeter } from "@/registry/new-york/strength-meter/strength-meter";
+import { PasswordStrengthMeter } from "@/r/new-york/strength-meter/strength-meter";
 // import { advancedUsageExamples } from "./_components/AdvancedUsage";
 
 export default function StrengthMeterPreview() {

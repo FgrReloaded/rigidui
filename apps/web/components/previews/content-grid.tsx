@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, Eye, Download } from "lucide-react";
-import { ContentGrid } from "@/registry/new-york/content-grid/content-grid";
+import { ContentGrid } from "@/r/new-york/content-grid/content-grid";
 
 export default function ContentGridPreview() {
   const sampleItems = [
@@ -37,9 +37,8 @@ export default function ContentGridPreview() {
     return (
       <Card
         key={item.id}
-        className={`hover:shadow-md transition-shadow ${
-          isListMode ? "flex items-center gap-4" : ""
-        }`}
+        className={`hover:shadow-md transition-shadow ${isListMode ? "flex items-center gap-4" : ""
+          }`}
       >
         <div className={`flex-1 ${isListMode ? "mr-4" : ""}`}>
           <CardHeader className="pb-2">

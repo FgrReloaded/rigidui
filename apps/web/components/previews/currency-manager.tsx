@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { CurrencyDisplay, CurrencyProvider, CurrencySelector } from '@/registry/new-york/currency-manager/currency-manager'
+import { CurrencyDisplay, CurrencyProvider, CurrencySelector } from '@/r/new-york/currency-manager/currency-manager'
 
 export default function CurrencyManagerPreview() {
 

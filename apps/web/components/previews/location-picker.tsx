@@ -1,4 +1,4 @@
-import { LocationPicker } from '@/registry/new-york/location-picker/location-picker'
+import { LocationPicker } from '@/r/new-york/location-picker/location-picker'
 
 export default function LocationPickerPreview() {
   return (

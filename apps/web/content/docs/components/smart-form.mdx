@@ -8,7 +8,6 @@ import SmartFormPreview from "@/components/previews/smart-form";
 
 ## Usage
 
-
 <Tabs items={["Preview", "Code"]}>
   <Tab value="Preview">
     <SmartFormPreview />
@@ -19,12 +18,12 @@ import { SmartForm, SmartFormField } from "@/components/smart-form"
 import { z } from "zod"
 
 const demoSchema = z.object({
-      name: z.string().min(2, "Name must be at least 2 characters"),
-      email: z.string().email("Invalid email address"),
-      role: z.enum(["admin", "user", "moderator"]),
-      adminCode: z.string().optional(),
-      isActive: z.boolean(),
-      bio: z.string().optional(),
+name: z.string().min(2, "Name must be at least 2 characters"),
+email: z.string().email("Invalid email address"),
+role: z.enum(["admin", "user", "moderator"]),
+adminCode: z.string().optional(),
+isActive: z.boolean(),
+bio: z.string().optional(),
 })
 
 type DemoFormData = z.infer<typeof demoSchema>
@@ -100,6 +99,7 @@ export default function MyForm() {
           </SmartForm>
         </div>
        )
+
 }
 
 ````
@@ -113,11 +113,10 @@ export default function MyForm() {
 </p>
 
 ```npm
-npx shadcn@latest add https://rigidui.com/registry/smart-form
+npx shadcn@latest add https://rigidui.com/r/smart-form
 ````
 
 ## Features
-
 
 <p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
   The Smart Form component is packed with powerful features designed to provide

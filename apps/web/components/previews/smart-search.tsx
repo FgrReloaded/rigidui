@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { SmartSearch } from '@/registry/new-york/smart-search/smart-search'
+import { SmartSearch } from '@/r/new-york/smart-search/smart-search'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { User, Tag, Calendar, FileText, Search } from 'lucide-react'

@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
-import { MultiStepFormWrapper, Step, useMultiStepForm } from "@/registry/new-york/multi-step-form-wrapper/multi-step-form-wrapper"
+import { MultiStepFormWrapper, Step, useMultiStepForm } from "@/r/new-york/multi-step-form-wrapper/multi-step-form-wrapper"
 
 const basicInfoSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),

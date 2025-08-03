@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import DraggableDashboard, { DraggableWrapper } from '@/registry/new-york/draggable-dashboard/draggable-dashboard'
+import DraggableDashboard, { DraggableWrapper } from '@/r/new-york/draggable-dashboard/draggable-dashboard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   TrendingUp,

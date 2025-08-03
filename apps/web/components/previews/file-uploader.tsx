@@ -1,4 +1,4 @@
-import { FileUploader } from '@/registry/new-york/file-uploader/file-uploader'
+import { FileUploader } from '@/r/new-york/file-uploader/file-uploader'
 
 export default function FileUploaderPreview() {
   return (

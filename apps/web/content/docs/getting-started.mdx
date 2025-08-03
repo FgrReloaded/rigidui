@@ -15,6 +15,7 @@ import {
   Terminal,
   Workflow,
   Zap,
+  Code
 } from "lucide-react";
 
 <div className="mb-12 md:mb-16 text-center flex flex-col gap-4 intro">
@@ -100,9 +101,7 @@ import {
         <Package className="h-4 w-4 text-blue-600" />
         <span className="font-medium text-sm">Component</span>
       </div>
-      ```npm
-      npx shadcn@latest add https://rigidui.com/r/component-name.json
-      ```
+      ```npm npx shadcn@latest add https://rigidui.com/r/component-name.json ```
     </div>
   </div>
 </div>
@@ -112,9 +111,8 @@ import {
     💡 Pro Tip
   </h4>
   <p className="text-sm text-amber-800 dark:text-amber-300">
-    Components will be added to your{" "}
-      ```components```
-    directory and are fully customizable.
+    Components will be added to your ```components``` directory and are fully
+    customizable.
   </p>
 </div>
 
@@ -149,13 +147,37 @@ Now that you have RigidUI set up, explore what's possible:
     </p>
   </Card>
   <Card
+    href="https://examples.rigidui.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex-1 p-4 bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-700 rounded-lg shadow-sm hover:border-emerald-400 dark:hover:border-emerald-500 transition-colors duration-150 cursor-pointer min-w-0"
+  >
+    <div className="flex items-center gap-2 mb-1">
+      <Badge
+        variant="secondary"
+        className="bg-emerald-600 text-white dark:bg-emerald-200 dark:text-emerald-900 px-2 py-0.5 text-xs rounded"
+      >
+        Live
+      </Badge>
+      <h3 className="font-semibold text-base text-emerald-900 dark:text-emerald-100">
+        Live Examples
+      </h3>
+    </div>
+    <p className="text-sm text-emerald-700 dark:text-emerald-300">
+      See components in action
+    </p>
+  </Card>
+  <Card
     href="https://github.com/FgrReloaded/rigidui"
     target="_blank"
     rel="noopener noreferrer"
     className="flex-1 p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors duration-150 cursor-pointer min-w-0"
   >
     <div className="flex items-center gap-2 mb-1">
-      <Badge variant="secondary" className="bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 px-2 py-0.5 text-xs rounded">
+      <Badge
+        variant="secondary"
+        className="bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 px-2 py-0.5 text-xs rounded"
+      >
         GitHub
       </Badge>
       <h3 className="font-semibold text-base text-gray-900 dark:text-gray-100">

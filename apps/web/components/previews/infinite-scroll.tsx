@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useCallback, useMemo } from 'react'
-import { InfiniteScroll } from '@/registry/new-york/infinite-scroll/infinite-scroll'
+import { InfiniteScroll } from '@/r/new-york/infinite-scroll/infinite-scroll'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function InfiniteScrollPreview() {

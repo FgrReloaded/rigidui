@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useLocation } from "@/registry/new-york/use-location/use-location";
+import { useLocation } from "@/r/new-york/use-location/use-location";
 import { Button } from "@/components/ui/button";
 import { MapPin, Loader2, Navigation, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

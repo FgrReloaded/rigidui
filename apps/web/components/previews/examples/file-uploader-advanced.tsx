@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { FileUploader } from "@/registry/new-york/file-uploader/file-uploader"
+import { FileUploader } from "@/r/new-york/file-uploader/file-uploader"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"

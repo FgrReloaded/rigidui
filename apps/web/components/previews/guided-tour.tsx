@@ -1,5 +1,5 @@
 "use client"
-import { TourProvider, TourStep, TourTrigger } from '@/registry/new-york/guided-tour/guided-tour'
+import { TourProvider, TourStep, TourTrigger } from '@/r/new-york/guided-tour/guided-tour'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'

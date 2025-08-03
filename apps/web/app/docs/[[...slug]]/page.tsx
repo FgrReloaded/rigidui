@@ -28,7 +28,7 @@ export default async function Page(props: {
       </DocsDescription>
       <div className="flex flex-row items-center gap-2 border-b pb-4">
         {isComponentOrHook && <a
-          href={`https://github.com/FgrReloaded/rigidui/blob/main/apps/web/registry/new-york/${page.slugs[1]}/${page.slugs[1]}.tsx`}
+          href={`https://github.com/FgrReloaded/rigidui/blob/main/apps/web/r/new-york/${page.slugs[1]}/${page.slugs[1]}.tsx`}
           rel="noreferrer noopener"
           target="_blank"
           className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-fd-muted hover:text-fd-foreground focus:outline-none focus:ring-2 focus:ring-fd-accent"

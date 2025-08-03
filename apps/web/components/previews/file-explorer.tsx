@@ -1,10 +1,10 @@
 "use client"
 import React from 'react'
-import { FileExplorer } from '@/registry/new-york/file-explorer/file-explorer'
+import { FileExplorer } from '@/r/new-york/file-explorer/file-explorer'
 import { FileCode, FolderClosed, FolderOpen, ImageIcon } from 'lucide-react'
 
 export default function FileExplorerPreview() {
-  
+
   const previewFileSystem = {
     id: 'root',
     name: 'my-project',

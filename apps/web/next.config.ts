@@ -4,7 +4,7 @@ const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
-    registry: ["./registry/**/*"],
+    registry: ["./r/**/*"],
   },
   // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,

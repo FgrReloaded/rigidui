@@ -1,6 +1,6 @@
 "use client"
 
-import { LocationPicker } from "@/registry/new-york/location-picker/location-picker"
+import { LocationPicker } from "@/r/new-york/location-picker/location-picker"
 import { useState } from "react"
 import * as TabsComponents from 'fumadocs-ui/components/tabs'
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock'

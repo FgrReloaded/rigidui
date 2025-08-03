@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { FileExplorer } from "@/registry/new-york/file-explorer/file-explorer"
+import { FileExplorer } from "@/r/new-york/file-explorer/file-explorer"
 import { Badge } from "@/components/ui/badge"
 import { RefreshCw } from "lucide-react"
 import * as TabsComponents from 'fumadocs-ui/components/tabs'
