@@ -29,16 +29,6 @@ export default function ContentGridPreview() {
       views: 956,
       downloads: 643,
     },
-    {
-      id: 3,
-      title: "Icon Library",
-      description: "Premium icon collection with 500+ icons.",
-      category: "Icons",
-      price: "Free",
-      rating: 4.7,
-      views: 2134,
-      downloads: 1543,
-    },
   ];
 
   const renderCard = (item: any, viewMode: "grid" | "list") => {
@@ -51,11 +41,6 @@ export default function ContentGridPreview() {
           isListMode ? "flex items-center gap-4" : ""
         }`}
       >
-        <div
-          className={`bg-linear-to-br from-blue-500 to-purple-600 rounded-lg ${
-            isListMode ? "w-16 h-16 shrink-0 ml-4" : "w-full h-24 mb-3"
-          }`}
-        />
         <div className={`flex-1 ${isListMode ? "mr-4" : ""}`}>
           <CardHeader className="pb-2">
             <div className="flex items-start justify-between">
@@ -103,7 +88,7 @@ export default function ContentGridPreview() {
       items={sampleItems}
       renderCard={renderCard}
       defaultViewMode="grid"
-      gridColumns={3}
+      gridColumns={2}
       className="w-full"
     />
   );

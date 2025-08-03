@@ -14,23 +14,50 @@ import ContentGridPreview from "@/components/previews/content-grid";
   </Tab>
   <Tab value="Code">
     ```tsx title="content-grid.tsx"
-import { ContentGrid } from "@/components/content-grid"
+"use client";
 
-export default function MyComponent() {
-      const renderCard = (item: ContentItem, viewMode: 'grid' | 'list') => {
-        const isListMode = viewMode === 'list'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Star, Eye, Download } from "lucide-react";
+import { ContentGrid } from "@/components/content-grid";
+
+export default function ContentGridPreview() {
+      const sampleItems = [
+        {
+          id: 1,
+          title: "Dashboard Template",
+          description:
+            "A comprehensive dashboard template with charts and analytics.",
+          category: "Template",
+          price: "$49",
+          rating: 4.9,
+          views: 1234,
+          downloads: 892,
+        },
+        {
+          id: 2,
+          title: "UI Kit Pro",
+          description: "Complete UI kit with modern components and layouts.",
+          category: "UI Kit",
+          price: "$29",
+          rating: 4.8,
+          views: 956,
+          downloads: 643,
+        },
+      ];
+
+      const renderCard = (item: any, viewMode: "grid" | "list") => {
+        const isListMode = viewMode === "list";
 
         return (
           <Card
             key={item.id}
-            className={`hover:shadow-md transition-shadow ${isListMode ? 'flex items-center gap-4' : ''}`}
+            className={`hover:shadow-md transition-shadow ${
+              isListMode ? "flex items-center gap-4" : ""
+            }`}
           >
-            <div
-              className={`bg-linear-to-br from-blue-500 to-purple-600 rounded-lg ${
-                isListMode ? 'w-16 h-16 shrink-0 ml-4' : 'w-full h-24 mb-3'
-              }`}
-            />
-            <div className={`flex-1 ${isListMode ? 'mr-4' : ''}`}>
+            <div className={`flex-1 ${isListMode ? "mr-4" : ""}`}>
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                   <div>
@@ -69,20 +96,20 @@ export default function MyComponent() {
               </CardContent>
             </div>
           </Card>
-        )
-      }
+        );
+      };
 
       return (
         <ContentGrid
           items={sampleItems}
           renderCard={renderCard}
           defaultViewMode="grid"
-          gridColumns={3}
+          gridColumns={2}
           className="w-full"
         />
-      )
-
+      );
 }
+
 
 ````
   </Tab>

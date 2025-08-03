@@ -270,7 +270,7 @@ export default function DraggableDashboard({
     <div className={cn("space-y-6", className)}>
       {(showLockToggle) && (
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
+          <div>
             <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
             <p className="text-muted-foreground">
               {isLocked ? "Dashboard is locked" : "Drag items to customize your layout"}

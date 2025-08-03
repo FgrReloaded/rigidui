@@ -17,90 +17,73 @@ import CurrencyManagerPreview from "@/components/previews/currency-manager";
     ```tsx title="currency-manager.tsx"
 import { CurrencyDisplay, CurrencyProvider, CurrencySelector } from "@/components/currency-manager"
 
-const LIVE_API_KEY = process.env.NEXT_PUBLIC_EXCHANGERATE_API_KEY; // Replace with your actual API key
-const LIVE_API_URL = `https://v6.exchangerate-api.com/v6/${LIVE_API_KEY}/latest/USD`;
+export default function CurrencyManagerPreview() {
 
-export function MyDynamicRatesComponent() {
-  async function liveRateFetcher(): Promise<Record<string, number>> {
-    try {
-      const response = await fetch(LIVE_API_URL);
-      if (!response.ok) {
-        throw new Error(
-          `API request failed with status ${response.status}: ${response.statusText}`
-        );
+      function ShoppingCartLayout() {
+        return (
+          <div className="max-w-md mx-auto space-y-4 p-4">
+            <div className="flex items-center justify-between border-b pb-3">
+              <h3 className="font-semibold">Cart Total</h3>
+              <CurrencySelector />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Laptop</span>
+                <CurrencyDisplay value={1999} />
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Keyboard</span>
+                <CurrencyDisplay value={79} />
+              </div>
+            </div>
+
+            <div className="border-t pt-3">
+              <div className="flex justify-between items-center">
+                <span className="font-bold">Total:</span>
+                <CurrencyDisplay
+                  value={2078}
+                  className="text-lg font-bold text-green-600 dark:text-green-400"
+                />
+              </div>
+            </div>
+          </div>
+        )
       }
-      const data = await response.json();
-      if (data.result === "success" && data.base_code === "USD") {
-        return data.conversion_rates;
-      } else {
-        throw new Error(
-          data["error-type"] || "Failed to fetch valid exchange rates from API."
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching live rates:", error);
-      return {};
+
+      const previewLiveRateFetcher = async (): Promise<Record<string, number>> => {
+        const apiKey = process.env.NEXT_PUBLIC_EXCHANGERATE_API_KEY;
+        const apiUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`;
+        try {
+          const response = await fetch(apiUrl);
+          if (!response.ok) {
+            console.error(`Preview API request failed: ${response.status}`);
+            return { USD: 1.0 };
+          }
+          const data = await response.json();
+          if (data.result === "success" && data.base_code === "USD") {
+            return data.conversion_rates;
+          }
+          console.error("Preview API returned non-success or wrong base code");
+          return { USD: 1.0 };
+        } catch (error) {
+          console.error("Error in previewLiveRateFetcher:", error);
+          return { USD: 1.0 };
+        }
+      };
+      return (
+        <div className='-mt-6!'>
+          <CurrencyProvider
+            fixedBaseCurrencyCode="USD"
+            fetchRatesFunction={previewLiveRateFetcher}
+            defaultSelectedCurrencyCode="INR"
+            refetchIntervalMs={900000}
+          >
+            <ShoppingCartLayout />
+          </CurrencyProvider>
+        </div>
+      )
     }
-  }
-  return (
-    <CurrencyProvider
-      fixedBaseCurrencyCode="USD"
-      fetchRatesFunction={liveRateFetcher}
-      defaultSelectedCurrencyCode="INR"
-      refetchIntervalMs={900000}
-    >
-      <ShoppingCartLayout />
-    </CurrencyProvider>
-  );
-}
-
-function ShoppingCartLayout() {
-return (
-
-<div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-6 lg:px-8">
-  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-    Your Shopping Cart
-  </h2>
-  <div className="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-    <div className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-        Cart Items
-      </h3>
-      {/* Cart items would be mapped here */}
-    </div>
-    <div className="border-t border-gray-200 dark:border-gray-700">
-      <div className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Summary
-        </h3>
-        <div className="flex justify-between">
-          <span className="text-gray-700 dark:text-gray-300">Subtotal</span>
-          <span className="font-bold text-gray-900 dark:text-white">
-            <CurrencyDisplay value={100} sourceCurrency="USD" />
-          </span>
-        </div>
-        <div className="flex justify-between mt-4">
-          <span className="text-gray-700 dark:text-gray-300">Tax (10%)</span>
-          <span className="font-bold text-gray-900 dark:text-white">
-            <CurrencyDisplay value={10} sourceCurrency="USD" />
-          </span>
-        </div>
-        <div className="flex justify-between mt-4">
-          <span className="text-gray-700 dark:text-gray-300">Total</span>
-          <span className="font-bold text-gray-900 dark:text-white">
-            <CurrencyDisplay value={110} sourceCurrency="USD" />
-          </span>
-        </div>
-        <div className="mt-6">
-          <button className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-md shadow hover:bg-indigo-700 transition-all duration-200">
-            Proceed to Checkout
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-); }
 
 ````
   </Tab>

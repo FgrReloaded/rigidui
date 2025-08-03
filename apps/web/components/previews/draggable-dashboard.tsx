@@ -2,7 +2,6 @@
 import React from 'react'
 import DraggableDashboard, { DraggableWrapper } from '@/registry/new-york/draggable-dashboard/draggable-dashboard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import {
   TrendingUp,
   TrendingDown,
@@ -101,33 +100,6 @@ export default function DraggableDashboardPreview() {
     </Card>
   )
 
-  const NotificationCard = () => (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>Recent updates</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex items-start space-x-3">
-          <div className="h-2 w-2 bg-red-500 rounded-full mt-2" />
-          <div className="flex-1">
-            <p className="text-sm font-medium">System Alert</p>
-            <p className="text-xs text-muted-foreground">Server maintenance scheduled</p>
-          </div>
-          <Badge variant="destructive" className="text-xs">New</Badge>
-        </div>
-        <div className="flex items-start space-x-3">
-          <div className="h-2 w-2 bg-blue-500 rounded-full mt-2" />
-          <div className="flex-1">
-            <p className="text-sm font-medium">Update Available</p>
-            <p className="text-xs text-muted-foreground">New features released</p>
-          </div>
-          <Badge variant="outline" className="text-xs">Info</Badge>
-        </div>
-      </CardContent>
-    </Card>
-  )
-
   return (
     <div className="w-full max-w-4xl mx-auto">
       <DraggableDashboard
@@ -156,10 +128,6 @@ export default function DraggableDashboardPreview() {
 
         <DraggableWrapper id="chart" gridSize={{ cols: 2, rows: 1 }}>
           <SimpleChart />
-        </DraggableWrapper>
-
-        <DraggableWrapper id="notifications" gridSize={{ cols: 1, rows: 1 }}>
-          <NotificationCard />
         </DraggableWrapper>
       </DraggableDashboard>
     </div>

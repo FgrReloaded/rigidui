@@ -4,9 +4,10 @@ import { useState } from "react"
 import { FileExplorer } from "@/registry/new-york/file-explorer/file-explorer"
 import { Badge } from "@/components/ui/badge"
 import { RefreshCw } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import * as TabsComponents from 'fumadocs-ui/components/tabs'
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock'
 
-// Sample data structures for different use cases
+const { Tabs, Tab } = TabsComponents
 const basicProjectData = {
   id: 'basic-project',
   name: 'my-project',
@@ -305,12 +306,7 @@ services:
   ]
 }
 
-export const fileExplorerAdvancedExamples = [
-  {
-    title: "Basic Project Structure",
-    description:
-      "A simple React project with source files, package.json, and README. Perfect for showcasing small projects or tutorials.",
-    code: `import { FileExplorer } from "@/components/ui/file-explorer"
+const basicProjectCode = `import { FileExplorer } from "@/components/ui/file-explorer"
 
 const projectData = {
   id: 'my-project',
@@ -324,8 +320,7 @@ const projectData = {
       type: 'file',
       language: 'markdown',
       content: '# My Project\\n\\nA simple project...'
-    },
-    // ... more files
+    }
   ]
 }
 
@@ -337,21 +332,9 @@ export default function BasicExample() {
       height="400px"
     />
   )
-}`,
-    component: (
-      <FileExplorer
-        initialData={basicProjectData}
-        title="Basic Project"
-        height="400px"
-        className="w-full"
-      />
-    ),
-  },
-  {
-    title: "Media Files with Image Preview",
-    description:
-      "Showcase a media gallery project with image preview capabilities. Images are displayed inline when selected.",
-    code: `import { FileExplorer } from "@/components/ui/file-explorer"
+}`
+
+const mediaProjectCode = `import { FileExplorer } from "@/components/ui/file-explorer"
 
 const mediaData = {
   id: 'media-gallery',
@@ -367,7 +350,6 @@ const mediaData = {
       imageUrl: 'https://example.com/hero.jpg',
       content: 'Binary image data'
     }
-    // ... more media files
   ]
 }
 
@@ -379,21 +361,9 @@ export default function MediaExample() {
       height="500px"
     />
   )
-}`,
-    component: (
-      <FileExplorer
-        initialData={mediaProjectData}
-        title="Media Gallery"
-        height="500px"
-        className="w-full"
-      />
-    ),
-  },
-  {
-    title: "Full-Stack Project Structure",
-    description:
-      "Complex project structure with frontend, backend, and configuration files. Demonstrates nested folders and different file types.",
-    code: `import { FileExplorer } from "@/components/ui/file-explorer"
+}`
+
+const fullStackProjectCode = `import { FileExplorer } from "@/components/ui/file-explorer"
 
 const fullStackData = {
   id: 'fullstack-app',
@@ -405,15 +375,14 @@ const fullStackData = {
       id: 'frontend',
       name: 'frontend',
       type: 'folder',
-      children: [/* React app files */]
+      children: []
     },
     {
       id: 'backend',
       name: 'backend',
       type: 'folder',
-      children: [/* Express server files */]
+      children: []
     }
-    // ... more structure
   ]
 }
 
@@ -425,21 +394,9 @@ export default function FullStackExample() {
       height="600px"
     />
   )
-}`,
-    component: (
-      <FileExplorer
-        initialData={fullStackProjectData}
-        title="Full-Stack Application"
-        height="600px"
-        className="w-full"
-      />
-    ),
-  },
-  {
-    title: "Interactive File Selection",
-    description:
-      "Handle file selection events with callbacks to integrate with your application state and perform actions when files are selected.",
-    code: `import { FileExplorer } from "@/components/ui/file-explorer"
+}`
+
+const interactiveCode = `import { FileExplorer } from "@/components/ui/file-explorer"
 import { useState } from "react"
 
 export default function InteractiveExample() {
@@ -471,32 +428,9 @@ export default function InteractiveExample() {
       )}
     </div>
   )
-}`,
-    component: (
-      <div className="space-y-4">
-        <FileExplorer
-          initialData={basicProjectData}
-          onFileSelect={(file) => console.log('File selected:', file.name)}
-          onFolderToggle={(id, expanded) => console.log('Folder toggled:', id, expanded)}
-          height="400px"
-          className="w-full"
-        />
-        <div className="p-3 bg-muted rounded text-sm">
-          <p className="font-medium mb-1">Interactive Features:</p>
-          <ul className="text-muted-foreground space-y-1">
-            <li>• Click files to select them (check console)</li>
-            <li>• Expand/collapse folders</li>
-            <li>• Use keyboard navigation (Tab, Enter, Space)</li>
-          </ul>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: "Loading States & Refresh",
-    description:
-      "Demonstrate loading states and refresh functionality for dynamic file systems that load data asynchronously.",
-    code: `import { FileExplorer } from "@/components/ui/file-explorer"
+}`
+
+const loadingStateCode = `import { FileExplorer } from "@/components/ui/file-explorer"
 import { useState } from "react"
 
 export default function LoadingExample() {
@@ -505,7 +439,6 @@ export default function LoadingExample() {
 
   const handleRefresh = async () => {
     setLoading(true)
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
     setData(await fetchUpdatedData())
     setLoading(false)
@@ -520,21 +453,14 @@ export default function LoadingExample() {
       height="400px"
     />
   )
-}`,
-    component: (
-      <LoadingStateExample />
-    ),
-  }
-];
+}`
 
-// Helper component for the loading state example
 function LoadingStateExample() {
   const [loading, setLoading] = useState(false)
   const [refreshCount, setRefreshCount] = useState(0)
 
   const handleRefresh = async () => {
     setLoading(true)
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
     setRefreshCount(prev => prev + 1)
     setLoading(false)
@@ -563,37 +489,139 @@ function LoadingStateExample() {
   )
 }
 
-// Component that renders all advanced examples with tabs
 export function FileExplorerAdvancedExamples() {
   return (
     <div className="space-y-8">
-      {fileExplorerAdvancedExamples.map((example, index) => (
-        <div key={index} className="space-y-6 mb-12">
-          <div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              {example.title}
-            </h3>
-            <p className="text-muted-foreground">
-              {example.description}
-            </p>
-          </div>
-
-          <Tabs defaultValue="preview" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="code">Code</TabsTrigger>
-            </TabsList>
-            <TabsContent value="preview" className="space-y-4">
-              {example.component}
-            </TabsContent>
-            <TabsContent value="code" className="space-y-4">
-              <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>{example.code}</code>
-              </pre>
-            </TabsContent>
-          </Tabs>
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Basic Project Structure
+          </h3>
+          <p className="text-muted-foreground">
+            A simple React project with source files, package.json, and README. Perfect for showcasing small projects or tutorials.
+          </p>
         </div>
-      ))}
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FileExplorer
+              initialData={basicProjectData}
+              title="Basic Project"
+              height="400px"
+              className="w-full"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={basicProjectCode} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Media Files with Image Preview
+          </h3>
+          <p className="text-muted-foreground">
+            Showcase a media gallery project with image preview capabilities. Images are displayed inline when selected.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FileExplorer
+              initialData={mediaProjectData}
+              title="Media Gallery"
+              height="500px"
+              className="w-full"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={mediaProjectCode} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Full-Stack Project Structure
+          </h3>
+          <p className="text-muted-foreground">
+            Complex project structure with frontend, backend, and configuration files. Demonstrates nested folders and different file types.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FileExplorer
+              initialData={fullStackProjectData}
+              title="Full-Stack Application"
+              height="600px"
+              className="w-full"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={fullStackProjectCode} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Interactive File Selection
+          </h3>
+          <p className="text-muted-foreground">
+            Handle file selection events with callbacks to integrate with your application state and perform actions when files are selected.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <div className="space-y-4">
+              <FileExplorer
+                initialData={basicProjectData}
+                onFileSelect={(file) => console.log('File selected:', file.name)}
+                onFolderToggle={(id, expanded) => console.log('Folder toggled:', id, expanded)}
+                height="400px"
+                className="w-full"
+              />
+              <div className="p-3 bg-muted rounded text-sm">
+                <p className="font-medium mb-1">Interactive Features:</p>
+                <ul className="text-muted-foreground space-y-1">
+                  <li>• Click files to select them (check console)</li>
+                  <li>• Expand/collapse folders</li>
+                  <li>• Use keyboard navigation (Tab, Enter, Space)</li>
+                </ul>
+              </div>
+            </div>
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={interactiveCode} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Loading States & Refresh
+          </h3>
+          <p className="text-muted-foreground">
+            Demonstrate loading states and refresh functionality for dynamic file systems that load data asynchronously.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <LoadingStateExample />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={loadingStateCode} />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   )
 }
