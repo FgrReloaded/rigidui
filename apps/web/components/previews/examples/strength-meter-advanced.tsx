@@ -397,10 +397,12 @@ export function StrengthMeterAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <PasswordStrengthMeter
-              placeholder="Enter your password"
-              className="max-w-md"
-            />
+            <div className="w-full flex justify-center">
+              <PasswordStrengthMeter
+                placeholder="Enter your password"
+                className="max-w-md"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"
@@ -429,12 +431,14 @@ export default function BasicExample() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <PasswordStrengthMeter
-              placeholder="Generate or type password"
-              enableAutoGenerate={true}
-              autoGenerateLength={16}
-              className="max-w-md"
-            />
+            <div className="w-full flex justify-center">
+              <PasswordStrengthMeter
+                placeholder="Generate or type password"
+                enableAutoGenerate={true}
+                autoGenerateLength={16}
+                className="max-w-md"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"
@@ -465,7 +469,9 @@ export default function AutoGenerateExample() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <FormIntegrationExample />
+            <div className="w-full flex justify-center">
+              <FormIntegrationExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"

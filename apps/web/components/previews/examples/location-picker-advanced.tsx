@@ -232,7 +232,9 @@ export function LocationPickerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationPicker variant="popover" className="w-fit" />
+            <div className="w-full flex justify-center">
+              <LocationPicker variant="popover" className="w-fit" />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={popoverCode} />
@@ -252,7 +254,9 @@ export function LocationPickerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationPicker variant="inline" className="max-w-md" />
+            <div className="w-full flex justify-center">
+              <LocationPicker variant="inline" className="max-w-md" />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={inlineCode} />
@@ -272,11 +276,13 @@ export function LocationPickerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationPicker
-              variant="inline"
-              autoDetectOnLoad={true}
-              className="max-w-md"
-            />
+            <div className="w-full flex justify-center">
+              <LocationPicker
+                variant="inline"
+                autoDetectOnLoad={true}
+                className="max-w-md"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={autoDetectCode} />
@@ -296,12 +302,14 @@ export function LocationPickerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationPicker
-              variant="popover"
-              placeholder="Find stores near you..."
-              defaultLocation="Los Angeles"
-              className="border-2 border-blue-200 rounded-lg w-fit"
-            />
+            <div className="w-full flex justify-center">
+              <LocationPicker
+                variant="popover"
+                placeholder="Find stores near you..."
+                defaultLocation="Los Angeles"
+                className="border-2 border-blue-200 rounded-lg w-fit"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={customStyledCode} />
@@ -321,7 +329,9 @@ export function LocationPickerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationChangeExample />
+            <div className="w-full flex justify-center">
+              <LocationChangeExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={changeHandlerCode} />

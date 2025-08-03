@@ -504,12 +504,14 @@ export function FileExplorerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <FileExplorer
-              initialData={basicProjectData}
-              title="Basic Project"
-              height="400px"
-              className="w-full"
-            />
+            <div className="w-full flex justify-center">
+              <FileExplorer
+                initialData={basicProjectData}
+                title="Basic Project"
+                height="400px"
+                className="w-full max-w-2xl"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={basicProjectCode} />
@@ -529,12 +531,14 @@ export function FileExplorerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <FileExplorer
-              initialData={mediaProjectData}
-              title="Media Gallery"
-              height="500px"
-              className="w-full"
-            />
+            <div className="w-full flex justify-center">
+              <FileExplorer
+                initialData={mediaProjectData}
+                title="Media Gallery"
+                height="500px"
+                className="w-full max-w-2xl"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={mediaProjectCode} />
@@ -554,12 +558,14 @@ export function FileExplorerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <FileExplorer
-              initialData={fullStackProjectData}
-              title="Full-Stack Application"
-              height="600px"
-              className="w-full"
-            />
+            <div className="w-full flex justify-center">
+              <FileExplorer
+                initialData={fullStackProjectData}
+                title="Full-Stack Application"
+                height="600px"
+                className="w-full max-w-2xl"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={fullStackProjectCode} />
@@ -579,21 +585,23 @@ export function FileExplorerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <div className="space-y-4">
-              <FileExplorer
-                initialData={basicProjectData}
-                onFileSelect={(file) => console.log('File selected:', file.name)}
-                onFolderToggle={(id, expanded) => console.log('Folder toggled:', id, expanded)}
-                height="400px"
-                className="w-full"
-              />
-              <div className="p-3 bg-muted rounded text-sm">
-                <p className="font-medium mb-1">Interactive Features:</p>
-                <ul className="text-muted-foreground space-y-1">
-                  <li>• Click files to select them (check console)</li>
-                  <li>• Expand/collapse folders</li>
-                  <li>• Use keyboard navigation (Tab, Enter, Space)</li>
-                </ul>
+            <div className="w-full flex justify-center">
+              <div className="space-y-4 w-full max-w-2xl">
+                <FileExplorer
+                  initialData={basicProjectData}
+                  onFileSelect={(file) => console.log('File selected:', file.name)}
+                  onFolderToggle={(id, expanded) => console.log('Folder toggled:', id, expanded)}
+                  height="400px"
+                  className="w-full"
+                />
+                <div className="p-3 bg-muted rounded text-sm">
+                  <p className="font-medium mb-1">Interactive Features:</p>
+                  <ul className="text-muted-foreground space-y-1">
+                    <li>• Click files to select them (check console)</li>
+                    <li>• Expand/collapse folders</li>
+                    <li>• Use keyboard navigation (Tab, Enter, Space)</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </Tab>
@@ -615,7 +623,9 @@ export function FileExplorerAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LoadingStateExample />
+            <div className="w-full flex justify-center">
+              <LoadingStateExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={loadingStateCode} />

@@ -472,7 +472,9 @@ export function UseLocationAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <BasicLocationExample />
+            <div className="w-full flex justify-center">
+              <BasicLocationExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={basicLocationCode} />
@@ -492,7 +494,9 @@ export function UseLocationAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationWithCoordinatesExample />
+            <div className="w-full flex justify-center">
+              <LocationWithCoordinatesExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={coordinatesCode} />
@@ -512,7 +516,9 @@ export function UseLocationAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <CustomCoordinatesExample />
+            <div className="w-full flex justify-center">
+              <CustomCoordinatesExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={customCoordinatesCode} />
@@ -532,7 +538,9 @@ export function UseLocationAdvancedExamples() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <LocationDashboardExample />
+            <div className="w-full flex justify-center">
+              <LocationDashboardExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={dashboardCode} />

@@ -18,31 +18,30 @@ import { FileUploaderAdvancedExamples } from "@/components/previews/examples/fil
 import { FileUploader } from "@/components/file-uploader"
 
 export default function MyComponent() {
-  const handleFilesReady = (files) => {
-    console.log('Files ready:', files)
-    // Handle the uploaded files
-    // Example: Create FormData to send to server
-    const formData = new FormData()
-    files.forEach((file, index) => {
-      formData.append(`file-${index}`, file)
-    })
-    // fetch('/api/upload', { method: 'POST', body: formData })
-  }
+      const handleFilesReady = (files) => {
+        console.log('Files ready:', files)
+        // Handle the uploaded files
+        // Example: Create FormData to send to server
+        const formData = new FormData()
+        files.forEach((file, index) => {
+          formData.append(`file-${index}`, file)
+        })
+        // fetch('/api/upload', { method: 'POST', body: formData })
+      }
 
-return (
-
-<FileUploader
-maxFiles={5}
-maxSize={1024 _ 1024 _ 5} // 5MB
-accept={['image/*', 'application/pdf']}
-onFilesReady={handleFilesReady}
-className="w-full max-w-lg"
-enableCropping={true}
-cropAspectRatio={16/9}
-cropMinWidth={100}
-cropMinHeight={56}
-/>
-)
+      return (
+        <FileUploader
+          maxFiles={5}
+          maxSize={1024 _ 1024 _ 5} // 5MB
+          accept={['image/*', 'application/pdf']}
+          onFilesReady={handleFilesReady}
+          className="w-full max-w-lg"
+          enableCropping={true}
+          cropAspectRatio={16/9}
+          cropMinWidth={100}
+          cropMinHeight={56}
+        />
+      )
 }
 
 ````
@@ -89,12 +88,6 @@ The File Uploader component is packed with powerful features designed to provide
     Easy file removal with automatic cleanup of preview URLs.
   </Card>
 </Cards>
-
-## Advanced Examples
-
-Explore different configurations and specialized use cases for the File Uploader component.
-
-<FileUploaderAdvancedExamples />
 
 ## Props
 
@@ -149,3 +142,9 @@ Explore different configurations and specialized use cases for the File Uploader
     },
   }}
 />
+
+## Advanced Examples
+
+Explore different configurations and specialized use cases for the File Uploader component.
+
+<FileUploaderAdvancedExamples />

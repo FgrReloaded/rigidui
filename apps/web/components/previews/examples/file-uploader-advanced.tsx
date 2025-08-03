@@ -25,15 +25,17 @@ export default function BasicExample() {
   return (
     <FileUploader
       onFilesReady={handleFilesReady}
-      className="w-full max-w-lg"
+      className="w-full max-w-lg mx-auto "
     />
   )
 }`,
     component: (
-      <FileUploader
-        onFilesReady={(files) => console.log('Basic example files:', files)}
-        className="w-full max-w-lg"
-      />
+      <div className="w-full flex justify-center">
+        <FileUploader
+          onFilesReady={(files) => console.log('Basic example files:', files)}
+          className="w-full max-w-lg mx-auto "
+        />
+      </div>
     ),
   },
   {
@@ -80,7 +82,7 @@ export default function DocumentExample() {
       ]}
       maxSize={1024 * 1024 * 15} // 15MB
       onFilesReady={(files) => console.log('Documents ready:', files)}
-      className="w-full max-w-lg border-dashed border-2 border-amber-300/50"
+      className="w-full max-w-lg mx-auto  border-dashed border-2 border-amber-300/50"
     />
   )
 }`,
@@ -94,7 +96,7 @@ export default function DocumentExample() {
         ]}
         maxSize={1024 * 1024 * 15}
         onFilesReady={(files) => console.log('Documents:', files)}
-        className="w-full max-w-lg border-dashed border-2 border-amber-300/50"
+        className="w-full max-w-lg mx-auto  border-dashed border-2 border-amber-300/50"
       />
     ),
   },
@@ -139,7 +141,7 @@ export default function ImageCroppingExample() {
       enableCropping={true}
       maxSize={1024 * 1024 * 5} // 5MB
       onFilesReady={(files) => console.log('Cropped images:', files)}
-      className="w-full max-w-lg border-dashed border-2 border-green-300/50"
+      className="w-full max-w-lg mx-auto  border-dashed border-2 border-green-300/50"
     />
   )
 }`,
@@ -150,7 +152,7 @@ export default function ImageCroppingExample() {
         enableCropping={true}
         maxSize={1024 * 1024 * 5}
         onFilesReady={(files) => console.log('Cropped images:', files)}
-        className="w-full max-w-lg border-dashed border-2 border-green-300/50"
+        className="w-full max-w-lg mx-auto  border-dashed border-2 border-green-300/50"
       />
     ),
   },
@@ -171,7 +173,7 @@ export default function FixedAspectCroppingExample() {
       cropMinHeight={56}
       maxSize={1024 * 1024 * 5} // 5MB
       onFilesReady={(files) => console.log('16:9 cropped image:', files)}
-      className="w-full max-w-lg border-dashed border-2 border-cyan-300/50"
+      className="w-full max-w-lg mx-auto  border-dashed border-2 border-cyan-300/50"
     />
   )
 }`,
@@ -185,7 +187,7 @@ export default function FixedAspectCroppingExample() {
         cropMinHeight={56}
         maxSize={1024 * 1024 * 5}
         onFilesReady={(files) => console.log('16:9 cropped image:', files)}
-        className="w-full max-w-lg border-dashed border-2 border-cyan-300/50"
+        className="w-full max-w-lg mx-auto  border-dashed border-2 border-cyan-300/50"
       />
     ),
   },
@@ -352,7 +354,7 @@ function CompleteFlowExample() {
   };
 
   return (
-    <div className="space-y-4 w-full max-w-lg">
+    <div className="space-y-4 w-full max-w-lg mx-auto  mx-auto">
       <FileUploader
         maxFiles={3}
         onFilesReady={handleFilesReady}
@@ -412,7 +414,7 @@ export function FileUploaderAdvancedExamples() {
           <Tab value="Preview">
             <FileUploader
               onFilesReady={(files) => console.log('Basic example files:', files)}
-              className="w-full max-w-lg"
+              className="w-full max-w-lg mx-auto "
             />
           </Tab>
           <Tab value="Code">
@@ -426,7 +428,7 @@ export default function BasicExample() {
   return (
     <FileUploader
       onFilesReady={handleFilesReady}
-      className="w-full max-w-lg"
+      className="w-full max-w-lg mx-auto "
     />
   )
 }`} />
@@ -446,13 +448,15 @@ export default function BasicExample() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <FileUploader
-              maxFiles={1}
-              accept={['image/*']}
-              maxSize={1024 * 1024 * 2}
-              onFilesReady={(files) => console.log('Single image:', files)}
-              className="w-full max-w-md border-dashed border-2 border-blue-300/50"
-            />
+            <div className="w-full flex justify-center">
+              <FileUploader
+                maxFiles={1}
+                accept={['image/*']}
+                maxSize={1024 * 1024 * 2}
+                onFilesReady={(files) => console.log('Single image:', files)}
+                className="w-full max-w-md"
+              />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={`import { FileUploader } from "@/components/file-uploader"
@@ -484,7 +488,9 @@ export default function SingleImageExample() {
 
         <Tabs items={['Preview', 'Code']}>
           <Tab value="Preview">
-            <CompleteFlowExample />
+            <div className="w-full flex justify-center">
+              <CompleteFlowExample />
+            </div>
           </Tab>
           <Tab value="Code">
             <DynamicCodeBlock lang="tsx" code={`import { FileUploader } from "@/components/file-uploader"
