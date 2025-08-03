@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import RigidLogo from "../logo"
 
 const Footer = () => {
   return (
@@ -12,13 +12,7 @@ const Footer = () => {
           <div className="flex flex-col gap-6 lg:w-1/3">
             <Link href="/" className="group flex items-center gap-4">
               <div className="relative">
-                <Image
-                  src="/logo.png"
-                  alt="rigidui"
-                  width={60}
-                  height={60}
-                  className="group-hover:scale-110 transition-all duration-300 drop-shadow-lg"
-                />
+                <RigidLogo />
                 <div className="absolute -inset-2 bg-linear-to-r from-primary/30 to-purple-500/30 rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
               </div>
               <div className="flex flex-col">

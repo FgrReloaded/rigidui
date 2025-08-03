@@ -128,7 +128,7 @@ export function FileUploader({
     progress: "h-1 rounded-full bg-secondary",
     errorContainer: "bg-destructive/5",
     successContainer: "bg-primary/5",
-    dialogContent: "max-w-4xl max-h-[90vh] overflow-auto",
+    dialogContent: "max-w-2xl max-h-[80vh] overflow-auto",
     dialogHeader: "",
     dialogTitle: "",
   }
@@ -194,29 +194,44 @@ export function FileUploader({
 
     const pixelCrop = convertToPixelCrop(crop, image.naturalWidth, image.naturalHeight);
 
+    // Calculate proper scaling factors
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+
+    // Set canvas dimensions to crop size
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
 
+    // Improve image quality
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    // Draw the cropped portion
     ctx.drawImage(
       image,
-      pixelCrop.x,
-      pixelCrop.y,
-      pixelCrop.width,
-      pixelCrop.height,
+      pixelCrop.x * scaleX,
+      pixelCrop.y * scaleY,
+      pixelCrop.width * scaleX,
+      pixelCrop.height * scaleY,
       0,
       0,
-      pixelCrop.width,
-      pixelCrop.height
+      canvas.width,
+      canvas.height
     );
 
-    return new Promise((resolve) => {
+    // Convert to blob and create file
+    return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         if (!blob) {
-          throw new Error('Failed to create blob');
+          reject(new Error('Failed to create blob'));
+          return;
         }
-        const file = new globalThis.File([blob], fileName, { type: 'image/jpeg' });
+        const file = new globalThis.File([blob], fileName, {
+          type: 'image/png',
+          lastModified: Date.now()
+        });
         resolve(file);
-      }, 'image/jpeg', 0.9);
+      }, 'image/png', 1.0);
     });
   }, []);
 
@@ -232,8 +247,8 @@ export function FileUploader({
 
       const croppedPreview = URL.createObjectURL(croppedFile);
 
-      setFiles(prevFiles =>
-        prevFiles.map(f =>
+      setFiles(prevFiles => {
+        const updatedFiles = prevFiles.map(f =>
           f.id === currentCropFile.id
             ? {
               ...f,
@@ -243,24 +258,23 @@ export function FileUploader({
               originalFile: f.originalFile || f.file
             }
             : f
-        )
-      );
+        );
 
-      const updatedFiles = files.map(f =>
-        f.id === currentCropFile.id ? croppedFile : f.file
-      );
+        // Call onFilesReady with the updated files
+        if (onFilesReady) {
+          const validFiles = updatedFiles.filter(f => !f.error).map(f => f.file);
+          onFilesReady(validFiles);
+        }
 
-      if (onFilesReady) {
-        const validFiles = updatedFiles.filter((_, index) => !files[index].error);
-        onFilesReady(validFiles);
-      }
+        return updatedFiles;
+      });
 
       setCropDialogOpen(false);
       setCurrentCropFile(null);
     } catch (error) {
       console.error('Error cropping image:', error);
     }
-  }, [completedCrop, imgRef, currentCropFile, createCroppedImage, files, onFilesReady]);
+  }, [completedCrop, imgRef, currentCropFile, createCroppedImage, onFilesReady]);
 
   const handleCropCancel = useCallback(() => {
     setCropDialogOpen(false);
@@ -270,21 +284,23 @@ export function FileUploader({
   }, []);
 
   const initializeCrop = useCallback((imageWidth: number, imageHeight: number) => {
-    const crop = centerCrop(
-      makeAspectCrop(
-        {
-          unit: '%',
-          width: 80,
-        },
-        cropAspectRatio || imageWidth / imageHeight,
-        imageWidth,
-        imageHeight,
-      ),
+    const newCrop = centerCrop(
+      cropAspectRatio
+        ? makeAspectCrop(
+          {
+            unit: '%',
+            width: 90,
+          },
+          cropAspectRatio,
+          imageWidth,
+          imageHeight
+        )
+        : { x: 0, y: 0, width: 90, height: 90, unit: '%' },
       imageWidth,
       imageHeight,
     );
-    setCrop(crop);
-    setCompletedCrop(crop);
+    setCrop(newCrop);
+    setCompletedCrop(newCrop);
   }, [cropAspectRatio]);
 
   const addFiles = useCallback((newFiles: FileList) => {
@@ -341,6 +357,8 @@ export function FileUploader({
 
   const openCropDialog = useCallback((file: FileWithPreview) => {
     setCurrentCropFile(file);
+    setCrop(undefined);
+    setCompletedCrop(undefined);
     setCropDialogOpen(true);
   }, []);
 
@@ -486,7 +504,7 @@ export function FileUploader({
                 fileData.error ? appliedTheme.errorContainer : appliedTheme.successContainer
               )} />
               <CardContent className={appliedTheme.fileCardContent}>
-                <div className="flex items-start gap-3">
+                <div className="flex items-center gap-3">
                   {fileData.preview ? (
                     <div className={appliedTheme.filePreview}>
                       <img
@@ -562,10 +580,10 @@ export function FileUploader({
       <Dialog open={cropDialogOpen} onOpenChange={setCropDialogOpen}>
         <DialogContent className={appliedTheme.dialogContent}>
           <DialogHeader className={appliedTheme.dialogHeader}>
-            <DialogTitle className={appliedTheme.dialogTitle}>Crop Image</DialogTitle>
+            <DialogTitle className={cn("text-sm font-medium", appliedTheme.dialogTitle)}>Crop Image</DialogTitle>
           </DialogHeader>
           {currentCropFile && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex justify-center">
                 <ReactCrop
                   crop={crop}
@@ -574,25 +592,26 @@ export function FileUploader({
                   aspect={cropAspectRatio}
                   minWidth={cropMinWidth}
                   minHeight={cropMinHeight}
+                  className="max-w-full"
                 >
                   <img
                     ref={setImgRef}
-                    src={currentCropFile.preview!}
+                    src={currentCropFile.croppedPreview || currentCropFile.preview!}
                     alt="Crop preview"
                     onLoad={(e) => {
                       const { naturalWidth, naturalHeight } = e.currentTarget;
                       initializeCrop(naturalWidth, naturalHeight);
                     }}
-                    className="max-w-full max-h-[60vh] object-contain"
+                    className="max-w-full max-h-[40vh] object-contain rounded"
                   />
                 </ReactCrop>
               </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={handleCropCancel}>
+              <div className="flex justify-end gap-2 pt-2">
+                <Button variant="outline" size="sm" onClick={handleCropCancel}>
                   Cancel
                 </Button>
-                <Button onClick={handleCropComplete} disabled={!completedCrop}>
-                  Apply Crop
+                <Button size="sm" onClick={handleCropComplete} disabled={!completedCrop}>
+                  Apply
                 </Button>
               </div>
             </div>

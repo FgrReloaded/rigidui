@@ -491,6 +491,6 @@ h3{
   margin-block: 0 !important;
 } */
 
-.intro p, .intro h1, .intro h2, .intro h3 {
+.intro p, .intro h1, .intro h2, .intro h3, img {
   margin-block: 0 !important;
 }
