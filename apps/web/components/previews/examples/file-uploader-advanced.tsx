@@ -1,11 +1,14 @@
 "use client"
 
-import { FileUploader } from "@/registry/new-york/file-uploader/file-uploader";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react"
+import { FileUploader } from "@/registry/new-york/file-uploader/file-uploader"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import * as TabsComponents from 'fumadocs-ui/components/tabs'
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock'
+
+const { Tabs, Tab } = TabsComponents
 
 export const fileUploaderAdvancedExamples = [
   {
@@ -392,37 +395,159 @@ function CompleteFlowExample() {
   );
 }
 
-// Component that renders all advanced examples with tabs
 export function FileUploaderAdvancedExamples() {
   return (
     <div className="space-y-8">
-      {fileUploaderAdvancedExamples.map((example, index) => (
-        <div key={index} className="space-y-6 mb-12">
-          <div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              {example.title}
-            </h3>
-            <p className="text-muted-foreground">
-              {example.description}
-            </p>
-          </div>
-
-          <Tabs defaultValue="preview" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="code">Code</TabsTrigger>
-            </TabsList>
-            <TabsContent value="preview" className="space-y-4">
-              {example.component}
-            </TabsContent>
-            <TabsContent value="code" className="space-y-4">
-              <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>{example.code}</code>
-              </pre>
-            </TabsContent>
-          </Tabs>
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Basic File Uploader
+          </h3>
+          <p className="text-muted-foreground">
+            Simple file uploader with default settings supporting images, PDFs, and text files.
+          </p>
         </div>
-      ))}
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FileUploader
+              onFilesReady={(files) => console.log('Basic example files:', files)}
+              className="w-full max-w-lg"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { FileUploader } from "@/components/file-uploader"
+
+export default function BasicExample() {
+  const handleFilesReady = (files) => {
+    console.log('Files ready:', files)
+  }
+
+  return (
+    <FileUploader
+      onFilesReady={handleFilesReady}
+      className="w-full max-w-lg"
+    />
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Single Image Uploader
+          </h3>
+          <p className="text-muted-foreground">
+            Restrict uploads to a single image file with a smaller size limit, perfect for profile pictures or avatars.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FileUploader
+              maxFiles={1}
+              accept={['image/*']}
+              maxSize={1024 * 1024 * 2}
+              onFilesReady={(files) => console.log('Single image:', files)}
+              className="w-full max-w-md border-dashed border-2 border-blue-300/50"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { FileUploader } from "@/components/file-uploader"
+
+export default function SingleImageExample() {
+  return (
+    <FileUploader
+      maxFiles={1}
+      accept={['image/*']}
+      maxSize={1024 * 1024 * 2}
+      onFilesReady={(files) => console.log('Image selected:', files[0])}
+      className="w-full max-w-md border-dashed border-2 border-blue-300/50"
+    />
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Complete Upload Flow
+          </h3>
+          <p className="text-muted-foreground">
+            Full implementation with server upload, progress tracking, and success/error handling.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <CompleteFlowExample />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { FileUploader } from "@/components/file-uploader"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+
+export default function CompleteFlowExample() {
+  const [files, setFiles] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [uploadStatus, setUploadStatus] = useState('')
+
+  const handleFilesReady = (selectedFiles) => {
+    setFiles(selectedFiles)
+    setUploadStatus('')
+  }
+
+  const handleUpload = async () => {
+    if (files.length === 0) return
+
+    setUploading(true)
+    setUploadStatus('Uploading...')
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setUploadStatus('Upload completed successfully!')
+    } catch (error) {
+      console.error('Upload error:', error)
+      setUploadStatus('Upload failed. Please try again.')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <FileUploader
+        maxFiles={3}
+        onFilesReady={handleFilesReady}
+      />
+
+      {files.length > 0 && (
+        <div className="flex items-center gap-4">
+          <Button
+            onClick={handleUpload}
+            disabled={uploading}
+          >
+            {uploading ? 'Uploading...' : 'Upload Files'}
+          </Button>
+
+          {uploadStatus && (
+            <p className={uploading ? 'text-blue-500' :
+              uploadStatus.includes('successfully') ? 'text-green-500' : 'text-red-500'}>
+              {uploadStatus}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   )
 }

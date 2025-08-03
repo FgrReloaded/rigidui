@@ -1,9 +1,12 @@
 "use client"
 
-import { PasswordStrengthMeter } from "@/registry/new-york/strength-meter/strength-meter";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PasswordStrengthMeter } from "@/registry/new-york/strength-meter/strength-meter"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import * as TabsComponents from 'fumadocs-ui/components/tabs'
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock'
+
+const { Tabs, Tab } = TabsComponents
 
 export const strengthMeterAdvancedExamples = [
   {
@@ -379,37 +382,140 @@ function FormIntegrationExample() {
   );
 }
 
-// Component that renders all advanced examples with tabs
 export function StrengthMeterAdvancedExamples() {
   return (
     <div className="space-y-8">
-      {strengthMeterAdvancedExamples.map((example, index) => (
-        <div key={index} className="space-y-6 mb-12">
-          <div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              {example.title}
-            </h3>
-            <p className="text-muted-foreground">
-              {example.description}
-            </p>
-          </div>
-
-          <Tabs defaultValue="preview" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="code">Code</TabsTrigger>
-            </TabsList>
-            <TabsContent value="preview" className="space-y-4">
-              {example.component}
-            </TabsContent>
-            <TabsContent value="code" className="space-y-4">
-              <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>{example.code}</code>
-              </pre>
-            </TabsContent>
-          </Tabs>
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Basic Password Strength Meter
+          </h3>
+          <p className="text-muted-foreground">
+            Simple password strength meter with default settings. Perfect for most use cases with standard security requirements.
+          </p>
         </div>
-      ))}
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <PasswordStrengthMeter
+              placeholder="Enter your password"
+              className="max-w-md"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"
+
+export default function BasicExample() {
+  return (
+    <PasswordStrengthMeter
+      placeholder="Enter your password"
+      className="max-w-md"
+    />
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            With Auto Password Generation
+          </h3>
+          <p className="text-muted-foreground">
+            Enable automatic password generation to help users create strong passwords with a single click.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <PasswordStrengthMeter
+              placeholder="Generate or type password"
+              enableAutoGenerate={true}
+              autoGenerateLength={16}
+              className="max-w-md"
+            />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"
+
+export default function AutoGenerateExample() {
+  return (
+    <PasswordStrengthMeter
+      placeholder="Generate or type password"
+      enableAutoGenerate={true}
+      autoGenerateLength={16}
+      className="max-w-md"
+    />
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
+
+      <div className="space-y-6 mb-12">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            With Form Integration
+          </h3>
+          <p className="text-muted-foreground">
+            Integrate with form state management to handle password changes and validation, including auto-generation.
+          </p>
+        </div>
+
+        <Tabs items={['Preview', 'Code']}>
+          <Tab value="Preview">
+            <FormIntegrationExample />
+          </Tab>
+          <Tab value="Code">
+            <DynamicCodeBlock lang="tsx" code={`import { PasswordStrengthMeter } from "@/components/password-strength-meter"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+
+export default function FormIntegrationExample() {
+  const [password, setPassword] = useState("")
+  const [isValid, setIsValid] = useState(false)
+
+  const handlePasswordChange = (newPassword) => {
+    setPassword(newPassword)
+    setIsValid(newPassword.length >= 8 && /[A-Z]/.test(newPassword))
+  }
+
+  const handleSubmit = () => {
+    if (isValid) {
+      console.log('Form submitted with password:', password)
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <PasswordStrengthMeter
+        placeholder="Enter password for registration"
+        value={password}
+        onChange={handlePasswordChange}
+        enableAutoGenerate={true}
+        className="max-w-md"
+      />
+
+      <Button
+        onClick={handleSubmit}
+        disabled={!isValid}
+        className="w-full max-w-md"
+      >
+        Create Account
+      </Button>
+
+      {password && (
+        <p className="text-sm text-muted-foreground max-w-md">
+          Password {isValid ? 'meets' : 'does not meet'} requirements
+        </p>
+      )}
+    </div>
+  )
+}`} />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   )
 }
