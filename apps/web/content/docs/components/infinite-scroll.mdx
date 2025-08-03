@@ -19,51 +19,51 @@ import { InfiniteScroll } from "@/components/infinite-scroll"
 import { useState, useCallback } from "react"
 
 export default function MyComponent() {
-  const [items, setItems] = useState([])
-  const [hasNext, setHasNext] = useState(true)
-  const [loading, setLoading] = useState(false)
+      const [items, setItems] = useState([])
+      const [hasNext, setHasNext] = useState(true)
+      const [loading, setLoading] = useState(false)
 
-const loadMore = useCallback(async () => {
-setLoading(true)
-try {
-const response = await fetch(`/api/items?page=${Math.floor(items.length / 10) + 1}`)
-const data = await response.json()
-setItems(prev => [...prev, ...data.items])
-setHasNext(data.hasMore)
-} catch (error) {
-console.error('Failed to load items:', error)
-} finally {
-setLoading(false)
+      const loadMore = useCallback(async () => {
+        setLoading(true)
+        try {
+          const response = await fetch(`/api/items?page=${Math.floor(items.length / 10) + 1}`)
+          const data = await response.json()
+          setItems(prev => [...prev, ...data.items])
+          setHasNext(data.hasMore)
+        } catch (error) {
+          console.error('Failed to load items:', error)
+        } finally {
+          setLoading(false)
+        }
+      }, [items.length])
+
+      return (
+        <InfiniteScroll
+          items={items}
+          hasNextPage={hasNext}
+          isLoading={loading}
+          onLoadMore={loadMore}
+          threshold={200}
+          initialLoad={true}
+          renderItem={(item, index) => (
+            <div key={item.id} className="p-4 border rounded-lg">
+              <h3 className="font-semibold">{item.title}</h3>
+              <p className="text-muted-foreground">{item.description}</p>
+            </div>
+          )}
+          loader={() => (
+            <div className="flex justify-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary" />
+            </div>
+          )}
+          endMessage={
+            <div className="text-center py-4 text-muted-foreground">
+              <p>You've reached the end! 🎉</p>
+            </div>
+          }
+        />
+      )
 }
-}, [items.length])
-
-return (
-
-<InfiniteScroll
-  items={items}
-  hasNextPage={hasNext}
-  isLoading={loading}
-  onLoadMore={loadMore}
-  threshold={200}
-  initialLoad={true}
-  renderItem={(item, index) => (
-    <div key={item.id} className="p-4 border rounded-lg">
-      <h3 className="font-semibold">{item.title}</h3>
-      <p className="text-muted-foreground">{item.description}</p>
-    </div>
-  )}
-  loader={() => (
-    <div className="flex justify-center py-4">
-      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary" />
-    </div>
-  )}
-  endMessage={
-    <div className="text-center py-4 text-muted-foreground">
-      <p>You've reached the end! 🎉</p>
-    </div>
-  }
-/>
-) }
 
 ````
   </Tab>

@@ -18,15 +18,15 @@ import NotificationCenterPreview from "@/components/previews/notification-center
 import { NotificationCenter } from "@/components/notification-center"
 
 export default function MyComponent() {
-  return (
-    <NotificationCenter
-      variant="full"
-      enableRealTimeUpdates={true}
-      updateInterval={30000}
-      showFilter={true}
-      showMarkAllRead={true}
-    />
-  )
+      return (
+        <NotificationCenter
+          variant="popover"
+          enableRealTimeUpdates={true}
+          updateInterval={30000}
+          showFilter={true}
+          showMarkAllRead={true}
+        />
+      )
 }
 ```
   </Tab>

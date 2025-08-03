@@ -21,40 +21,40 @@ import { User, Tag, Calendar } from "lucide-react"
 export default function MyComponent() {
   const [searchResults, setSearchResults] = useState([])
 
-const suggestions = [
-'React Components',
-'TypeScript',
-'Next.js',
-'Tailwind CSS'
-]
+      const suggestions = [
+        'React Components',
+        'TypeScript',
+        'Next.js',
+        'Tailwind CSS'
+      ]
 
-const searchFilters = [
-{ key: 'author', label: 'Author', icon: <User className="w-3 h-3" /> },
-{ key: 'tag', label: 'Tag', icon: <Tag className="w-3 h-3" /> },
-{ key: 'recent', label: 'Recent', icon: <Calendar className="w-3 h-3" /> }
-]
+      const searchFilters = [
+        { key: 'author', label: 'Author', icon: <User className="w-3 h-3" /> },
+        { key: 'tag', label: 'Tag', icon: <Tag className="w-3 h-3" /> },
+        { key: 'recent', label: 'Recent', icon: <Calendar className="w-3 h-3" /> }
+      ]
 
-const handleSearch = (query, filters) => {
-// Perform your search logic here
-console.log('Searching for:', query, 'with filters:', filters)
-// Update search results
-setSearchResults(/_ your search results _/)
+      const handleSearch = (query, filters) => {
+        // Perform your search logic here
+        console.log('Searching for:', query, 'with filters:', filters)
+        // Update search results
+        setSearchResults(/_ your search results _/)
+      }
+
+      return (
+        <SmartSearch
+          placeholder="Search documentation..."
+          searchHistory={true}
+          suggestions={suggestions}
+          searchFilters={searchFilters}
+          onSearch={handleSearch}
+          onSuggestionSelect={(suggestion) => console.log("Selected:", suggestion)}
+          resultCount={searchResults.length}
+          debounceMs={300}
+          urlSync={true}
+        />
+      )
 }
-
-return (
-
-<SmartSearch
-  placeholder="Search documentation..."
-  searchHistory={true}
-  suggestions={suggestions}
-  searchFilters={searchFilters}
-  onSearch={handleSearch}
-  onSuggestionSelect={(suggestion) => console.log("Selected:", suggestion)}
-  resultCount={searchResults.length}
-  debounceMs={300}
-  urlSync={true}
-/>
-) }
 
 ````
   </Tab>

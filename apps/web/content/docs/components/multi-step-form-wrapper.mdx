@@ -1,5 +1,5 @@
 ---
-title: Multi Step Form
+title: Multi Step Form Wrapper
 description: A flexible grid/list component that provides seamless switching between grid and list layouts with customizable card rendering.
 ---
 
@@ -17,12 +17,16 @@ import MultiStepFormPreview from "@/components/previews/multi-step-form";
 import { MultiStepFormWrapper, Step } from "@/components/multi-step-form-wrapper"
 
 export default function MyComponent() {
-  return (
-    <MultiStepFormWrapper>
-      <Step title="Step 1">Step 1 Content</Step>
-      <Step title="Step 2">Step 2 Content</Step>
-    </MultiStepFormWrapper>
-  )
+      return (
+        <MultiStepFormWrapper>
+          <Step title="Basic Info">
+            <FormBasic />
+          </Step>
+          <Step title="Message">
+            <FormMessage />
+          </Step>
+        </MultiStepFormWrapper>
+      )
 }
 ```
   </Tab>
