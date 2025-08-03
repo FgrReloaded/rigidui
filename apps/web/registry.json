@@ -11,7 +11,7 @@
       "registryDependencies": ["button", "input", "popover"],
       "files": [
         {
-          "path": "registry/new-york/location-picker/location-picker.tsx",
+          "path": "r/new-york/location-picker/location-picker.tsx",
           "type": "registry:component"
         }
       ],
@@ -25,7 +25,7 @@
       "registryDependencies": ["select"],
       "files": [
         {
-          "path": "registry/new-york/currency-manager/currency-manager.tsx",
+          "path": "r/new-york/currency-manager/currency-manager.tsx",
           "type": "registry:component"
         }
       ],
@@ -40,7 +40,7 @@
       "dependencies": ["react-syntax-highlighter", "lucide-react"],
       "files": [
         {
-          "path": "registry/new-york/file-explorer/file-explorer.tsx",
+          "path": "r/new-york/file-explorer/file-explorer.tsx",
           "type": "registry:component"
         }
       ],
@@ -55,7 +55,7 @@
       "dependencies": ["react-hook-form", "zod", "@hookform/resolvers"],
       "files": [
         {
-          "path": "registry/new-york/multi-step-form-wrapper/multi-step-form-wrapper.tsx",
+          "path": "r/new-york/multi-step-form-wrapper/multi-step-form-wrapper.tsx",
           "type": "registry:component"
         }
       ],
@@ -69,7 +69,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "registry/new-york/strength-meter/strength-meter.tsx",
+          "path": "r/new-york/strength-meter/strength-meter.tsx",
           "type": "registry:component"
         }
       ],
@@ -84,7 +84,7 @@
       "dependencies": ["react-image-crop"],
       "files": [
         {
-          "path": "registry/new-york/file-uploader/file-uploader.tsx",
+          "path": "r/new-york/file-uploader/file-uploader.tsx",
           "type": "registry:component"
         }
       ],
@@ -97,7 +97,7 @@
       "description": "An infinite scroll component",
       "files": [
         {
-          "path": "registry/new-york/infinite-scroll/infinite-scroll.tsx",
+          "path": "r/new-york/infinite-scroll/infinite-scroll.tsx",
           "type": "registry:component"
         }
       ],
@@ -110,7 +110,7 @@
       "description": "A custom hook to get the manage location",
       "files": [
         {
-          "path": "registry/new-york/use-location/use-location.ts",
+          "path": "r/new-york/use-location/use-location.ts",
           "type": "registry:hook"
         }
       ],
@@ -132,7 +132,7 @@
       "dependencies": ["@tanstack/react-query"],
       "files": [
         {
-          "path": "registry/new-york/notification-center/notification-center.tsx",
+          "path": "r/new-york/notification-center/notification-center.tsx",
           "type": "registry:component"
         }
       ],
@@ -161,7 +161,7 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/smart-form/smart-form.tsx",
+          "path": "r/new-york/smart-form/smart-form.tsx",
           "type": "registry:component"
         }
       ],
@@ -176,7 +176,7 @@
       "dependencies": ["@tanstack/react-pacer"],
       "files": [
         {
-          "path": "registry/new-york/smart-search/smart-search.tsx",
+          "path": "r/new-york/smart-search/smart-search.tsx",
           "type": "registry:component"
         }
       ],
@@ -195,7 +195,7 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/draggable-dashboard/draggable-dashboard.tsx",
+          "path": "r/new-york/draggable-dashboard/draggable-dashboard.tsx",
           "type": "registry:component"
         }
       ],
@@ -208,7 +208,7 @@
       "description": "An advanced image loading component with beautiful loading effect and error handling",
       "files": [
         {
-          "path": "registry/new-york/image-loader/image-loader.tsx",
+          "path": "r/new-york/image-loader/image-loader.tsx",
           "type": "registry:component"
         }
       ],
@@ -222,7 +222,7 @@
       "registryDependencies": ["button", "card"],
       "files": [
         {
-          "path": "registry/new-york/guided-tour/guided-tour.tsx",
+          "path": "r/new-york/guided-tour/guided-tour.tsx",
           "type": "registry:component"
         }
       ],
@@ -236,7 +236,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "registry/new-york/content-grid/content-grid.tsx",
+          "path": "r/new-york/content-grid/content-grid.tsx",
           "type": "registry:component"
         }
       ],

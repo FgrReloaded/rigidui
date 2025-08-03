@@ -376,7 +376,6 @@ export function NotificationCenter({
           if (!notification.isRead) {
             new Notification(notification.title, {
               body: notification.message,
-              icon: '/short-logo.png'
             });
           }
         });

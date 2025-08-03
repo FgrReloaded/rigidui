@@ -547,7 +547,7 @@ const Components = () => {
 
   return (
     <TourProvider autoStart={false}>
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 min-h-screen">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 min-h-screen max-sm:mt-12">
         <TourStep
           id="header"
           title="Welcome to Components"
