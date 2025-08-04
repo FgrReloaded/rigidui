@@ -42,13 +42,13 @@ export default function MyComponent() {
             onFilesReady={handleFilesReady}
             className="w-full max-w-lg"
           >
-          <FileUploaderDropZone />
-          <FileUploaderFileList enableCropping />
-          <FileUploaderCrop
-                  aspectRatio={16/9}
-                  minWidth={100}
-                  minHeight={56}
-                />
+              <FileUploaderDropZone />
+              <FileUploaderFileList enableCropping />
+              <FileUploaderCrop
+                      aspectRatio={16/9}
+                      minWidth={100}
+                      minHeight={56}
+              />
           </FileUploader>
       )
 }
