@@ -15,7 +15,12 @@ import { FileUploaderAdvancedExamples } from "@/components/previews/examples/fil
   </Tab>
   <Tab value="Code">
     ```tsx title="file-uploader.tsx"
-import { FileUploader } from "@/components/file-uploader"
+import {
+      FileUploader,
+      FileUploaderDropZone,
+      FileUploaderFileList,
+      FileUploaderCrop
+} from "@/components/file-uploader"
 
 export default function MyComponent() {
       const handleFilesReady = (files) => {
@@ -30,21 +35,23 @@ export default function MyComponent() {
       }
 
       return (
-        <FileUploader
-          maxFiles={5}
-          maxSize={1024 _ 1024 _ 5} // 5MB
-          accept={['image/*', 'application/pdf']}
-          onFilesReady={handleFilesReady}
-          className="w-full max-w-lg"
-          enableCropping={true}
-          cropAspectRatio={16/9}
-          cropMinWidth={100}
-          cropMinHeight={56}
-        />
+          <FileUploader
+            maxFiles={5}
+            maxSize={1024 _ 1024 _ 5} // 5MB
+            accept={['image/*', 'application/pdf']}
+            onFilesReady={handleFilesReady}
+            className="w-full max-w-lg"
+          >
+          <FileUploaderDropZone />
+          <FileUploaderFileList enableCropping />
+          <FileUploaderCrop
+                  aspectRatio={16/9}
+                  minWidth={100}
+                  minHeight={56}
+                />
+          </FileUploader>
       )
-
 }
-
 ````
   </Tab>
 </Tabs>
@@ -92,6 +99,8 @@ The File Uploader component is packed with powerful features designed to provide
 
 ## Props
 
+### FileUploader
+
 <TypeTable
   type={{
     onFilesReady: {
@@ -120,23 +129,71 @@ The File Uploader component is packed with powerful features designed to provide
       type: "string",
       default: "undefined",
     },
+    children: {
+      description:
+        "Child components (FileUploaderDropZone, FileUploaderFileList, etc.)",
+      type: "React.ReactNode",
+      default: "undefined",
+    },
+  }}
+/>
+
+### FileUploaderDropZone
+
+<TypeTable
+  type={{
+    className: {
+      description: "Additional class names for styling the drop zone",
+      type: "string",
+      default: "undefined",
+    },
+    disabled: {
+      description: "Whether the drop zone is disabled",
+      type: "boolean",
+      default: "false",
+    },
+  }}
+/>
+
+### FileUploaderFileList
+
+<TypeTable
+  type={{
+    className: {
+      description: "Additional class names for styling the file list",
+      type: "string",
+      default: "undefined",
+    },
+    showHeader: {
+      description:
+        "Whether to show the file list header with count and clear button",
+      type: "boolean",
+      default: "true",
+    },
     enableCropping: {
       description: "Enable image cropping functionality for uploaded images",
       type: "boolean",
       default: "false",
     },
-    cropAspectRatio: {
+  }}
+/>
+
+### FileUploaderCrop
+
+<TypeTable
+  type={{
+    aspectRatio: {
       description:
         "Fixed aspect ratio for cropping (e.g., 16/9, 1, 4/3). If undefined, free cropping is allowed",
       type: "number",
       default: "undefined",
     },
-    cropMinWidth: {
+    minWidth: {
       description: "Minimum width for the crop area in pixels",
       type: "number",
       default: "50",
     },
-    cropMinHeight: {
+    minHeight: {
       description: "Minimum height for the crop area in pixels",
       type: "number",
       default: "50",
