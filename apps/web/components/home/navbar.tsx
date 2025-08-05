@@ -65,7 +65,7 @@ const Sidebar = () => {
             </span>
           </Link>
 
-          <Link href="https://examples.rigidui.com" target='_blank' className="flex items-center lg:gap-3 gap-1.5 sm:px-4 px-3 py-2.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all duration-200 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-800 hover:shadow-xs dark:hover:shadow-emerald-900/20">
+          {/* <Link href="https://examples.rigidui.com" target='_blank' className="flex items-center lg:gap-3 gap-1.5 sm:px-4 px-3 py-2.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all duration-200 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-800 hover:shadow-xs dark:hover:shadow-emerald-900/20">
             <div className="p-1.5 rounded-md bg-emerald-100 dark:bg-emerald-900/50 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-800/60 transition-colors">
               <svg viewBox="0 0 24 24" className="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-colors" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -77,7 +77,7 @@ const Sidebar = () => {
             <span className="lg:text-sm text-xs max-sm:hidden font-medium text-gray-700 dark:text-gray-300 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">
               Examples
             </span>
-          </Link>
+          </Link> */}
 
           <ThemeToggle />
         </nav>
