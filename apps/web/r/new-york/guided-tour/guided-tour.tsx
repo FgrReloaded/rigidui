@@ -1,23 +1,21 @@
 "use client"
-import React, { useState, useEffect, useRef, createContext, useContext, ReactNode, useCallback } from 'react'
+import React, { useState, useEffect, useRef, createContext, useContext, ReactNode, useCallback, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const useDisableMouseScroll = (isDisabled: boolean) => {
   useEffect(() => {
-    if (isDisabled) {
-      const preventMouseScroll = (e: WheelEvent) => {
-        e.preventDefault();
-      };
-      window.addEventListener('wheel', preventMouseScroll, { passive: false });
+    if (!isDisabled) return
 
-      return () => {
-        window.removeEventListener('wheel', preventMouseScroll);
-      };
+    const preventMouseScroll = (e: WheelEvent) => {
+      e.preventDefault()
     }
-  }, [isDisabled]);
-};
+
+    window.addEventListener('wheel', preventMouseScroll, { passive: false })
+    return () => window.removeEventListener('wheel', preventMouseScroll)
+  }, [isDisabled])
+}
 
 interface TourStepConfig {
   id: string;
@@ -62,62 +60,63 @@ export const useTour = () => {
 };
 
 const TourOverlay: React.FC = () => {
-  const { isActive, currentStepId } = useTour();
-  const [highlightRect, setHighlightRect] = useState<DOMRect | null>(null);
+  const { isActive, currentStepId } = useTour()
+  const [highlightStyle, setHighlightStyle] = useState<React.CSSProperties>({})
+  const rafRef = useRef<number | undefined>(undefined)
 
-  useDisableMouseScroll(isActive);
+  useDisableMouseScroll(isActive)
+
+  const updateHighlight = useCallback(() => {
+    if (!isActive || !currentStepId) return
+
+    const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement
+    if (!stepElement) return
+
+    const rect = stepElement.getBoundingClientRect()
+    const padding = 8
+
+    setHighlightStyle({
+      transform: `translate(${rect.left - padding}px, ${rect.top - padding}px)`,
+      width: rect.width + padding * 2,
+      height: rect.height + padding * 2,
+    })
+  }, [isActive, currentStepId])
 
   useEffect(() => {
-    if (isActive && currentStepId) {
-      const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement;
-      if (stepElement) {
-        const updateHighlight = () => {
-          const rect = stepElement.getBoundingClientRect();
-          setHighlightRect(rect);
-        };
-
-        updateHighlight();
-
-        const handleUpdate = () => updateHighlight();
-        window.addEventListener('scroll', handleUpdate, true);
-        window.addEventListener('resize', handleUpdate);
-
-        return () => {
-          window.removeEventListener('scroll', handleUpdate, true);
-          window.removeEventListener('resize', handleUpdate);
-        };
-      }
-    } else {
-      setHighlightRect(null);
+    if (!isActive || !currentStepId) {
+      setHighlightStyle({})
+      return
     }
-  }, [isActive, currentStepId]);
 
-  if (!isActive || !highlightRect) {
-    return null;
-  }
+    updateHighlight()
 
-  const padding = 8;
+    const handleUpdate = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(updateHighlight)
+    }
+
+    window.addEventListener('scroll', handleUpdate, { passive: true })
+    window.addEventListener('resize', handleUpdate, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleUpdate)
+      window.removeEventListener('resize', handleUpdate)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [isActive, currentStepId, updateHighlight])
+
+  if (!isActive || !highlightStyle.width) return null
 
   return (
-    <div
-      className="fixed inset-0 z-10000 pointer-events-auto"
-    >
+    <div className="fixed inset-0 z-10000 pointer-events-auto">
+      <div className="fixed inset-0 bg-black/30 z-10001 backdrop-blur-xs pointer-events-auto" />
       <div
-        className="fixed inset-0 bg-black/30 z-10001 backdrop-blur-xs pointer-events-auto"
-      />
-      <div
-        className="absolute rounded-xl pointer-events-none"
-        style={{
-          left: highlightRect.left - padding,
-          top: highlightRect.top - padding,
-          width: highlightRect.width + padding * 2,
-          height: highlightRect.height + padding * 2,
-          transition: 'all 0.3s ease'
-        }}
+        className="absolute rounded-xl pointer-events-none transition-all duration-300 ease-out"
+        style={highlightStyle}
       />
     </div>
-  );
-};
+  )
+}
 
 const GlobalTourPopover: React.FC = () => {
   const {
@@ -128,173 +127,98 @@ const GlobalTourPopover: React.FC = () => {
     nextStep,
     prevStep,
     stopTour
-  } = useTour();
+  } = useTour()
 
-  const [currentStepData, setCurrentStepData] = useState<TourStepConfig | null>(null);
-  const [targetElement, setTargetElement] = useState<HTMLElement | null>(null);
-  const [popoverPosition, setPopoverPosition] = useState<{
-    top: number;
-    left: number;
-    position: 'top' | 'bottom' | 'left' | 'right';
-  }>({ top: 0, left: 0, position: 'bottom' });
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const [currentStepData, setCurrentStepData] = useState<TourStepConfig | null>(null)
+  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({})
+  const popoverRef = useRef<HTMLDivElement>(null)
+  const rafRef = useRef<number | undefined>(undefined)
 
-  const calculateOptimalPosition = useCallback((targetRect: DOMRect, preferredPosition: 'top' | 'bottom' | 'left' | 'right' = 'bottom') => {
-    const popoverWidth = popoverRef.current?.offsetWidth || 320;
-    const popoverHeight = popoverRef.current?.offsetHeight || 200;
-    const margin = 16;
+  const updatePosition = useCallback(() => {
+    if (!isActive || !currentStepId || !popoverRef.current) return
 
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const isMobile = viewportWidth < 768;
+    const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement
+    if (!stepElement) return
 
-    const spaceTop = targetRect.top;
-    const spaceBottom = viewportHeight - targetRect.bottom;
+    const stepData = JSON.parse(stepElement.getAttribute('data-tour-config') || '{}')
+    const targetRect = stepElement.getBoundingClientRect()
+    const popoverRect = popoverRef.current.getBoundingClientRect()
 
-    let position: 'top' | 'bottom' | 'left' | 'right' = preferredPosition;
-    let top = 0;
-    let left = 0;
+    const margin = 16
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
 
-    if (isMobile) {
-      left = (viewportWidth - popoverWidth) / 2;
+    let top = targetRect.bottom + margin
+    let left = targetRect.left + (targetRect.width / 2) - (popoverRect.width / 2)
 
-      const positionsToTry: ('top' | 'bottom')[] = ['bottom', 'top'];
-      if (preferredPosition === 'top') {
-        positionsToTry.reverse();
-      }
-
-      let placed = false;
-      for (const pos of positionsToTry) {
-        if (pos === 'bottom' && spaceBottom >= popoverHeight + margin) {
-          top = targetRect.bottom + margin;
-          position = 'bottom';
-          placed = true;
-          break;
-        }
-        if (pos === 'top' && spaceTop >= popoverHeight + margin) {
-          top = targetRect.top - popoverHeight - margin;
-          position = 'top';
-          placed = true;
-          break;
-        }
-      }
-
-      if (!placed) {
-        position = 'bottom';
-        top = viewportHeight - popoverHeight - margin;
-      }
-    } else {
-      const spaceLeft = targetRect.left;
-      const spaceRight = viewportWidth - targetRect.right;
-      const positionsToTry: ('top' | 'bottom' | 'left' | 'right')[] = [preferredPosition, 'bottom', 'top', 'right', 'left'];
-      const uniquePositions = [...new Set(positionsToTry)];
-
-      let placed = false;
-      for (const p of uniquePositions) {
-        if (p === 'bottom' && spaceBottom >= popoverHeight + margin) {
-          position = 'bottom';
-          top = targetRect.bottom + margin;
-          left = targetRect.left + (targetRect.width / 2) - (popoverWidth / 2);
-          placed = true;
-          break;
-        }
-        if (p === 'top' && spaceTop >= popoverHeight + margin) {
-          position = 'top';
-          top = targetRect.top - popoverHeight - margin;
-          left = targetRect.left + (targetRect.width / 2) - (popoverWidth / 2);
-          placed = true;
-          break;
-        }
-        if (p === 'right' && spaceRight >= popoverWidth + margin) {
-          position = 'right';
-          top = targetRect.top + (targetRect.height / 2) - (popoverHeight / 2);
-          left = targetRect.right + margin;
-          placed = true;
-          break;
-        }
-        if (p === 'left' && spaceLeft >= popoverWidth + margin) {
-          position = 'left';
-          top = targetRect.top + (targetRect.height / 2) - (popoverHeight / 2);
-          left = targetRect.left - popoverWidth - margin;
-          placed = true;
-          break;
-        }
-      }
-
-      if (!placed) {
-        top = (viewportHeight - popoverHeight) / 2;
-        left = (viewportWidth - popoverWidth) / 2;
-      }
+    if (stepData.position === 'top') {
+      top = targetRect.top - popoverRect.height - margin
+    } else if (stepData.position === 'left') {
+      top = targetRect.top + (targetRect.height / 2) - (popoverRect.height / 2)
+      left = targetRect.left - popoverRect.width - margin
+    } else if (stepData.position === 'right') {
+      top = targetRect.top + (targetRect.height / 2) - (popoverRect.height / 2)
+      left = targetRect.right + margin
     }
 
-    top = Math.max(margin, Math.min(top, viewportHeight - popoverHeight - margin));
-    left = Math.max(margin, Math.min(left, viewportWidth - popoverWidth - margin));
+    top = Math.max(margin, Math.min(top, viewportHeight - popoverRect.height - margin))
+    left = Math.max(margin, Math.min(left, viewportWidth - popoverRect.width - margin))
 
-    return { top, left, position };
-  }, []);
+    setPopoverStyle({
+      position: 'fixed',
+      top,
+      left,
+      zIndex: 10003,
+    })
+  }, [isActive, currentStepId])
 
   useEffect(() => {
-    const updatePosition = () => {
-      if (isActive && currentStepId) {
-        const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement;
-        if (stepElement) {
-          const rect = stepElement.getBoundingClientRect();
-          const stepData = JSON.parse(stepElement.getAttribute('data-tour-config') || '{}');
-          const newPosition = calculateOptimalPosition(rect, stepData.position);
-          setPopoverPosition(newPosition);
-        }
-      }
-    };
-
-    if (isActive && currentStepId) {
-      const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement;
-      if (stepElement) {
-        const stepData = JSON.parse(stepElement.getAttribute('data-tour-config') || 'null');
-        setCurrentStepData(stepData);
-        setTargetElement(stepElement);
-
-        stepElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest'
-        });
-
-        setTimeout(() => {
-          updatePosition();
-        }, 300);
-
-        window.addEventListener('resize', updatePosition);
-        window.addEventListener('scroll', updatePosition, true);
-
-        return () => {
-          window.removeEventListener('resize', updatePosition);
-          window.removeEventListener('scroll', updatePosition, true);
-        };
-      }
-    } else {
-      setCurrentStepData(null);
-      setTargetElement(null);
+    if (!isActive || !currentStepId) {
+      setCurrentStepData(null)
+      setPopoverStyle({})
+      return
     }
-  }, [isActive, currentStepId, calculateOptimalPosition]);
 
-  if (!currentStepData || !targetElement) {
-    return null;
-  }
+    const stepElement = document.querySelector(`[data-tour-step="${currentStepId}"]`) as HTMLElement
+    if (!stepElement) return
 
-  const isLastStep = currentStepIndex === totalSteps - 1;
-  const isFirstStep = currentStepIndex === 0;
+    const stepData = JSON.parse(stepElement.getAttribute('data-tour-config') || 'null')
+    setCurrentStepData(stepData)
+
+    stepElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    })
+
+    const handleUpdate = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(updatePosition)
+    }
+
+    setTimeout(updatePosition, 100)
+
+    window.addEventListener('scroll', handleUpdate, { passive: true })
+    window.addEventListener('resize', handleUpdate, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleUpdate)
+      window.removeEventListener('resize', handleUpdate)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [isActive, currentStepId, updatePosition])
+
+  if (!currentStepData) return null
+
+  const isLastStep = currentStepIndex === totalSteps - 1
+  const isFirstStep = currentStepIndex === 0
 
   return (
     <div
       ref={popoverRef}
-      className="fixed z-10003 w-80"
-      style={{
-        top: `${popoverPosition.top}px`,
-        left: `${popoverPosition.left}px`,
-        transition: 'all 0.3s ease'
-      }}
+      className="w-80 transition-all duration-300 ease-out"
+      style={popoverStyle}
     >
-
       <Card className="border-2 border-primary/20 backdrop-blur-xs shadow-2xl">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
@@ -335,8 +259,7 @@ const GlobalTourPopover: React.FC = () => {
                 Skip Tour
               </Button>
               {!isFirstStep && (
-                <Button variant="outline" size="sm"
-                  onClick={prevStep}>
+                <Button variant="outline" size="sm" onClick={prevStep}>
                   <ChevronLeft className="h-4 w-4 mr-1" />
                   Back
                 </Button>
@@ -350,8 +273,8 @@ const GlobalTourPopover: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}
 
 export const TourProvider: React.FC<TourProviderProps> = ({
   children,
@@ -407,180 +330,181 @@ export const TourProvider: React.FC<TourProviderProps> = ({
     }
   }, [autoStart, hasAutoStarted, steps, ranOnce, storageKey, shouldStart]);
 
-  const startTour = () => {
+  const startTour = useCallback(() => {
     const filteredSteps = Array.from(steps.values())
-      .sort((a, b) => a.order - b.order);
+      .sort((a, b) => a.order - b.order)
 
     if (filteredSteps.length > 0) {
-      setActiveSteps(filteredSteps);
-      setCurrentStep(0);
-      setIsActive(true);
+      setActiveSteps(filteredSteps)
+      setCurrentStep(0)
+      setIsActive(true)
     }
-  };
+  }, [steps])
 
-  const stopTour = (completed = false) => {
-    const wasActive = isActive;
+  const stopTour = useCallback((completed = false) => {
+    const wasActive = isActive
 
-    setIsActive(false);
-    setCurrentStep(0);
-    setActiveSteps([]);
+    setIsActive(false)
+    setCurrentStep(0)
+    setActiveSteps([])
 
     if (wasActive) {
       if (completed) {
         if (ranOnce) {
-          localStorage.setItem(storageKey, 'true');
+          localStorage.setItem(storageKey, 'true')
         }
-        if (onTourComplete) {
-          onTourComplete();
-        }
-        window.dispatchEvent(new CustomEvent('tourCompleted', { detail: { storageKey } }));
-      } else if (!completed && onTourSkip) {
-        onTourSkip();
+        onTourComplete?.()
+        window.dispatchEvent(new CustomEvent('tourCompleted', { detail: { storageKey } }))
+      } else if (!completed) {
+        onTourSkip?.()
       }
     }
-  };
+  }, [isActive, ranOnce, storageKey, onTourComplete, onTourSkip])
 
-  const nextStep = () => {
+  const nextStep = useCallback(() => {
     if (currentStep < activeSteps.length - 1) {
-      const newStepIndex = currentStep + 1;
-      setCurrentStep(newStepIndex);
+      setCurrentStep(prev => prev + 1)
     } else {
-      stopTour(true);
+      stopTour(true)
     }
-  };
+  }, [currentStep, activeSteps.length, stopTour])
 
-  const prevStep = () => {
+  const prevStep = useCallback(() => {
     if (currentStep > 0) {
-      const newStepIndex = currentStep - 1;
-      setCurrentStep(newStepIndex);
+      setCurrentStep(prev => prev - 1)
     }
-  };
+  }, [currentStep])
 
-  const resetTourCompletion = () => {
+  const resetTourCompletion = useCallback(() => {
     if (ranOnce) {
-      localStorage.removeItem(storageKey);
-      setHasAutoStarted(false);
-      window.dispatchEvent(new CustomEvent('tourReset', { detail: { storageKey } }));
+      localStorage.removeItem(storageKey)
+      setHasAutoStarted(false)
+      window.dispatchEvent(new CustomEvent('tourReset', { detail: { storageKey } }))
     }
-  };
+  }, [ranOnce, storageKey])
+
+  const contextValue = useMemo(() => ({
+    registerStep,
+    unregisterStep,
+    startTour,
+    stopTour: () => stopTour(false),
+    nextStep,
+    prevStep,
+    resetTourCompletion,
+    isActive,
+    currentStepId: activeSteps[currentStep]?.id || null,
+    currentStepIndex: currentStep,
+    totalSteps: activeSteps.length
+  }), [
+    registerStep,
+    unregisterStep,
+    startTour,
+    stopTour,
+    nextStep,
+    prevStep,
+    resetTourCompletion,
+    isActive,
+    activeSteps,
+    currentStep
+  ])
 
   return (
-    <TourContext.Provider value={{
-      registerStep,
-      unregisterStep,
-      startTour,
-      stopTour: () => stopTour(false),
-      nextStep,
-      prevStep,
-      resetTourCompletion,
-      isActive,
-      currentStepId: activeSteps[currentStep]?.id || null,
-      currentStepIndex: currentStep,
-      totalSteps: activeSteps.length
-    }}>
+    <TourContext.Provider value={contextValue}>
       {children}
       <TourOverlay />
       <GlobalTourPopover />
     </TourContext.Provider>
-  );
-};
+  )
+}
 
-export const TourStep: React.FC<{
-  id: string;
-  title: string;
-  content: string;
-  order: number;
-  position?: 'top' | 'bottom' | 'left' | 'right';
-  children: ReactNode;
+const TourStepComponent: React.FC<{
+  id: string
+  title: string
+  content: string
+  order: number
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  children: ReactNode
 }> = ({ children, id, title, content, order, position }) => {
-  const {
-    registerStep,
-    unregisterStep,
-    isActive,
-    currentStepId
-  } = useTour();
-  const elementRef = useRef<HTMLDivElement>(null);
+  const { registerStep, unregisterStep, isActive, currentStepId } = useTour()
+  const elementRef = useRef<HTMLDivElement>(null)
+
+  const stepConfig = useMemo(() => ({ id, title, content, order, position }), [id, title, content, order, position])
 
   useEffect(() => {
     if (elementRef.current) {
-      const stepConfig = { id, title, content, order, position };
-      registerStep(stepConfig, elementRef.current);
+      registerStep(stepConfig, elementRef.current)
     }
+    return () => unregisterStep(id)
+  }, [stepConfig, registerStep, unregisterStep, id])
 
-    return () => {
-      unregisterStep(id);
-    };
-  }, [id, title, content, order, position, registerStep, unregisterStep]);
-
-  const isCurrentStep = isActive && currentStepId === id;
+  const isCurrentStep = isActive && currentStepId === id
 
   return (
     <div
       ref={elementRef}
       data-tour-step={id}
-      data-tour-config={JSON.stringify({ id, title, content, order, position })}
+      data-tour-config={JSON.stringify(stepConfig)}
       className={isCurrentStep ? "relative z-10002" : "relative"}
     >
       {children}
     </div>
-  );
-};
+  )
+}
+
+export const TourStep = React.memo(TourStepComponent)
 
 export const TourTrigger: React.FC<{
-  children: ReactNode;
-  className?: string;
-  hideAfterComplete?: boolean;
-  storageKey?: string;
+  children: ReactNode
+  className?: string
+  hideAfterComplete?: boolean
+  storageKey?: string
 }> = ({ children, className, hideAfterComplete = false, storageKey = 'rigidui-tour-completed' }) => {
-  const { startTour } = useTour();
-  const [tourCompleted, setTourCompleted] = useState(false);
+  const { startTour } = useTour()
+  const [tourCompleted, setTourCompleted] = useState(() =>
+    hideAfterComplete ? localStorage.getItem(storageKey) === 'true' : false
+  )
 
   useEffect(() => {
-    if (hideAfterComplete) {
-      const completed = localStorage.getItem(storageKey) === 'true';
-      setTourCompleted(completed);
+    if (!hideAfterComplete) return
 
-      const handleTourComplete = (event: Event) => {
-        const customEvent = event as CustomEvent;
-        const eventStorageKey = customEvent.detail?.storageKey || 'rigidui-tour-completed';
-        if (eventStorageKey === storageKey) {
-          localStorage.setItem(storageKey, 'true');
-          setTourCompleted(true);
-        }
-      };
-
-      const handleTourReset = (event: Event) => {
-        const customEvent = event as CustomEvent;
-        const eventStorageKey = customEvent.detail?.storageKey || 'rigidui-tour-completed';
-        if (eventStorageKey === storageKey) {
-          setTourCompleted(false);
-        }
-      };
-
-      window.addEventListener('tourCompleted', handleTourComplete);
-      window.addEventListener('tourReset', handleTourReset);
-
-      return () => {
-        window.removeEventListener('tourCompleted', handleTourComplete);
-        window.removeEventListener('tourReset', handleTourReset);
-      };
+    const handleTourComplete = (event: Event) => {
+      const customEvent = event as CustomEvent
+      const eventStorageKey = customEvent.detail?.storageKey || 'rigidui-tour-completed'
+      if (eventStorageKey === storageKey) {
+        localStorage.setItem(storageKey, 'true')
+        setTourCompleted(true)
+      }
     }
-  }, [hideAfterComplete, storageKey]);
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    startTour();
-  };
+    const handleTourReset = (event: Event) => {
+      const customEvent = event as CustomEvent
+      const eventStorageKey = customEvent.detail?.storageKey || 'rigidui-tour-completed'
+      if (eventStorageKey === storageKey) {
+        setTourCompleted(false)
+      }
+    }
 
-  if (hideAfterComplete && tourCompleted) {
-    return null;
-  }
+    window.addEventListener('tourCompleted', handleTourComplete)
+    window.addEventListener('tourReset', handleTourReset)
+
+    return () => {
+      window.removeEventListener('tourCompleted', handleTourComplete)
+      window.removeEventListener('tourReset', handleTourReset)
+    }
+  }, [hideAfterComplete, storageKey])
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    startTour()
+  }, [startTour])
+
+  if (hideAfterComplete && tourCompleted) return null
 
   return (
     <div onClick={handleClick} className={className}>
       {children}
     </div>
-  );
-};
+  )
+}
 
 export default TourProvider;
