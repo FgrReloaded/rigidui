@@ -101,6 +101,7 @@
           "type": "registry:component"
         }
       ],
+      "dependencies": ["@tanstack/react-virtual"],
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },
     {

@@ -1,10 +1,11 @@
 ---
 title: Infinite Scroll
-description: A high-performance infinite scroll component that automatically loads more content as users scroll.
+description: A high-performance infinite scroll component with optional virtualization that automatically loads more content as users scroll.
 ---
 
 import { Code, Package, ListTree, Zap } from "lucide-react";
 import InfiniteScrollPreview from "@/components/previews/infinite-scroll";
+import { InfiniteScrollAdvancedExamples } from "@/components/previews/examples/infinite-scroll-advanced";
 
 ## Usage
 
@@ -66,13 +67,14 @@ export default function MyComponent() {
 }
 
 ````
-  </Tab>
+</Tab>
 </Tabs>
 
 ## Installation
 
 <p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
-  Install the Infinite Scroll component using your preferred package manager.
+Install the Infinite Scroll component and its dependency using your preferred
+package manager.
 </p>
 
 ```npm
@@ -91,19 +93,39 @@ npx shadcn@latest add https://rigidui.com/r/infinite-scroll.json
     Automatically loads more content when user scrolls near the bottom using
     Intersection Observer API.
   </Card>
+  <Card title="Virtual Scrolling">
+    Optional virtualization with TanStack Virtual for handling massive datasets
+    with thousands of items while maintaining smooth performance.
+  </Card>
   <Card title="High Performance">
     Uses efficient Intersection Observer instead of scroll events for better
     performance and battery life.
   </Card>
   <Card title="Flexible Configuration">
     Customizable loading triggers, custom loaders, error states, and support for
-    reverse loading.
-  </Card>
-  <Card title="Mobile Optimized">
-    Touch-friendly scrolling with optimized performance for mobile devices and
-    responsive design.
+    reverse loading with dual rendering modes.
   </Card>
 </Cards>
+
+## When to Use Virtualization
+
+<p className="md:text-sm mb-4  text-gray-700 dark:text-gray-300 max-w-3xl">
+  Virtualization is recommended when dealing with large datasets to maintain
+  optimal performance.
+</p>
+
+**Use Regular Mode When:**
+
+- Working with less than 1000 items
+- Items have varying heights that are hard to estimate
+- You need complex CSS layouts or animations
+
+**Use Virtualized Mode When:**
+
+- Displaying 1000+ items
+- Items have consistent or predictable heights
+- Performance is critical for your use case
+- Working with data tables or feeds with many entries
 
 ## Props
 
@@ -179,5 +201,37 @@ npx shadcn@latest add https://rigidui.com/r/infinite-scroll.json
       type: "string",
       default: "undefined",
     },
+    virtualized: {
+      description:
+        "Enable virtualization for better performance with large datasets",
+      type: "boolean",
+      default: "false",
+    },
+    estimateSize: {
+      description: "Function to estimate item size for virtualization",
+      type: "() => number",
+      default: "() => 50",
+    },
+    height: {
+      description:
+        "Container height when virtualized (required for virtualization)",
+      type: "number",
+      default: "400",
+    },
+    overscan: {
+      description:
+        "Number of items to render outside viewport for virtualization",
+      type: "number",
+      default: "5",
+    },
   }}
 />
+
+## Advanced Examples
+
+<p className="md:text-sm mb-4  text-gray-700 dark:text-gray-300 max-w-3xl">
+  Explore advanced use cases including virtualization, performance optimization,
+  and handling large datasets.
+</p>
+
+<InfiniteScrollAdvancedExamples />

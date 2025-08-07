@@ -38,7 +38,7 @@ export default function InfiniteScrollPreview() {
     }
 
     setLoading(false)
-  }, [items.length, loading])
+  }, [items.length, loading, demoItems])
 
   return (
     <div className="w-full flex flex-col items-center space-y-4">
