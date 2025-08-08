@@ -25,7 +25,7 @@ interface InfiniteScrollProps<T> {
   loader?: React.ComponentType;
   endMessage?: React.ReactNode;
   errorMessage?: React.ReactNode;
-  renderItem: (item: T, index: number) => React.ReactNode;
+  renderItem: (item: T, index?: number) => React.ReactNode;
   className?: string;
   itemClassName?: string;
   reverse?: boolean;
@@ -70,6 +70,7 @@ export function InfiniteScroll<T>({
     estimateSize,
     overscan,
     enabled: virtualized,
+    measureElement: (el) => (el as HTMLElement).getBoundingClientRect().height,
   })
 
   const handleObserver = useCallback(
@@ -96,47 +97,50 @@ export function InfiniteScroll<T>({
   }, [hasNextPage, internalLoading, onLoadMore])
 
   useEffect(() => {
-    if (!virtualized) {
-      const element = loadingRef.current
-      if (!element) return
+    if (virtualized) return;
 
+    const element = loadingRef.current
+    if (!element) return
+
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: scrollableTarget ? document.getElementById(scrollableTarget) : null,
+      rootMargin: `${threshold}px`,
+      threshold: 0.1,
+    })
+
+    observerRef.current.observe(element)
+
+    return () => {
       if (observerRef.current) {
         observerRef.current.disconnect()
-      }
-
-      observerRef.current = new IntersectionObserver(handleObserver, {
-        root: scrollableTarget ? document.getElementById(scrollableTarget) : null,
-        rootMargin: `${threshold}px`,
-        threshold: 0.1,
-      })
-
-      observerRef.current.observe(element)
-
-      return () => {
-        if (observerRef.current) {
-          observerRef.current.disconnect()
-        }
       }
     }
   }, [handleObserver, threshold, scrollableTarget, virtualized])
 
   useEffect(() => {
-    if (virtualized && virtualizer) {
-      const [lastItem] = [...virtualizer.getVirtualItems()].reverse()
-      if (!lastItem) return
+    if (!virtualized) return
 
-      if (lastItem.index >= items.length - 1 && hasNextPage && !isLoading) {
+    const el = containerRef.current
+    if (!el) return
+
+    const onScroll = () => {
+      const nearBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - threshold
+      if (nearBottom && hasNextPage && !isLoading && !internalLoading) {
         fetchMoreOnBottomReached()
       }
     }
-  }, [
-    virtualized,
-    virtualizer,
-    hasNextPage,
-    fetchMoreOnBottomReached,
-    items.length,
-    isLoading,
-  ])
+
+    el.addEventListener('scroll', onScroll)
+    onScroll()
+
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+    }
+  }, [virtualized, threshold, hasNextPage, isLoading, internalLoading, fetchMoreOnBottomReached])
 
   useEffect(() => {
     if (initialLoad && items.length === 0 && hasNextPage && !isLoading) {
@@ -155,38 +159,36 @@ export function InfiniteScroll<T>({
   }
 
   if (virtualized && virtualizer) {
+    const virtualItems = virtualizer.getVirtualItems()
+    const paddingTop = virtualItems.length > 0 ? virtualItems[0].start : 0
+    const paddingBottom = virtualItems.length > 0
+      ? virtualizer.getTotalSize() - virtualItems[virtualItems.length - 1].end
+      : 0
+
     return (
       <div
         ref={containerRef}
-        className={cn("overflow-auto", className)}
+        className={cn("overflow-auto")}
         style={{ height }}
         role="feed"
         aria-busy={isLoading}
         aria-label="Scrollable content list"
       >
         <div
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
-          }}
+          className={cn(className)}
+          style={{ paddingTop, paddingBottom }}
         >
-          {virtualizer.getVirtualItems().map((virtualItem) => {
+          {virtualItems.map((virtualItem) => {
             const isLoaderRow = virtualItem.index > items.length - 1
             const item = items[virtualItem.index]
 
             return (
               <div
                 key={virtualItem.index}
-                className={cn(itemClassName)}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: `${virtualItem.size}px`,
-                  transform: `translateY(${virtualItem.start}px)`,
+                ref={(el) => {
+                  if (el) virtualizer.measureElement(el)
                 }}
+                className={cn(itemClassName)}
               >
                 {isLoaderRow ? (
                   hasNextPage ? (
