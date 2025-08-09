@@ -1,0 +1,216 @@
+---
+title: Access Guard
+description: A comprehensive authentication and authorization system with session validation for controlling UI visibility and user permissions.
+---
+
+import { Code, Package, ListTree, Zap } from "lucide-react";
+import AccessGuardPreview from "@/components/previews/access-guard";
+
+## Usage
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <AccessGuardPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="access-guard-example.tsx"
+import {
+      AccessGuardProvider,
+      AccessGate,
+      SessionGuard,
+      UserSession
+} from "@/components/access-guard"
+
+const user: UserSession = {
+id: "1",
+email: "admin@example.com",
+roles: ["admin", "user"],
+permissions: ["read", "write", "delete"],
+isActive: true,
+expiresAt: new Date(Date.now() + 86400000)
+}
+
+const rolePermissionMap = {
+admin: ["read", "write", "delete", "manage_users"],
+editor: ["read", "write"],
+viewer: ["read"]
+}
+
+export default function MyComponent() {
+      return (
+        <AccessGuardProvider user={user} rolePermissionMap={rolePermissionMap}>
+          <AccessGate roles="admin">
+            <button>Admin Only Button</button>
+          </AccessGate>
+
+          <AccessGate permissions="write" mode="disable">
+            <button>Create Content</button>
+          </AccessGate>
+
+          <SessionGuard fallback={<p>Please log in</p>}>
+            <p>Protected content</p>
+          </SessionGuard>
+        </AccessGuardProvider>
+      )
+
+}
+
+````
+  </Tab>
+</Tabs>
+
+## Installation
+
+<p className="md:text-sm text-gray-700 dark:text-gray-300 max-w-3xl">
+  Install the Access Guard component using your preferred package manager.
+</p>
+
+```npm
+npx shadcn@latest add https://rigidui.com/r/access-guard.json
+````
+
+## Features
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Access Guard component is packed with powerful features designed to
+  provide comprehensive access control for your application.
+</p>
+
+<Cards>
+  <Card title="Role-Based Control">
+    Control UI elements based on user roles with support for single or multiple
+    role requirements.
+  </Card>
+  <Card title="Permission Management">
+    Fine-grained permission control with flexible role-to-permission mapping.
+  </Card>
+  <Card title="Session Validation">
+    Automatic session validation with expiration checking and active status
+    verification.
+  </Card>
+  <Card title="Multiple Display Modes">
+    Choose between hiding, disabling, or showing fallback content for
+    unauthorized access.
+  </Card>
+  <Card title="Conditional Wrappers">
+    Apply different styling or layouts based on user access levels.
+  </Card>
+  <Card title="TypeScript Support">
+    Full TypeScript support with comprehensive type definitions for better
+    development experience.
+  </Card>
+</Cards>
+
+## Advanced Examples
+
+### Multiple Role Requirements
+
+```tsx
+<AccessGate
+  roles={["admin", "moderator"]}
+  requireAllRoles={true}
+  fallback={<p>Requires both admin and moderator roles</p>}
+  mode="show-fallback"
+>
+  <SuperAdminPanel />
+</AccessGate>
+```
+
+### Permission-Based Styling
+
+```tsx
+<ConditionalWrapper
+  permissions="admin"
+  wrapper={(children) => (
+    <div className="admin-panel border-gold">
+      <AdminBadge />
+      {children}
+    </div>
+  )}
+  fallbackWrapper={(children) => <div className="user-panel">{children}</div>}
+>
+  <UserProfile />
+</ConditionalWrapper>
+```
+
+### Navigation Menu
+
+```tsx
+function Navigation() {
+  return (
+    <nav>
+      <AccessGate roles="user">
+        <NavItem href="/dashboard">Dashboard</NavItem>
+      </AccessGate>
+
+      <AccessGate roles="admin">
+        <NavItem href="/admin">Admin Panel</NavItem>
+      </AccessGate>
+
+      <AccessGate permissions="manage_users">
+        <NavItem href="/users">User Management</NavItem>
+      </AccessGate>
+    </nav>
+  );
+}
+```
+
+### Feature Flags
+
+```tsx
+import { usePermissionCheck } from "@/components/access-guard";
+
+function FeatureSection() {
+  const hasAccess = usePermissionCheck({
+    permissions: "beta_features",
+    requireValidSession: true,
+  });
+
+  return (
+    <div>
+      <h2>Features</h2>
+      {hasAccess && <BetaFeature />}
+    </div>
+  );
+}
+```
+
+## Props
+
+### UserSession Interface
+
+| Prop        | Type                      | Description                        |
+| ----------- | ------------------------- | ---------------------------------- |
+| id          | `string`                  | Unique user identifier             |
+| email       | `string`                  | User email address (optional)      |
+| username    | `string`                  | Username (optional)                |
+| roles       | `string[]`                | Array of user roles                |
+| permissions | `string[]`                | Array of user permissions          |
+| metadata    | `Record<string, unknown>` | Additional user data (optional)    |
+| isActive    | `boolean`                 | Whether the user account is active |
+| expiresAt   | `Date \| string`          | Session expiration time            |
+
+### AccessGate Props
+
+| Prop                  | Type                                     | Default  | Description                                |
+| --------------------- | ---------------------------------------- | -------- | ------------------------------------------ |
+| roles                 | `string \| string[]`                     | -        | Required roles for access                  |
+| permissions           | `string \| string[]`                     | -        | Required permissions for access            |
+| requireAllRoles       | `boolean`                                | `false`  | Whether all roles are required (AND vs OR) |
+| requireAllPermissions | `boolean`                                | `false`  | Whether all permissions are required       |
+| requireValidSession   | `boolean`                                | `true`   | Whether a valid session is required        |
+| mode                  | `'hide' \| 'disable' \| 'show-fallback'` | `'hide'` | How to handle unauthorized access          |
+| fallback              | `ReactNode`                              | `null`   | Content to show when access is denied      |
+| onUnauthorized        | `() => void`                             | -        | Callback when access is denied             |
+
+### SessionGuard Props
+
+| Prop             | Type         | Description                             |
+| ---------------- | ------------ | --------------------------------------- |
+| fallback         | `ReactNode`  | Content to show when session is invalid |
+| redirectTo       | `string`     | URL to redirect to when session expires |
+| onSessionExpired | `() => void` | Callback when session expires           |
+
+## Security Considerations
+
+⚠️ **Important**: This component provides UI-level access control only. Always implement proper server-side authorization for actual security. Client-side role checking should only be used to improve user experience, not as a security measure.

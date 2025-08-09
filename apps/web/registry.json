@@ -4,6 +4,20 @@
   "homepage": "https://acme.com",
   "items": [
     {
+      "name": "access-guard",
+      "type": "registry:component",
+      "title": "Access Guard",
+      "description": "A comprehensive access based control system with session validation",
+      "registryDependencies": ["button", "card", "badge"],
+      "files": [
+        {
+          "path": "r/new-york/access-guard/access-guard.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
       "name": "location-picker",
       "type": "registry:component",
       "title": "Location Picker",

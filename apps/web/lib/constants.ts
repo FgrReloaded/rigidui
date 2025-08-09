@@ -34,6 +34,7 @@ export const navigationItems: NavigationItem[] = [
         title: "Password Strength Meter",
         href: "/docs/components/strength-meter",
       },
+      { title: "Role-Based Access", href: "/docs/components/role-based-access" },
       { title: "Smart Form", href: "/docs/components/smart-form" },
       { title: "Smart Search", href: "/docs/components/smart-search" },
     ],
@@ -47,6 +48,12 @@ export const navigationItems: NavigationItem[] = [
 
 // Components showcase for homepage
 export const components = [
+  {
+    name: "role-based-access",
+    title: "Role-Based Access",
+    description:
+      "Comprehensive role-based access control system with session validation for controlling UI visibility and user permissions.",
+  },
   {
     name: "currency-manager",
     title: "Currency Manager",
