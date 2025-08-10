@@ -13,13 +13,13 @@ import AccessManagerPreview from "@/components/previews/access-manager";
     <AccessManagerPreview />
   </Tab>
   <Tab value="Code">
-    ```tsx title="access-guard-example.tsx"
+    ```tsx title="access-manager-example.tsx"
 import {
       AccessManagerProvider,
       AccessGate,
       SessionGuard,
       UserSession
-} from "@/components/access-guard"
+} from "@/components/access-manager"
 
 const user: UserSession = {
       id: "1",
@@ -62,17 +62,17 @@ export default function MyComponent() {
 ## Installation
 
 <p className="md:text-sm text-gray-700 dark:text-gray-300 max-w-3xl">
-  Install the Access Guard component using your preferred package manager.
+  Install the Access Manager component using your preferred package manager.
 </p>
 
 ```npm
-npx shadcn@latest add https://rigidui.com/r/access-guard.json
+npx shadcn@latest add https://rigidui.com/r/access-manager.json
 ````
 
 ## Features
 
 <p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
-  The Access Guard component is packed with powerful features designed to
+  The Access Manager component is packed with powerful features designed to
   provide comprehensive access control for your application.
 </p>
 
@@ -158,7 +158,7 @@ function Navigation() {
 ### Feature Flags
 
 ```tsx
-import { usePermissionCheck } from "@/components/access-guard";
+import { usePermissionCheck } from "@/components/access-manager";
 
 function FeatureSection() {
   const hasAccess = usePermissionCheck({
