@@ -6,13 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
-  AccessGuardProvider,
+  AccessManagerProvider,
   AccessGate,
   SessionGuard,
   ConditionalWrapper,
   UserSession,
   RolePermissionMap
-} from '@/r/new-york/access-guard/access-guard'
+} from '@/r/new-york/access-manager/access-manager'
 import { User, Shield, Eye, EyeOff, Settings, Crown, Users, Lock } from 'lucide-react'
 
 const mockUsers: UserSession[] = [
@@ -70,7 +70,7 @@ const rolePermissionMap: RolePermissionMap = {
   user: ['read', 'profile_edit']
 }
 
-export default function AccessGuardPreview() {
+export default function AccessManagerPreview() {
   const [currentUser, setCurrentUser] = useState<UserSession | null>(mockUsers[0])
 
   const DemoComponent = ({ title, description, children }: {
@@ -91,7 +91,7 @@ export default function AccessGuardPreview() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
-      <AccessGuardProvider
+      <AccessManagerProvider
         user={currentUser}
         rolePermissionMap={rolePermissionMap}
       >
@@ -111,7 +111,7 @@ export default function AccessGuardPreview() {
             <div className="space-y-6">
               <div className="space-y-3">
                 <h3 className="text-sm font-medium text-foreground">Current User</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 justify-center">
                   {mockUsers.map((user) => (
                     <Button
                       key={user.id}
@@ -330,7 +330,7 @@ export default function AccessGuardPreview() {
             </div>
           </CardContent>
         </Card>
-      </AccessGuardProvider>
+      </AccessManagerProvider>
     </div>
   )
 }

@@ -22,7 +22,7 @@ export interface RolePermissionMap {
   [role: string]: string[]
 }
 
-export interface AccessGuardContextType {
+export interface AccessManagerContextType {
   user: UserSession | null
   rolePermissionMap: RolePermissionMap
   hasRole: (role: string | string[]) => boolean
@@ -36,30 +36,30 @@ export interface AccessGuardContextType {
   isSessionExpiring: (thresholdMinutes?: number) => boolean
 }
 
-const AccessGuardContext = createContext<AccessGuardContextType | null>(null)
+const AccessManagerContext = createContext<AccessManagerContextType | null>(null)
 
-export const useAccessGuard = () => {
-  const context = useContext(AccessGuardContext)
+export const useAccessManager = () => {
+  const context = useContext(AccessManagerContext)
   if (!context) {
-    throw new Error('useAccessGuard must be used within an AccessGuardProvider')
+    throw new Error('useAccessManager must be used within an AccessManagerProvider')
   }
   return context
 }
 
-export const useRoleBasedAccess = useAccessGuard
+export const useRoleBasedAccess = useAccessManager
 
-export interface AccessGuardProviderProps {
+export interface AccessManagerProviderProps {
   children: ReactNode
   user: UserSession | null
   rolePermissionMap?: RolePermissionMap
   onUnauthorized?: () => void
 }
 
-export function AccessGuardProvider({
+export function AccessManagerProvider({
   children,
   user,
   rolePermissionMap = {}
-}: AccessGuardProviderProps) {
+}: AccessManagerProviderProps) {
   const contextValue = useMemo(() => {
     const hasRole = (role: string | string[]): boolean => {
       if (!user || !user.roles) return false
@@ -172,9 +172,9 @@ export function AccessGuardProvider({
   }, [user, rolePermissionMap])
 
   return (
-    <AccessGuardContext.Provider value={contextValue}>
+    <AccessManagerContext.Provider value={contextValue}>
       {children}
-    </AccessGuardContext.Provider>
+    </AccessManagerContext.Provider>
   )
 }
 
@@ -211,7 +211,7 @@ export function AccessGate({
     hasAllRoles,
     hasAllPermissions,
     isSessionValid
-  } = useAccessGuard()
+  } = useAccessManager()
 
   const checkAccess = (): boolean => {
     if (requireValidSession && !isSessionValid()) {
@@ -285,7 +285,7 @@ export function usePermissionCheck({
     hasAllRoles,
     hasAllPermissions,
     isSessionValid
-  } = useAccessGuard()
+  } = useAccessManager()
 
   return useMemo(() => {
     if (requireValidSession && !isSessionValid()) {
@@ -377,7 +377,7 @@ export function SessionGuard({
   redirectTo,
   onSessionExpired
 }: SessionGuardProps) {
-  const { user, isSessionValid } = useAccessGuard()
+  const { user, isSessionValid } = useAccessManager()
 
   const sessionValid = isSessionValid()
 
@@ -401,14 +401,14 @@ export function SessionGuard({
   return <>{children}</>
 }
 
-export const RoleBasedAccessProvider = AccessGuardProvider
+export const RoleBasedAccessProvider = AccessManagerProvider
 export const RoleGate = AccessGate
 
 export const RoleBasedAccess = {
-  Provider: AccessGuardProvider,
+  Provider: AccessManagerProvider,
   Gate: AccessGate,
   SessionGuard,
   ConditionalWrapper,
-  useRoleBasedAccess: useAccessGuard,
+  useRoleBasedAccess: useAccessManager,
   usePermissionCheck
 }

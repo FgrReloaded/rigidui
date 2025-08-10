@@ -4,14 +4,13 @@
   "homepage": "https://acme.com",
   "items": [
     {
-      "name": "access-guard",
+      "name": "access-manager",
       "type": "registry:component",
-      "title": "Access Guard",
+      "title": "Access Manager",
       "description": "A comprehensive access based control system with session validation",
-      "registryDependencies": ["button", "card", "badge"],
       "files": [
         {
-          "path": "r/new-york/access-guard/access-guard.tsx",
+          "path": "r/new-york/access-manager/access-manager.tsx",
           "type": "registry:component"
         }
       ],
