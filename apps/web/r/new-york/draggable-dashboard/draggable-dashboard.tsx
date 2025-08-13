@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, ReactNode, Children, isValidElement, useEffect, useCallback } from 'react'
+import React, { useState, ReactNode, Children, isValidElement, useEffect, useMemo } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -42,6 +42,7 @@ interface DraggableWrapperProps {
   className?: string
   isLocked?: boolean
   showHandle?: boolean
+  availableCols?: number
 }
 
 interface DraggableDashboardProps {
@@ -63,6 +64,7 @@ export function DraggableWrapper({
   className,
   isLocked = false,
   showHandle = true,
+  availableCols = 3,
 }: DraggableWrapperProps) {
   const {
     attributes,
@@ -76,10 +78,11 @@ export function DraggableWrapper({
     disabled: isLocked
   })
 
-  const style = {
+  const spanCols = Math.min(gridSize.cols, availableCols)
+  const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    gridColumn: `span ${gridSize.cols}`,
+    gridColumn: `span ${spanCols} / span ${spanCols}`,
     gridRow: `span ${gridSize.rows}`,
   }
 
@@ -155,59 +158,40 @@ export default function DraggableDashboard({
 }: DraggableDashboardProps) {
   const [isLocked, setIsLocked] = useState(defaultLocked)
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0)
 
-  const childrenArray = Children.toArray(children)
+  useEffect(() => {
+    const handler = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
 
-  const getInitialOrder = (): string[] => {
-    return childrenArray
-      .map((child, index) => {
-        if (isValidElement(child) && child.props && typeof child.props === 'object' && 'id' in child.props) {
-          return child.props.id as string
-        }
-        return `item-${index}`
-      })
-  }
+  const availableCols = windowWidth >= 1024 ? gridCols : windowWidth >= 768 ? 2 : 1
 
-  const loadPersistedOrder = useCallback((): string[] => {
-    if (typeof window === 'undefined') return getInitialOrder()
-
+  const childrenArray = useMemo(() => Children.toArray(children), [children])
+  const initialIds = useMemo(() => childrenArray.map((child, index) => {
+    if (isValidElement(child) && child.props && typeof child.props === 'object' && 'id' in child.props) return child.props.id as string
+    return `item-${index}`
+  }), [childrenArray])
+  const [itemOrder, setItemOrder] = useState<string[]>(initialIds)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
     try {
-      const savedOrder = localStorage.getItem(persistenceKey)
-      if (savedOrder) {
-        const parsedOrder = JSON.parse(savedOrder)
-        const initialOrder = getInitialOrder()
-
-        const isValidOrder = parsedOrder.length === initialOrder.length &&
-          parsedOrder.every((id: string) => initialOrder.includes(id)) &&
-          initialOrder.every((id: string) => parsedOrder.includes(id))
-
-        if (isValidOrder) {
-          return parsedOrder
+      const saved = localStorage.getItem(persistenceKey)
+      if (saved) {
+        const parsed: string[] = JSON.parse(saved)
+        const valid = parsed.length === initialIds.length && parsed.every(id => initialIds.includes(id)) && initialIds.every(id => parsed.includes(id))
+        if (valid) {
+          const changed = parsed.some((id, i) => id !== initialIds[i])
+          if (changed) setItemOrder(parsed)
+        } else {
+          localStorage.setItem(persistenceKey, JSON.stringify(initialIds))
         }
+      } else {
+        localStorage.setItem(persistenceKey, JSON.stringify(initialIds))
       }
-    } catch (error) {
-      console.warn('Failed to load persisted dashboard order:', error)
-    }
-
-    return getInitialOrder()
-  }, [persistenceKey])
-
-  const [itemOrder, setItemOrder] = useState<string[]>(getInitialOrder)
-
-  useEffect(() => {
-    const persistedOrder = loadPersistedOrder()
-    setItemOrder(persistedOrder)
-  }, [loadPersistedOrder, persistenceKey])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(persistenceKey, JSON.stringify(itemOrder))
-      } catch (error) {
-        console.warn('Failed to save dashboard order:', error)
-      }
-    }
-  }, [itemOrder, persistenceKey])
+    } catch { }
+  }, [persistenceKey, initialIds])
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -266,6 +250,25 @@ export default function DraggableDashboard({
     setIsLocked(!isLocked)
   }
 
+  const gapClasses = {
+    1: 'gap-1',
+    2: 'gap-2',
+    3: 'gap-3',
+    4: 'gap-4',
+    5: 'gap-5',
+    6: 'gap-6',
+    7: 'gap-7',
+    8: 'gap-8',
+    9: 'gap-9',
+    10: 'gap-10',
+    11: 'gap-11',
+    12: 'gap-12'
+  } as Record<number, string>
+  const gapClass = gapClasses[gap] || 'gap-6'
+
+  const gridColsClasses = ['lg:grid-cols-1', 'lg:grid-cols-2', 'lg:grid-cols-3', 'lg:grid-cols-4', 'lg:grid-cols-5', 'lg:grid-cols-6', 'lg:grid-cols-7', 'lg:grid-cols-8', 'lg:grid-cols-9', 'lg:grid-cols-10', 'lg:grid-cols-11', 'lg:grid-cols-12']
+  const lgColsClass = gridCols >= 1 && gridCols <= 12 ? gridColsClasses[gridCols - 1] : 'lg:grid-cols-3'
+
   return (
     <div className={cn("space-y-6", className)}>
       {(showLockToggle) && (
@@ -313,13 +316,8 @@ export default function DraggableDashboard({
         >
           <div
             className={cn(
-              "grid auto-rows-min",
-              `grid-cols-1 md:grid-cols-2 lg:grid-cols-${gridCols}`
+              "grid auto-rows-min grid-cols-1 md:grid-cols-2", lgColsClass, gapClass
             )}
-            style={{
-              gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
-              gap: `${gap * 0.25}rem`
-            }}
           >
             {orderedChildren.map((child, index) => {
               if (!isValidElement(child)) return null
@@ -332,6 +330,7 @@ export default function DraggableDashboard({
                 key: id,
                 isLocked,
                 showHandle: showHandles,
+                availableCols,
               })
             })}
           </div>
@@ -344,6 +343,7 @@ export default function DraggableDashboard({
                 ...(activeChild.props || {}),
                 isLocked: true,
                 showHandle: false,
+                availableCols,
                 key: 'overlay'
               })}
             </DragOverlayWrapper>
