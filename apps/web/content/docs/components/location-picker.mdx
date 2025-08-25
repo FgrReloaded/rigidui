@@ -71,6 +71,20 @@ export default function Home() {
     npx expo install expo-device expo-location  
     ```
     
+    ### Configure Expo Plugins [!toc]
+    
+    Add the `expo-location` plugin to your `app.json` file:
+    
+    ```json title="app.json"
+    {
+      "expo": {
+        "plugins": ["expo-location"]
+      }
+    }
+    ```
+    
+    For additional configuration options and permissions setup, refer to the [Expo Location documentation](https://docs.expo.dev/versions/latest/sdk/location/).
+    
     ### Install Component [!toc]
     
     ```npm
