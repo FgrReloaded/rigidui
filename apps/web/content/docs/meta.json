@@ -3,6 +3,8 @@
     "--- Basic ---",
 		"index",
 		"getting-started",
+	"--- Creative ---",
+		"creative/data-reveal",
     "--- Core Components ---",
 		"components/currency-manager",
 		"components/draggable-dashboard", 

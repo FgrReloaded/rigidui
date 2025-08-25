@@ -17,7 +17,7 @@ export default async function Page(props: {
   const page = source.getPage(params.slug);
   if (!page) notFound();
   const MDX = page.data.body;
-  const isComponentOrHook = page.path.includes('components') || page.path.includes('hooks');
+  const isComponentOrHook = page.path.includes('components') || page.path.includes('hooks') || page.path.includes('creative');
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
       <DocsTitle className="text-2xl font-bold text-fd-foreground">
