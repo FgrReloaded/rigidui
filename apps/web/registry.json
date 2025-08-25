@@ -31,6 +31,24 @@
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },
     {
+      "name": "location-picker-rn",
+      "type": "registry:component",
+      "title": "Location Picker (React Native)",
+      "description": "A location picker component for React Native",
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/input.json",
+        "https://reactnativereusables.com/r/new-york/button.json",
+        "https://reactnativereusables.com/r/new-york/popover.json"
+      ],
+      "files": [
+        {
+          "path": "r/new-york/location-picker/location-picker-rn.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
       "name": "currency-manager",
       "type": "registry:component",
       "title": "Currency Manager",

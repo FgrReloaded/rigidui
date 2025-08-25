@@ -1,6 +1,6 @@
 ---
 title: Location Picker
-description: A location picker component that allows users to search and select locations.
+description: A cross-platform location picker component for Web and React Native that allows users to search and select locations with geolocation support.
 ---
 
 import { Code, Package, ListTree, Zap } from "lucide-react";
@@ -8,39 +8,82 @@ import LocationPickerPreview from "@/components/previews/location-picker";
 import { LocationPickerAdvancedExamples } from "@/components/previews/examples/location-picker-advanced";
 
 ## Usage
-
-<Tabs items={["Preview", "Code"]}>
-  <Tab value="Preview">
-    <LocationPickerPreview />
-  </Tab>
-  <Tab value="Code">
-    ```tsx title="location-picker.tsx"
+<Tabs items={["Web", "React Native"]}>
+  <Tab value="Web">
+  <Tabs items={["Preview", "Code"]}>
+    <Tab value="Preview">
+      <LocationPickerPreview />
+    </Tab>
+    <Tab value="Code">
+      ```tsx title="location-picker-demo.tsx"
 import { LocationPicker } from "@/components/location-picker"
 
-export default function MyComponent() {
-  return (
-    <LocationPicker />
-  )
+export default function Home() {
+        return (
+          <LocationPicker />
+        )
 }
-```
+  ```
+    </Tab>
+    </Tabs>
+  </Tab>
+  <Tab value="React Native">
+    ```tsx title="location-picker-demo.tsx"
+import { LocationPicker } from "@/components/location-picker-rn"
+    
+export default function Home() {
+      const [selectedLocation, setSelectedLocation] = useState<string>("");
+
+      return (
+        <LocationPicker
+          variant="popover"
+          onChange={setSelectedLocation}
+          placeholder="Tap to search locations..."
+        />
+      )
+}
+    ```
   </Tab>
 </Tabs>
 
 ## Installation
 
 <p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
-  Install the Location Picker component using your preferred package manager.
+  Install the Location Picker component for your platform using your preferred package manager.
 </p>
 
-```npm
-npx shadcn@latest add https://rigidui.com/r/location-picker.json
-```
+<Tabs items={["Web", "React Native"]}>
+  <Tab value="Web">
+    ```npm
+    npx shadcn@latest add https://rigidui.com/r/location-picker.json
+    ```
+  </Tab>
+  <Tab value="React Native">
+    ### Prerequisites [!toc]
+    
+    First, ensure you have React Native Reusables properly set up in your project. Follow the complete setup guide at [React Native Reusables Installation](https://reactnativereusables.com/docs/installation).
+    
+    ### Install Dependencies [!toc]
+    
+    Install the required Expo dependencies for location functionality:
+    
+    ```bash
+    npx expo install expo-device expo-location  
+    ```
+    
+    ### Install Component [!toc]
+    
+    ```npm
+    npx shadcn@latest add https://rigidui.com/r/location-picker-rn.json
+    ```
+  </Tab>
+</Tabs>
 
 ## Features
 
 <p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
   The Location Picker component is packed with powerful features designed to
-  provide an exceptional user experience.
+  provide an exceptional user experience across both Web and React Native platforms.
 </p>
 
 <Cards>
@@ -56,9 +99,13 @@ npx shadcn@latest add https://rigidui.com/r/location-picker.json
     As users type, the component provides autocomplete suggestions for locations
     with debounced search.
   </Card>
+  <Card title="Cross-Platform Support">
+    Available for both Web and React Native with platform-specific optimizations
+    and native geolocation support.
+  </Card>
   <Card title="Geolocation Support">
     Allows users to quickly use their current location with browser geolocation
-    API.
+    API on Web and native location services on React Native.
   </Card>
 </Cards>
 
@@ -107,6 +154,6 @@ npx shadcn@latest add https://rigidui.com/r/location-picker.json
 
 ## Advanced Examples
 
-Explore different configurations and use cases for the Location Picker component.
+Explore different configurations and use cases for the Location Picker component across Web and React Native platforms.
 
 <LocationPickerAdvancedExamples />
