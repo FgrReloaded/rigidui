@@ -11,9 +11,9 @@ export default function DataRevealPreview() {
                     <DataReveal>
                         <DataReveal.Button text="Show Details" className="py-2 px-4" />
                         <DataReveal.Container className="gap-2">
-                            <DataReveal.Item content="john@example.com" index={0} className="py-2 px-3 text-sm" />
-                            <DataReveal.Item content="+1 234-567-8900" index={1} className="py-2 px-3 text-sm" />
-                            <DataReveal.Item content="#12345" index={2} className="py-2 px-3 text-sm" />
+                            <DataReveal.Item content="john@example.com" className="py-2 px-3 text-sm" />
+                            <DataReveal.Item content="+1 234-567-8900" className="py-2 px-3 text-sm" />
+                            <DataReveal.Item content="#12345" className="py-2 px-3 text-sm" />
                         </DataReveal.Container>
                     </DataReveal>
                 </div>
