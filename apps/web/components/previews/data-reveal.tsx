@@ -9,7 +9,7 @@ export default function DataRevealPreview() {
                 <div className="space-y-3">
                     <h4 className="text-sm font-medium text-muted-foreground">Basic Usage</h4>
                     <DataReveal>
-                        <DataReveal.Button text="Show Details" className="py-2 px-4" />
+                        <DataReveal.Button text="Show Details" className="py-2 px-4 bg-black text-white dark:bg-white dark:text-black" />
                         <DataReveal.Container className="gap-2">
                             <DataReveal.Item content="john@example.com" className="py-2 px-3 text-sm" />
                             <DataReveal.Item content="+1 234-567-8900" className="py-2 px-3 text-sm" />

@@ -97,7 +97,7 @@ function RevealButton({ children, text, className }: RevealButtonProps) {
             )}
             onClick={toggle}
         >
-            <span className="text-white">
+            <span>
                 {children || text || 'Reveal'}
             </span>
         </div>
