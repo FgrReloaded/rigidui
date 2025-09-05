@@ -39,93 +39,7 @@ export interface Notification {
   priority?: 'low' | 'medium' | 'high'
 }
 
-export interface NotificationCenterTheme {
-  container: string
-  header: string
-  title: string
-  badge: string
-  notificationItem: {
-    base: string
-    unread: string
-    read: string
-    hover: string
-  }
-  notificationContent: {
-    title: string
-    titleRead: string
-    message: string
-    messageRead: string
-    newBadge: string
-    timestamp: string
-  }
-  priorityBadge: {
-    high: string
-    medium: string
-    low: string
-  }
-  buttons: {
-    filter: string
-    markAllRead: string
-    actionButton: string
-  }
-  popover: {
-    content: string
-    header: string
-    trigger: string
-    unreadIndicator: string
-  }
-  emptyState: {
-    container: string
-    icon: string
-    title: string
-    description: string
-  }
-  scrollArea: string
-}
 
-const defaultTheme: NotificationCenterTheme = {
-  container: "w-full max-w-2xl shadow-xs border-border/50",
-  header: "pb-3",
-  title: "flex items-center gap-3",
-  badge: "text-xs px-2 py-1 max-sm:hidden",
-  notificationItem: {
-    base: "group relative flex items-start gap-3 p-4 rounded-lg border transition-all duration-200",
-    unread: "border-l-4 border-l-blue-500 bg-blue-50/30 dark:bg-blue-950/10 dark:border-l-blue-400",
-    read: "border-border hover:border-muted-foreground/20",
-    hover: "hover:bg-muted/30 hover:shadow-xs"
-  },
-  notificationContent: {
-    title: "text-sm leading-tight font-semibold text-foreground",
-    titleRead: "text-sm leading-tight font-medium text-muted-foreground",
-    message: "text-sm leading-relaxed text-foreground/80",
-    messageRead: "text-sm leading-relaxed text-muted-foreground",
-    newBadge: "inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
-    timestamp: "text-xs text-muted-foreground font-medium"
-  },
-  priorityBadge: {
-    high: "text-red-500",
-    medium: "text-yellow-500",
-    low: "text-green-500"
-  },
-  buttons: {
-    filter: "h-8 text-xs",
-    markAllRead: "h-8 text-xs",
-    actionButton: "h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-  },
-  popover: {
-    content: "w-80 p-0 shadow-xl border-border/50",
-    header: "p-4 border-b bg-muted/20",
-    trigger: "relative hover:bg-muted transition-all duration-200 hover:scale-105",
-    unreadIndicator: "absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium animate-pulse"
-  },
-  emptyState: {
-    container: "flex flex-col items-center justify-center py-12 px-4 text-center",
-    icon: "h-16 w-16 text-muted-foreground/40 mb-4",
-    title: "font-semibold text-lg text-foreground mb-2",
-    description: "text-sm text-muted-foreground max-w-sm"
-  },
-  scrollArea: "h-96"
-}
 
 export interface NotificationCenterProps {
   className?: string
@@ -145,7 +59,6 @@ export interface NotificationCenterProps {
     title?: string
     description?: string
   }
-  theme?: NotificationCenterTheme
 }
 
 const defaultFetchNotifications = async (): Promise<Notification[]> => {
@@ -180,31 +93,31 @@ const formatTimeAgo = (dateString: string) => {
   return `${days}d ago`
 }
 
-const getPriorityColor = (priority?: 'low' | 'medium' | 'high', theme: NotificationCenterTheme = defaultTheme) => {
+const getPriorityColor = (priority?: 'low' | 'medium' | 'high') => {
   switch (priority) {
     case 'high':
-      return theme.priorityBadge.high
+      return 'text-red-500'
     case 'medium':
-      return theme.priorityBadge.medium
+      return 'text-yellow-500'
     case 'low':
-      return theme.priorityBadge.low
+      return 'text-green-500'
     default:
-      return 'text-gray-500'
+      return 'text-muted-foreground'
   }
 }
+
+
 
 const NotificationItem = ({
   notification,
   onMarkAsRead,
   onDelete,
-  onClick,
-  theme = defaultTheme
+  onClick
 }: {
   notification: Notification
   onMarkAsRead?: (id: string) => void
   onDelete?: (id: string) => void
   onClick?: (notification: Notification) => void
-  theme?: NotificationCenterTheme
 }) => {
   const handleClick = () => {
     if (onClick) {
@@ -215,41 +128,42 @@ const NotificationItem = ({
   return (
     <div
       className={cn(
-        theme.notificationItem.base,
-        theme.notificationItem.hover,
-        !notification.isRead ? theme.notificationItem.unread : theme.notificationItem.read,
+        "flex items-start gap-3 p-4 border rounded-lg",
+        !notification.isRead && "bg-muted/30",
         onClick && 'cursor-pointer'
       )}
       onClick={handleClick}
     >
-      <div className="mt-0.5 shrink-0">
-        <Bell className={cn('h-4 w-4', getPriorityColor(notification.priority, theme))} />
+      <div className="shrink-0">
+        <Bell className={cn('h-4 w-4', getPriorityColor(notification.priority))} />
       </div>
 
-      <div className="flex-1 min-w-0 space-y-1">
+      <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 space-y-1">
+          <div className="flex-1">
             <div className="flex items-center gap-2">
               <h4 className={cn(
-                !notification.isRead ? theme.notificationContent.title : theme.notificationContent.titleRead
+                "text-sm font-medium",
+                !notification.isRead && "font-semibold"
               )}>
                 {notification.title}
               </h4>
               {!notification.isRead && (
-                <span className={theme.notificationContent.newBadge}>
+                <Badge variant="default" className="text-xs">
                   New
-                </span>
+                </Badge>
               )}
             </div>
 
             <p className={cn(
-              !notification.isRead ? theme.notificationContent.message : theme.notificationContent.messageRead
+              "text-sm mt-1",
+              !notification.isRead ? "text-foreground" : "text-muted-foreground"
             )}>
               {notification.message}
             </p>
 
-            <div className="flex items-center justify-between mt-3 pt-2 border-t border-border/40">
-              <span className={theme.notificationContent.timestamp}>
+            <div className="flex items-center justify-between mt-3 pt-2 border-t">
+              <span className="text-xs text-muted-foreground">
                 {formatTimeAgo(notification.createdAt)}
               </span>
 
@@ -259,7 +173,7 @@ const NotificationItem = ({
                     notification.priority === 'high' ? 'destructive' :
                       notification.priority === 'medium' ? 'default' : 'secondary'
                   }
-                  className="text-xs px-2 py-0.5"
+                  className="text-xs"
                 >
                   {notification.priority}
                 </Badge>
@@ -273,18 +187,18 @@ const NotificationItem = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={theme.buttons.actionButton}
+                  className="h-8 w-8 p-0"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40">
+              <DropdownMenuContent align="end">
                 {!notification.isRead && onMarkAsRead && (
                   <DropdownMenuItem onClick={(e) => {
                     e.stopPropagation()
                     onMarkAsRead(notification.id)
-                  }} className="text-sm">
+                  }}>
                     <Check className="mr-2 h-4 w-4" />
                     Mark as read
                   </DropdownMenuItem>
@@ -295,7 +209,6 @@ const NotificationItem = ({
                       e.stopPropagation()
                       onDelete(notification.id)
                     }}
-                    className="text-red-600 focus:text-red-600 text-sm"
                   >
                     <Trash2 className="mr-2 h-4 w-4" />
                     Delete
@@ -327,8 +240,7 @@ export function NotificationCenter({
   emptyState = {
     title: "No notifications",
     description: "New notifications will appear here."
-  },
-  theme = defaultTheme
+  }
 }: NotificationCenterProps) {
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -428,7 +340,7 @@ export function NotificationCenter({
   )
 
   const NotificationList = () => (
-    <ScrollArea className={cn(theme.scrollArea)}>
+    <ScrollArea className="h-96">
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
           <div className="flex flex-col items-center gap-3">
@@ -437,20 +349,20 @@ export function NotificationCenter({
           </div>
         </div>
       ) : filteredNotifications.length === 0 ? (
-        <div className={theme.emptyState.container}>
-          <BellRing className={theme.emptyState.icon} />
-          <h3 className={theme.emptyState.title}>
+        <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+          <BellRing className="h-16 w-16 text-muted-foreground mb-4" />
+          <h3 className="font-semibold text-lg mb-2">
             {filter === 'unread' ? 'All caught up!' : emptyState.title}
           </h3>
-          <p className={theme.emptyState.description}>
+          <p className="text-sm text-muted-foreground">
             {filter === 'unread'
-              ? 'You have no unread notifications. Great job staying on top of things!'
+              ? 'You have no unread notifications.'
               : emptyState.description
             }
           </p>
         </div>
       ) : (
-        <div className="space-y-2 px-3">
+        <div className="space-y-2 p-4">
           {filteredNotifications.map((notification) => (
             <NotificationItem
               key={notification.id}
@@ -458,7 +370,6 @@ export function NotificationCenter({
               onMarkAsRead={staticNotifications ? undefined : markAsReadMutation.mutate}
               onDelete={staticNotifications ? undefined : deleteMutation.mutate}
               onClick={onNotificationClick}
-              theme={theme}
             />
           ))}
         </div>
@@ -473,23 +384,23 @@ export function NotificationCenter({
           <Button
             variant="outline"
             size="icon"
-            className={cn(theme.popover.trigger, className)}
+            className={className}
           >
             <Bell className="h-4 w-4" />
             {unreadCount > 0 && (
-              <div className={theme.popover.unreadIndicator}>
+              <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs flex items-center justify-center">
                 {unreadCount > 9 ? '9+' : unreadCount}
-              </div>
+              </Badge>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className={theme.popover.content} side="bottom" align="end" sideOffset={8}>
-          <div className={theme.popover.header}>
+        <PopoverContent className="w-80 p-0">
+          <div className="p-4 border-b">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h4 className="font-semibold text-lg text-foreground max-sm:text-xs">Notifications</h4>
+                <h4 className="font-semibold">Notifications</h4>
                 {unreadCount > 0 && (
-                  <Badge variant="secondary" className={theme.badge}>
+                  <Badge variant="secondary" className="text-xs">
                     {unreadCount} new
                   </Badge>
                 )}
@@ -497,7 +408,7 @@ export function NotificationCenter({
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 hover:bg-muted"
+                className="h-8 w-8 p-0"
                 onClick={() => setIsPopoverOpen(false)}
               >
                 <X className="h-4 w-4" />
@@ -505,17 +416,16 @@ export function NotificationCenter({
             </div>
           </div>
 
-          <div className="px-1 py-3">
+          <div className="p-4">
             {(showFilter || (showMarkAllRead && unreadCount > 0)) && (
-              <div className="flex items-center gap-2 mb-3 px-4 justify-between">
+              <div className="flex items-center gap-2 mb-3 justify-between">
                 {showFilter && (
                   <Button
                     variant="outline"
                     size="sm"
-                    className={theme.buttons.filter}
                     onClick={() => setFilter(filter === 'all' ? 'unread' : 'all')}
                   >
-                    <Filter className="mr-1.5 h-3 w-3" />
+                    <Filter className="mr-2 h-4 w-4" />
                     {filter === 'all' ? 'Unread' : 'All'}
                   </Button>
                 )}
@@ -524,15 +434,10 @@ export function NotificationCenter({
                   <Button
                     variant="outline"
                     size="sm"
-                    className={theme.buttons.markAllRead}
                     onClick={() => markAllAsReadMutation.mutate()}
                     disabled={markAllAsReadMutation.isPending}
                   >
-                    {markAllAsReadMutation.isPending ? (
-                      <div className="animate-spin rounded-full h-3 w-3 border-b border-current mr-1.5" />
-                    ) : (
-                      <CheckCheck className="mr-1.5 h-3 w-3" />
-                    )}
+                    <CheckCheck className="mr-2 h-4 w-4" />
                     Mark All Read
                   </Button>
                 )}
@@ -549,21 +454,14 @@ export function NotificationCenter({
   }
 
   return (
-    <Card className={cn(theme.container, className)}>
-      <CardHeader className={theme.header}>
+    <Card className={className}>
+      <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className={theme.title}>
-            <div className="relative">
-              <Bell className="h-5 w-5 text-foreground" />
-              {unreadCount > 0 && (
-                <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </div>
-              )}
-            </div>
-            <span className="text-xl font-semibold max-sm:text-sm">Notifications</span>
+          <CardTitle className="flex items-center gap-3">
+            <Bell className="h-5 w-5" />
+            <span>Notifications</span>
             {unreadCount > 0 && (
-              <Badge variant="secondary" className={theme.badge}>
+              <Badge variant="secondary">
                 {unreadCount} new
               </Badge>
             )}
@@ -574,13 +472,10 @@ export function NotificationCenter({
               <Button
                 variant="outline"
                 size="sm"
-                className={theme.buttons.filter}
                 onClick={() => setFilter(filter === 'all' ? 'unread' : 'all')}
               >
-                <Filter className="mr-1.5 h-3 w-3" />
-                <span className="max-md:hidden">
-                  {filter === 'all' ? 'Show Unread' : 'Show All'}
-                </span>
+                <Filter className="mr-2 h-4 w-4" />
+                {filter === 'all' ? 'Show Unread' : 'Show All'}
               </Button>
             )}
 
@@ -588,18 +483,11 @@ export function NotificationCenter({
               <Button
                 variant="outline"
                 size="sm"
-                className={theme.buttons.markAllRead}
                 onClick={() => markAllAsReadMutation.mutate()}
                 disabled={markAllAsReadMutation.isPending}
               >
-                {markAllAsReadMutation.isPending ? (
-                  <div className="animate-spin rounded-full h-3 w-3 border-b border-current mr-1.5" />
-                ) : (
-                  <CheckCheck className="mr-1.5 h-3 w-3" />
-                )}
-                <span className="max-md:hidden">
-                  Mark All Read
-                </span>
+                <CheckCheck className="mr-2 h-4 w-4" />
+                Mark All Read
               </Button>
             )}
           </div>
