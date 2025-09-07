@@ -6,7 +6,10 @@
   "author": "Nitish Singh <devxnitish@gmail.com>",
   "description": "A currency manager component",
   "registryDependencies": [
-    "select"
+    "select",
+    "command",
+    "popover",
+    "button"
   ],
   "files": [
     {

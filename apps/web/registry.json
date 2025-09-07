@@ -35,7 +35,7 @@
       "type": "registry:component",
       "title": "Currency Manager",
       "description": "A currency manager component",
-      "registryDependencies": ["select"],
+      "registryDependencies": ["select", "command", "popover", "button"],
       "files": [
         {
           "path": "r/new-york/currency-manager/currency-manager.tsx",
