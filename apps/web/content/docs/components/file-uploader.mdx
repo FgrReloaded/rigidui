@@ -1,6 +1,6 @@
 ---
 title: File Uploader
-description: A comprehensive file upload component with drag & drop support, progress tracking, file validation, and image cropping functionality.
+description: A cross-platform file upload component for Web and React Native with drag & drop support, progress tracking, file validation, and image cropping functionality.
 ---
 
 import { Code, Package, ListTree, Zap } from "lucide-react";
@@ -9,92 +9,157 @@ import { FileUploaderAdvancedExamples } from "@/components/previews/examples/fil
 
 ## Usage
 
-<Tabs items={["Preview", "Code"]}>
-  <Tab value="Preview">
-    <FileUploaderPreview />
-  </Tab>
-  <Tab value="Code">
-    ```tsx title="file-uploader.tsx"
+<Tabs items={["Web", "React Native"]}>
+  <Tab value="Web">
+  <Tabs items={["Preview", "Code"]}>
+    <Tab value="Preview">
+      <FileUploaderPreview />
+    </Tab>
+    <Tab value="Code">
+      ```tsx title="file-uploader-demo.tsx"
 import {
-      FileUploader,
-      FileUploaderDropZone,
-      FileUploaderFileList,
-      FileUploaderCrop
+        FileUploader,
+        FileUploaderDropZone,
+        FileUploaderFileList,
+        FileUploaderCrop
 } from "@/components/file-uploader"
 
 export default function MyComponent() {
-      const handleFilesReady = (files) => {
-        console.log('Files ready:', files)
-        // Handle the uploaded files
-        // Example: Create FormData to send to server
-        const formData = new FormData()
-        files.forEach((file, index) => {
-          formData.append(`file-${index}`, file)
-        })
-        // fetch('/api/upload', { method: 'POST', body: formData })
-      }
+          const handleFilesReady = (files) => {
+            console.log('Files ready:', files)
+            // Handle the uploaded files
+            // Example: Create FormData to send to server
+            const formData = new FormData()
+            files.forEach((file, index) => {
+              formData.append(`file-${index}`, file)
+            })
+            // fetch('/api/upload', { method: 'POST', body: formData })
+          }
 
-      return (
-          <FileUploader
-            maxFiles={5}
-            maxSize={1024 _ 1024 _ 5} // 5MB
-            accept={['image/*', 'application/pdf']}
-            onFilesReady={handleFilesReady}
-            className="w-full max-w-lg"
-          >
+          return (
+            <FileUploader
+              maxFiles={5}
+              maxSize={1024 * 1024 * 5} // 5MB
+              accept={['image/*', 'application/pdf']}
+              onFilesReady={handleFilesReady}
+              className="w-full max-w-lg"
+            >
               <FileUploaderDropZone />
               <FileUploaderFileList enableCropping />
               <FileUploaderCrop
-                      aspectRatio={16/9}
-                      minWidth={100}
-                      minHeight={56}
+                aspectRatio={16/9}
+                minWidth={100}
+                minHeight={56}
               />
-          </FileUploader>
-      )
+            </FileUploader>
+          )
 }
+
 ````
   </Tab>
+  </Tabs>
+</Tab>
+<Tab value="React Native">
+  ```tsx title="file-uploader-demo.tsx"
+import { FileUploader } from "@/components/file-uploader-rn"
+import { useState } from "react"
+
+export default function MyComponent() {
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+
+    const handleFilesReady = (files) => {
+      console.log('Files ready:', files)
+      setUploadedFiles(files)
+      // Handle the uploaded files
+      // Example: Upload to server using FormData
+    }
+
+    return (
+      <FileUploader
+        maxFiles={5}
+        maxSize={1024 * 1024 * 5} // 5MB
+        accept={['image/*', 'application/pdf']}
+        onFilesReady={handleFilesReady}
+      />
+    )
+}
+  ```
+</Tab>
 </Tabs>
 
 ## Installation
 
-Install the File Uploader component using your preferred package manager.
+<p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
+Install the File Uploader component for your platform using your preferred package manager.
+</p>
 
-```npm
-npx shadcn@latest add https://rigidui.com/r/file-uploader.json
-````
+<Tabs items={["Web", "React Native"]}>
+<Tab value="Web">
+  ```npm
+  npx shadcn@latest add https://rigidui.com/r/file-uploader.json
+  ```
+</Tab>
+<Tab value="React Native">
+  ### Prerequisites [!toc]
+
+  First, ensure you have React Native Reusables properly set up in your project. Follow the complete setup guide at [React Native Reusables Installation](https://reactnativereusables.com/docs/installation).
+
+  ### Install Dependencies [!toc]
+
+  Install the required Expo dependencies for document picker functionality:
+
+  ```bash
+  npx expo install expo-document-picker
+  npm install @react-native-vector-icons/ant-design
+  ```
+
+  ### Configure Vector Icons [!toc]
+
+  Follow the setup guide for @react-native-vector-icons/ant-design to configure vector icons in your project according to the [React Native Vector Icons documentation](https://github.com/oblador/react-native-vector-icons).
+
+  ### Install Component [!toc]
+
+  ```npm
+  npx shadcn@latest add https://rigidui.com/r/file-uploader-rn.json
+  ```
+</Tab>
+</Tabs>
 
 ## Features
 
-The File Uploader component is packed with powerful features designed to provide an exceptional user experience.
+<p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
+The File Uploader component is packed with powerful features designed to
+provide an exceptional user experience across both Web and React Native platforms.
+</p>
 
 <Cards>
-  <Card title="Drag & Drop Support">
-    Users can drag and drop files directly onto the upload area for seamless
-    file selection.
-  </Card>
-  <Card title="File Validation">
-    Automatically validates file types, sizes, and counts with customizable
-    restrictions.
-  </Card>
-  <Card title="Upload Progress">
-    Real-time progress indicators show upload status with visual feedback for
-    each file.
-  </Card>
-  <Card title="Image Previews">
-    Automatically generates preview thumbnails for uploaded image files.
-  </Card>
-  <Card title="Image Cropping">
-    Built-in image cropping functionality with customizable aspect ratios and
-    minimum dimensions.
-  </Card>
-  <Card title="Multiple Files">
-    Support for uploading multiple files simultaneously with individual progress
-    tracking.
-  </Card>
-  <Card title="File Management">
-    Easy file removal with automatic cleanup of preview URLs.
-  </Card>
+<Card title="File Selection">
+  Users can select files through native file pickers on both Web and React Native
+  platforms with seamless integration.
+</Card>
+<Card title="Cross-Platform Support">
+  Available for both Web and React Native with platform-specific optimizations
+  and native document picker support.
+</Card>
+<Card title="File Validation">
+  Automatically validates file types, sizes, and counts with customizable
+  restrictions across platforms.
+</Card>
+<Card title="Upload Progress">
+  Real-time progress indicators show upload status with visual feedback for
+  each file (Web platform).
+</Card>
+<Card title="Image Previews">
+  Automatically generates preview thumbnails for uploaded image files
+  with platform-appropriate display.
+</Card>
+<Card title="Multiple Files">
+  Support for uploading multiple files simultaneously with individual progress
+  tracking and management.
+</Card>
+<Card title="File Management">
+  Easy file removal with automatic cleanup and organized file list display.
+</Card>
 </Cards>
 
 ## Props
@@ -102,107 +167,108 @@ The File Uploader component is packed with powerful features designed to provide
 ### FileUploader
 
 <TypeTable
-  type={{
-    onFilesReady: {
-      description: "Callback function called when files are ready or changed",
-      type: "(files: File[]) => void",
-      default: "undefined",
-    },
-    maxFiles: {
-      description: "Maximum number of files that can be uploaded",
-      type: "number",
-      default: "10",
-    },
-    maxSize: {
-      description: "Maximum file size in bytes",
-      type: "number",
-      default: "10 * 1024 * 1024 (10MB)",
-    },
-    accept: {
-      description:
-        'Array of accepted file types (e.g., ["image/*", "application/pdf"])',
-      type: "string[]",
-      default: "['image/*', 'application/pdf', 'text/*']",
-    },
-    className: {
-      description: "Additional class names for styling",
-      type: "string",
-      default: "undefined",
-    },
-    children: {
-      description:
-        "Child components (FileUploaderDropZone, FileUploaderFileList, etc.)",
-      type: "React.ReactNode",
-      default: "undefined",
-    },
-  }}
+type={{
+  onFilesReady: {
+    description: "Callback function called when files are ready or changed",
+    type: "(files: File[]) => void",
+    default: "undefined",
+  },
+  maxFiles: {
+    description: "Maximum number of files that can be uploaded",
+    type: "number",
+    default: "10",
+  },
+  maxSize: {
+    description: "Maximum file size in bytes",
+    type: "number",
+    default: "10 * 1024 * 1024 (10MB)",
+  },
+  accept: {
+    description:
+      'Array of accepted file types (e.g., ["image/*", "application/pdf"])',
+    type: "string[]",
+    default: "['image/*', 'application/pdf', 'text/*']",
+  },
+  className: {
+    description: "Additional class names for styling",
+    type: "string",
+    default: "undefined",
+  },
+  children: {
+    description:
+      "Child components (FileUploaderDropZone, FileUploaderFileList, etc.)",
+    type: "React.ReactNode",
+    default: "undefined",
+  },
+}}
 />
 
 ### FileUploaderDropZone
 
 <TypeTable
-  type={{
-    className: {
-      description: "Additional class names for styling the drop zone",
-      type: "string",
-      default: "undefined",
-    },
-    disabled: {
-      description: "Whether the drop zone is disabled",
-      type: "boolean",
-      default: "false",
-    },
-  }}
+type={{
+  className: {
+    description: "Additional class names for styling the drop zone",
+    type: "string",
+    default: "undefined",
+  },
+  disabled: {
+    description: "Whether the drop zone is disabled",
+    type: "boolean",
+    default: "false",
+  },
+}}
 />
 
 ### FileUploaderFileList
 
 <TypeTable
-  type={{
-    className: {
-      description: "Additional class names for styling the file list",
-      type: "string",
-      default: "undefined",
-    },
-    showHeader: {
-      description:
-        "Whether to show the file list header with count and clear button",
-      type: "boolean",
-      default: "true",
-    },
-    enableCropping: {
-      description: "Enable image cropping functionality for uploaded images",
-      type: "boolean",
-      default: "false",
-    },
-  }}
+type={{
+  className: {
+    description: "Additional class names for styling the file list",
+    type: "string",
+    default: "undefined",
+  },
+  showHeader: {
+    description:
+      "Whether to show the file list header with count and clear button",
+    type: "boolean",
+    default: "true",
+  },
+  enableCropping: {
+    description: "Enable image cropping functionality for uploaded images",
+    type: "boolean",
+    default: "false",
+  },
+}}
 />
 
 ### FileUploaderCrop
 
 <TypeTable
-  type={{
-    aspectRatio: {
-      description:
-        "Fixed aspect ratio for cropping (e.g., 16/9, 1, 4/3). If undefined, free cropping is allowed",
-      type: "number",
-      default: "undefined",
-    },
-    minWidth: {
-      description: "Minimum width for the crop area in pixels",
-      type: "number",
-      default: "50",
-    },
-    minHeight: {
-      description: "Minimum height for the crop area in pixels",
-      type: "number",
-      default: "50",
-    },
-  }}
+type={{
+  aspectRatio: {
+    description:
+      "Fixed aspect ratio for cropping (e.g., 16/9, 1, 4/3). If undefined, free cropping is allowed",
+    type: "number",
+    default: "undefined",
+  },
+  minWidth: {
+    description: "Minimum width for the crop area in pixels",
+    type: "number",
+    default: "50",
+  },
+  minHeight: {
+    description: "Minimum height for the crop area in pixels",
+    type: "number",
+    default: "50",
+  },
+}}
 />
 
 ## Advanced Examples
 
-Explore different configurations and specialized use cases for the File Uploader component.
+Explore different configurations and specialized use cases for the File Uploader component across Web and React Native platforms.
 
 <FileUploaderAdvancedExamples />
+````

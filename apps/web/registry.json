@@ -104,6 +104,25 @@
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },
     {
+      "name": "file-uploader-rn",
+      "type": "registry:component",
+      "title": "File Uploader",
+      "description": "A file uploader component for react native",
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/card.json",
+        "https://reactnativereusables.com/r/new-york/button.json",
+        "https://reactnativereusables.com/r/new-york/badge.json"
+      ],
+      "dependencies": ["expo-document-picker", "@react-native-vector-icons/ant-design"],
+      "files": [
+        {
+          "path": "r/new-york/file-uploader/file-uploader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
       "name": "infinite-scroll",
       "type": "registry:component",
       "title": "Infinite Scroll",
