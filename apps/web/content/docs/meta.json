@@ -5,6 +5,7 @@
 		"getting-started",
 	"--- Creative ---",
 		"creative/data-reveal",
+		"creative/buttons",
     "--- Core Components ---",
 		"components/currency-manager",
 		"components/draggable-dashboard", 
