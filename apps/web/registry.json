@@ -288,6 +288,21 @@
         }
       ],
       "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
+      "name": "text-shift",
+      "type": "registry:component",
+      "title": "Text Shift",
+      "description": "A text shift animation component to showcase two different texts with smooth transition on hover.",
+      "registryDependencies": [],
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "r/new-york/text-shift/text-shift.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
     }
   ]
 }

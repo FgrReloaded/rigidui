@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-shift",
+  "type": "registry:component",
+  "title": "Text Shift",
+  "author": "Nitish Singh <devxnitish@gmail.com>",
+  "description": "A text shift animation component to showcase two different texts with smooth transition on hover.",
+  "dependencies": [
+    "motion"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "r/new-york/text-shift/text-shift.tsx",
+      "content": "\"use client\"\nimport React, { useState } from 'react'\nimport { motion, Easing } from 'motion/react'\n\ninterface TextShiftProps {\n  primaryText: string\n  secondaryText: string\n  className?: string\n  primaryTextColor?: string\n  secondaryTextColor?: string\n  duration?: number\n  staggerDelay?: number\n  easing?: Easing\n}\n\nconst TextShift: React.FC<TextShiftProps> = ({\n  primaryText,\n  secondaryText,\n  className = '',\n  primaryTextColor = 'text-black',\n  secondaryTextColor = 'text-gray-400',\n  duration = 1,\n  staggerDelay = 0.05,\n  easing = [0.165, 0.84, 0.44, 1],\n}) => {\n  const [isHovered, setIsHovered] = useState(false)\n\n  const primaryLetters = primaryText.split('')\n  const secondaryLetters = secondaryText.split('')\n\n  return (\n    <div\n      className={`relative overflow-hidden cursor-pointer ${className}`}\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={() => setIsHovered(false)}\n    >\n      <div className={`uppercase font-bold flex ${primaryTextColor}`}>\n        {primaryLetters.map((letter, index) => (\n          <motion.span\n            key={`primary-${index}`}\n            animate={{\n              y: isHovered ? \"-100%\" : \"0%\",\n              opacity: isHovered ? 0.8 : 1,\n            }}\n            transition={{\n              duration,\n              delay: index * staggerDelay,\n              ease: easing,\n            }}\n          >\n            {letter}\n          </motion.span>\n        ))}\n      </div>\n      <div className={`uppercase font-bold absolute top-0 left-0 flex ${secondaryTextColor}`}>\n        {secondaryLetters.map((letter, index) => (\n          <motion.span\n            key={`secondary-${index}`}\n            initial={{ y: \"100%\", opacity: 0 }}\n            animate={{\n              y: isHovered ? \"0%\" : \"100%\",\n              opacity: isHovered ? 1 : 0,\n            }}\n            transition={{\n              duration,\n              delay: index * staggerDelay,\n              ease: easing,\n            }}\n          >\n            {letter}\n          </motion.span>\n        ))}\n      </div>\n    </div>\n  )\n}\n\nexport default TextShift",
+      "type": "registry:component"
+    }
+  ]
+}

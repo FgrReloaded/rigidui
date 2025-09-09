@@ -1,0 +1,188 @@
+---
+title: Text Shift
+description: An animated text component that smoothly transitions between two text strings with staggered letter animations on hover
+---
+
+import { Type, MousePointer, Zap, Settings, Layers, Timer } from "lucide-react";
+import TextShiftPreview from "@/components/previews/text-shift";
+
+## Usage
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <TextShiftPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="text-shift-demo.tsx"
+"use client";
+
+import { TextShift } from "@/components/text-shift";
+
+export default function TextShiftDemo() {
+        return (
+            <div className="space-y-6">
+                <TextShift
+                    primaryText="Web Developer"
+                    secondaryText="Web Designer"
+                    className="text-4xl"
+                    primaryTextColor="text-black"
+                    secondaryTextColor="text-gray-400"
+                />
+            </div>
+        );
+}
+    ```
+  </Tab>
+</Tabs>
+
+## Installation
+
+Install the Text Shift component using your preferred package manager.
+
+```npm
+npx shadcn@latest add @rigidui/text-shift
+```
+
+## Features
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Text Shift component creates engaging text animations that smoothly
+  transition between two different text strings with beautiful staggered letter
+  effects.
+</p>
+
+<Cards>
+  <Card
+    icon={<Type className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Smooth Typography"
+  >
+    Beautiful letter-by-letter animations with configurable timing and easing
+    for professional text transitions.
+  </Card>
+  <Card
+    icon={
+      <MousePointer className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+    }
+    title="Hover Interactions"
+  >
+    Responsive hover effects that trigger smooth transitions between primary and
+    secondary text content.
+  </Card>
+  <Card
+    icon={<Timer className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Staggered Animation"
+  >
+    Configurable stagger delay creates a wave-like effect as each letter
+    animates in sequence for visual appeal.
+  </Card>
+  <Card
+    icon={<Settings className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Highly Customizable"
+  >
+    Full control over colors, timing, easing functions, and styling to match
+    your design requirements.
+  </Card>
+</Cards>
+
+## Component Structure
+
+The Text Shift component is a single, self-contained component that handles all animation logic internally:
+
+```tsx
+<TextShift
+  primaryText="Your Text"
+  secondaryText="Alternative Text"
+  className="text-4xl"
+/>
+```
+
+## Props
+
+### TextShift
+
+<TypeTable
+  type={{
+    primaryText: {
+      description: "The main text to display initially",
+      type: "string",
+      required: true,
+    },
+    secondaryText: {
+      description: "The text to reveal on hover",
+      type: "string",
+      required: true,
+    },
+    className: {
+      description: "Additional CSS classes for the container",
+      type: "string",
+      default: "''",
+    },
+    primaryTextColor: {
+      description: "Tailwind color class for the primary text",
+      type: "string",
+      default: "'text-black'",
+    },
+    secondaryTextColor: {
+      description: "Tailwind color class for the secondary text",
+      type: "string",
+      default: "'text-gray-400'",
+    },
+    duration: {
+      description: "Animation duration in seconds",
+      type: "number",
+      default: "1",
+    },
+    staggerDelay: {
+      description: "Delay between each letter animation in seconds",
+      type: "number",
+      default: "0.05",
+    },
+    easing: {
+      description: "Motion easing function for the animation",
+      type: "Easing",
+      default: "[0.165, 0.84, 0.44, 1]",
+    },
+  }}
+/>
+
+## Examples
+
+### Basic Usage
+
+```tsx
+<TextShift primaryText="Hello World" secondaryText="Welcome Here" />
+```
+
+### Custom Styling
+
+```tsx
+<TextShift
+  primaryText="Frontend"
+  secondaryText="Fullstack"
+  className="text-6xl font-bold"
+  primaryTextColor="text-blue-600"
+  secondaryTextColor="text-purple-600"
+/>
+```
+
+### Custom Timing
+
+```tsx
+<TextShift
+  primaryText="Fast Animation"
+  secondaryText="Quick Transition"
+  duration={0.5}
+  staggerDelay={0.02}
+/>
+```
+
+### Slow and Elegant
+
+```tsx
+<TextShift
+  primaryText="Elegant"
+  secondaryText="Beautiful"
+  duration={1.5}
+  staggerDelay={0.1}
+/>
+```
