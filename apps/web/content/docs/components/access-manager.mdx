@@ -22,18 +22,18 @@ import {
 } from "@/components/access-manager"
 
 const user: UserSession = {
-      id: "1",
-      email: "admin@example.com",
-      roles: ["admin", "user"],
-      permissions: ["read", "write", "delete"],
-      isActive: true,
-      expiresAt: new Date(Date.now() + 86400000)
+id: "1",
+email: "admin@example.com",
+roles: ["admin", "user"],
+permissions: ["read", "write", "delete"],
+isActive: true,
+expiresAt: new Date(Date.now() + 86400000)
 }
 
 const rolePermissionMap = {
-      admin: ["read", "write", "delete", "manage_users"],
-      editor: ["read", "write"],
-      viewer: ["read"]
+admin: ["read", "write", "delete", "manage_users"],
+editor: ["read", "write"],
+viewer: ["read"]
 }
 
 export default function MyComponent() {
@@ -66,7 +66,7 @@ export default function MyComponent() {
 </p>
 
 ```npm
-npx shadcn@latest add https://rigidui.com/r/access-manager.json
+npx shadcn@latest add @rigidui/access-manager
 ````
 
 ## Features
@@ -182,55 +182,55 @@ function FeatureSection() {
 <TypeTable
   type={{
     id: {
-      description: 'Unique user identifier',
-      type: 'string',
+      description: "Unique user identifier",
+      type: "string",
       required: true,
     },
     email: {
-      description: 'User email address',
-      type: 'string',
+      description: "User email address",
+      type: "string",
     },
     username: {
-      description: 'Username',
-      type: 'string',
+      description: "Username",
+      type: "string",
     },
     name: {
-      description: 'Display name of the user',
-      type: 'string',
+      description: "Display name of the user",
+      type: "string",
     },
     avatar: {
-      description: 'URL to user avatar image',
-      type: 'string',
+      description: "URL to user avatar image",
+      type: "string",
     },
     roles: {
-      description: 'Array of user roles',
-      type: 'string[]',
+      description: "Array of user roles",
+      type: "string[]",
       required: true,
     },
     permissions: {
-      description: 'Array of user permissions',
-      type: 'string[]',
+      description: "Array of user permissions",
+      type: "string[]",
       required: true,
     },
     metadata: {
-      description: 'Additional user data',
-      type: 'Record<string, unknown>',
+      description: "Additional user data",
+      type: "Record<string, unknown>",
     },
     isActive: {
-      description: 'Whether the user account is active',
-      type: 'boolean',
+      description: "Whether the user account is active",
+      type: "boolean",
     },
     expiresAt: {
-      description: 'Session expiration time',
-      type: 'Date | string',
+      description: "Session expiration time",
+      type: "Date | string",
     },
     lastActivity: {
-      description: 'Last activity timestamp',
-      type: 'Date | string',
+      description: "Last activity timestamp",
+      type: "Date | string",
     },
     sessionId: {
-      description: 'Unique session identifier',
-      type: 'string',
+      description: "Unique session identifier",
+      type: "string",
     },
   }}
 />
@@ -240,54 +240,54 @@ function FeatureSection() {
 <TypeTable
   type={{
     roles: {
-      description: 'Required roles for access',
-      type: 'string | string[]',
-      default: 'undefined',
+      description: "Required roles for access",
+      type: "string | string[]",
+      default: "undefined",
     },
     permissions: {
-      description: 'Required permissions for access',
-      type: 'string | string[]',
-      default: 'undefined',
+      description: "Required permissions for access",
+      type: "string | string[]",
+      default: "undefined",
     },
     requireAllRoles: {
-      description: 'Whether all roles are required (AND vs OR)',
-      type: 'boolean',
-      default: 'false',
+      description: "Whether all roles are required (AND vs OR)",
+      type: "boolean",
+      default: "false",
     },
     requireAllPermissions: {
-      description: 'Whether all permissions are required',
-      type: 'boolean',
-      default: 'false',
+      description: "Whether all permissions are required",
+      type: "boolean",
+      default: "false",
     },
     requireValidSession: {
-      description: 'Whether a valid session is required',
-      type: 'boolean',
-      default: 'true',
+      description: "Whether a valid session is required",
+      type: "boolean",
+      default: "true",
     },
     mode: {
-      description: 'How to handle unauthorized access',
+      description: "How to handle unauthorized access",
       type: "'hide' | 'disable' | 'show-fallback'",
       default: "'hide'",
     },
     fallback: {
-      description: 'Content to show when access is denied',
-      type: 'ReactNode',
-      default: 'null',
+      description: "Content to show when access is denied",
+      type: "ReactNode",
+      default: "null",
     },
     onUnauthorized: {
-      description: 'Callback when access is denied',
-      type: '() => void',
-      default: 'undefined',
+      description: "Callback when access is denied",
+      type: "() => void",
+      default: "undefined",
     },
     className: {
-      description: 'Additional CSS classes for the container',
-      type: 'string',
-      default: 'undefined',
+      description: "Additional CSS classes for the container",
+      type: "string",
+      default: "undefined",
     },
     disabledClassName: {
-      description: 'CSS classes to apply when disabled',
-      type: 'string',
-      default: 'undefined',
+      description: "CSS classes to apply when disabled",
+      type: "string",
+      default: "undefined",
     },
   }}
 />
@@ -297,19 +297,19 @@ function FeatureSection() {
 <TypeTable
   type={{
     fallback: {
-      description: 'Content to show when session is invalid',
-      type: 'ReactNode',
-      default: 'undefined',
+      description: "Content to show when session is invalid",
+      type: "ReactNode",
+      default: "undefined",
     },
     redirectTo: {
-      description: 'URL to redirect to when session expires',
-      type: 'string',
-      default: 'undefined',
+      description: "URL to redirect to when session expires",
+      type: "string",
+      default: "undefined",
     },
     onSessionExpired: {
-      description: 'Callback when session expires',
-      type: '() => void',
-      default: 'undefined',
+      description: "Callback when session expires",
+      type: "() => void",
+      default: "undefined",
     },
   }}
 />
@@ -319,19 +319,19 @@ function FeatureSection() {
 <TypeTable
   type={{
     user: {
-      description: 'Current user session data',
-      type: 'UserSession | null',
+      description: "Current user session data",
+      type: "UserSession | null",
       required: true,
     },
     rolePermissionMap: {
-      description: 'Mapping of roles to their permissions',
-      type: 'RolePermissionMap',
-      default: '{}',
+      description: "Mapping of roles to their permissions",
+      type: "RolePermissionMap",
+      default: "{}",
     },
     onUnauthorized: {
-      description: 'Global callback for unauthorized access attempts',
-      type: '() => void',
-      default: 'undefined',
+      description: "Global callback for unauthorized access attempts",
+      type: "() => void",
+      default: "undefined",
     },
   }}
 />
@@ -341,29 +341,29 @@ function FeatureSection() {
 <TypeTable
   type={{
     roles: {
-      description: 'Required roles to check',
-      type: 'string | string[]',
-      default: 'undefined',
+      description: "Required roles to check",
+      type: "string | string[]",
+      default: "undefined",
     },
     permissions: {
-      description: 'Required permissions to check',
-      type: 'string | string[]',
-      default: 'undefined',
+      description: "Required permissions to check",
+      type: "string | string[]",
+      default: "undefined",
     },
     requireAllRoles: {
-      description: 'Whether all roles are required',
-      type: 'boolean',
-      default: 'false',
+      description: "Whether all roles are required",
+      type: "boolean",
+      default: "false",
     },
     requireAllPermissions: {
-      description: 'Whether all permissions are required',
-      type: 'boolean',
-      default: 'false',
+      description: "Whether all permissions are required",
+      type: "boolean",
+      default: "false",
     },
     requireValidSession: {
-      description: 'Whether a valid session is required',
-      type: 'boolean',
-      default: 'true',
+      description: "Whether a valid session is required",
+      type: "boolean",
+      default: "true",
     },
   }}
 />

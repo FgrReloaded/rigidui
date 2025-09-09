@@ -8,6 +8,7 @@ import LocationPickerPreview from "@/components/previews/location-picker";
 import { LocationPickerAdvancedExamples } from "@/components/previews/examples/location-picker-advanced";
 
 ## Usage
+
 <Tabs items={["Web", "React Native"]}>
   <Tab value="Web">
   <Tabs items={["Preview", "Code"]}>
@@ -30,7 +31,7 @@ export default function Home() {
   <Tab value="React Native">
     ```tsx title="location-picker-demo.tsx"
 import { LocationPicker } from "@/components/location-picker-rn"
-    
+
 export default function Home() {
       const [selectedLocation, setSelectedLocation] = useState<string>("");
 
@@ -41,40 +42,43 @@ export default function Home() {
           placeholder="Tap to search locations..."
         />
       )
+
 }
-    ```
+```
+
   </Tab>
 </Tabs>
 
 ## Installation
 
 <p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
-  Install the Location Picker component for your platform using your preferred package manager.
+  Install the Location Picker component for your platform using your preferred
+  package manager.
 </p>
 
 <Tabs items={["Web", "React Native"]}>
   <Tab value="Web">
     ```npm
-    npx shadcn@latest add https://rigidui.com/r/location-picker.json
+    npx shadcn@latest add @rigidui/location-picker
     ```
   </Tab>
   <Tab value="React Native">
     ### Prerequisites [!toc]
-    
+
     First, ensure you have React Native Reusables properly set up in your project. Follow the complete setup guide at [React Native Reusables Installation](https://reactnativereusables.com/docs/installation).
-    
+
     ### Install Dependencies [!toc]
-    
+
     Install the required Expo dependencies for location functionality:
-    
+
     ```bash
-    npx expo install expo-device expo-location  
+    npx expo install expo-device expo-location
     ```
-    
+
     ### Configure Expo Plugins [!toc]
-    
+
     Add the `expo-location` plugin to your `app.json` file:
-    
+
     ```json title="app.json"
     {
       "expo": {
@@ -82,14 +86,15 @@ export default function Home() {
       }
     }
     ```
-    
+
     For additional configuration options and permissions setup, refer to the [Expo Location documentation](https://docs.expo.dev/versions/latest/sdk/location/).
-    
+
     ### Install Component [!toc]
-    
+
     ```npm
-    npx shadcn@latest add https://rigidui.com/r/location-picker-rn.json
+    npx shadcn@latest add @rigidui/location-picker-rn
     ```
+
   </Tab>
 </Tabs>
 
@@ -97,7 +102,8 @@ export default function Home() {
 
 <p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
   The Location Picker component is packed with powerful features designed to
-  provide an exceptional user experience across both Web and React Native platforms.
+  provide an exceptional user experience across both Web and React Native
+  platforms.
 </p>
 
 <Cards>

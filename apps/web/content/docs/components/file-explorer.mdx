@@ -18,45 +18,45 @@ import { FileExplorerAdvancedExamples } from "@/components/previews/examples/fil
 import { FileExplorer } from "@/components/file-explorer"
 
 const previewFileSystem = {
-      id: 'root',
-      name: 'my-project',
-      type: 'folder' as const,
-      expanded: true,
-      icon: <FolderClosed className="h-4 w-4 text-blue-500" />,
-      expandedIcon: <FolderOpen className="h-4 w-4 text-blue-500" />,
-      children: [
-        {
-          id: 'src',
-          name: 'src',
-          type: 'folder' as const,
-          children: [
-            {
-              id: 'file1',
-              name: 'example.ts',
-              type: 'file' as const,
-              language: 'typescript',
-              content: 'console.log("Hello world!");',
-              icon: <FileCode className="h-4 w-4 text-green-500" />
-            },
-            {
-              id: 'images',
-              name: 'images',
-              type: 'folder' as const,
-              icon: <FolderClosed className="h-4 w-4 text-purple-500" />,
-              expandedIcon: <FolderOpen className="h-4 w-4 text-purple-500" />,
-              children: [{
-                id: 'logo.png',
-                name: 'logo.png',
-                type: 'file' as const,
-                isImage: true,
-                imageUrl: 'https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Logo',
-                content: 'Binary image data',
-                icon: <ImageIcon className="h-4 w-4 text-orange-500" />
-              }]
-            }
-          ]
-        }
-      ]
+id: 'root',
+name: 'my-project',
+type: 'folder' as const,
+expanded: true,
+icon: <FolderClosed className="h-4 w-4 text-blue-500" />,
+expandedIcon: <FolderOpen className="h-4 w-4 text-blue-500" />,
+children: [
+{
+id: 'src',
+name: 'src',
+type: 'folder' as const,
+children: [
+{
+id: 'file1',
+name: 'example.ts',
+type: 'file' as const,
+language: 'typescript',
+content: 'console.log("Hello world!");',
+icon: <FileCode className="h-4 w-4 text-green-500" />
+},
+{
+id: 'images',
+name: 'images',
+type: 'folder' as const,
+icon: <FolderClosed className="h-4 w-4 text-purple-500" />,
+expandedIcon: <FolderOpen className="h-4 w-4 text-purple-500" />,
+children: [{
+id: 'logo.png',
+name: 'logo.png',
+type: 'file' as const,
+isImage: true,
+imageUrl: 'https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Logo',
+content: 'Binary image data',
+icon: <ImageIcon className="h-4 w-4 text-orange-500" />
+}]
+}
+]
+}
+]
 }
 
 export default function MyComponent() {
@@ -80,7 +80,7 @@ export default function MyComponent() {
 </p>
 
 ```npm
-npx shadcn@latest add https://rigidui.com/r/file-explorer.json
+npx shadcn@latest add @rigidui/file-explorer
 ```
 
 ## Features
