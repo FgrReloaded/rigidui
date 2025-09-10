@@ -113,7 +113,10 @@
         "https://reactnativereusables.com/r/new-york/button.json",
         "https://reactnativereusables.com/r/new-york/badge.json"
       ],
-      "dependencies": ["expo-document-picker", "@react-native-vector-icons/ant-design"],
+      "dependencies": [
+        "expo-document-picker",
+        "@react-native-vector-icons/ant-design"
+      ],
       "files": [
         {
           "path": "r/new-york/file-uploader/file-uploader.tsx",
@@ -299,6 +302,20 @@
       "files": [
         {
           "path": "r/new-york/text-shift/text-shift.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
+      "name": "draggable-canvas",
+      "type": "registry:component",
+      "title": "Draggable Canvas",
+      "description": "A draggable canvas component to create interactive and dynamic layouts.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "r/new-york/draggable-canvas/draggable-canvas.tsx",
           "type": "registry:component"
         }
       ],

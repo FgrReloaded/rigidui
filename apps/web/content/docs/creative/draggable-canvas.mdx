@@ -1,0 +1,335 @@
+---
+title: Draggable Canvas
+description: A smooth, physics-based draggable canvas component with momentum, elastic bounds, and customizable items
+---
+
+import { Move, Zap, Settings, Maximize, Grid, Smartphone } from "lucide-react";
+import DraggableCanvasPreview from "@/components/previews/draggable-canvas";
+
+## Usage
+
+<Tabs items={["Preview", "Code"]}>
+  <Tab value="Preview">
+    <DraggableCanvasPreview />
+  </Tab>
+  <Tab value="Code">
+    ```tsx title="draggable-canvas-demo.tsx"
+"use client";
+
+import { DraggableCanvas } from "@/components/draggable-canvas";
+
+export default function DraggableCanvasDemo() {
+      const items = [
+        { src: '/image/1.jpg', top: '20%', left: '35%' },
+        { src: '/image/2.jpg', top: '40%', left: '45%' },
+        { src: '/image/3.jpg', top: '30%', left: '63%' }
+      ]
+
+return (
+      <div className="w-full h-96 relative overflow-hidden border rounded-lg">
+          <DraggableCanvas
+              items={items}
+              width="200vw"
+              height="200vh"
+              showBoundary={true}
+              showCornerLabels={true}
+              friction={0.92}
+              elasticity={0.2}
+              reboundDamping={0.8}
+              initialCenter={true}
+          />
+      </div>
+      );
+}
+```
+
+  </Tab>
+</Tabs>
+
+## Installation
+
+Install the Draggable Canvas component using your preferred package manager.
+
+```npm
+npx shadcn@latest add @rigidui/draggable-canvas
+```
+
+## Features
+
+<p className="md:text-sm mb-4! text-gray-700 dark:text-gray-300 max-w-3xl">
+  The Draggable Canvas component provides a smooth, physics-based draggable
+  interface with momentum, elastic boundaries, and support for any content type.
+</p>
+
+<Cards>
+  <Card
+    icon={<Move className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Smooth Physics"
+  >
+    Built-in momentum, friction, and elastic boundary rebounds create a natural,
+    fluid dragging experience with customizable physics parameters.
+  </Card>
+  <Card
+    icon={<Zap className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Performance Optimized"
+  >
+    Uses requestAnimationFrame for smooth 60fps animations and transform3d for
+    hardware acceleration on both desktop and mobile.
+  </Card>
+  <Card
+    icon={<Grid className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Flexible Content"
+  >
+    Supports images, custom React components, or any content with individual
+    positioning, sizing, and hover effects.
+  </Card>
+  <Card
+    icon={
+      <Smartphone className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+    }
+    title="Touch & Mouse Support"
+  >
+    Full support for both mouse and touch interactions with smooth momentum
+    transfer and consistent behavior across devices.
+  </Card>
+  <Card
+    icon={<Maximize className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Responsive Boundaries"
+  >
+    Automatically calculates boundaries based on viewport size and canvas
+    dimensions with optional visual boundary indicators.
+  </Card>
+  <Card
+    icon={<Settings className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />}
+    title="Highly Customizable"
+  >
+    Fine-tune physics parameters, styling, initial positioning, and visual
+    elements to match your design requirements.
+  </Card>
+</Cards>
+
+## Component Structure
+
+The Draggable Canvas is a single component that accepts an array of items and configuration options:
+
+```tsx
+<DraggableCanvas
+  items={itemsArray}
+  width="300vw"
+  height="150vh"
+  showBoundary={true}
+  friction={0.92}
+  elasticity={0.2}
+/>
+```
+
+## Props
+
+### DraggableCanvas
+
+<TypeTable
+  type={{
+    items: {
+      description: "Array of items to display on the canvas",
+      type: "DraggableCanvasItem[]",
+      required: true,
+    },
+    width: {
+      description: "Canvas width (CSS units or number for pixels)",
+      type: "string | number",
+      default: "'300vw'",
+    },
+    height: {
+      description: "Canvas height (CSS units or number for pixels)",
+      type: "string | number",
+      default: "'150vh'",
+    },
+    showBoundary: {
+      description: "Whether to show visual boundary indicators",
+      type: "boolean",
+      default: "false",
+    },
+    showCornerLabels: {
+      description: "Whether to show corner labels (TL, TR, BL, BR)",
+      type: "boolean",
+      default: "false",
+    },
+    className: {
+      description: "Additional CSS classes for the canvas",
+      type: "string",
+      default: "''",
+    },
+    style: {
+      description: "Inline styles for the canvas",
+      type: "React.CSSProperties",
+      default: "undefined",
+    },
+    friction: {
+      description: "Momentum decay rate (0-1, higher = less friction)",
+      type: "number",
+      default: "0.92",
+    },
+    elasticity: {
+      description: "Boundary bounce effect strength (0-1)",
+      type: "number",
+      default: "0.2",
+    },
+    reboundDamping: {
+      description: "Velocity reduction on boundary collision (0-1)",
+      type: "number",
+      default: "0.8",
+    },
+    stopThreshold: {
+      description: "Minimum velocity before stopping animation",
+      type: "number",
+      default: "0.01",
+    },
+    initialCenter: {
+      description:
+        "Whether to center canvas initially when larger than viewport",
+      type: "boolean",
+      default: "true",
+    },
+  }}
+/>
+
+### DraggableCanvasItem
+
+<TypeTable
+  type={{
+    src: {
+      description: "Image source URL (when using image content)",
+      type: "string",
+      default: "undefined",
+    },
+    top: {
+      description: "Vertical position from canvas top (CSS units)",
+      type: "string",
+      required: true,
+    },
+    left: {
+      description: "Horizontal position from canvas left (CSS units)",
+      type: "string",
+      required: true,
+    },
+    width: {
+      description: "Item width (CSS units or number for pixels)",
+      type: "number | string",
+      default: "320",
+    },
+    height: {
+      description: "Item height (CSS units or number for pixels)",
+      type: "number | string",
+      default: "440",
+    },
+    render: {
+      description: "Custom React content (overrides src)",
+      type: "React.ReactNode",
+      default: "undefined",
+    },
+    hoverScale: {
+      description: "Scale factor on hover (1 = no scale)",
+      type: "number",
+      default: "1.05",
+    },
+  }}
+/>
+
+## Examples
+
+### Basic Image Gallery
+
+```tsx
+const imageItems = [
+  {
+    src: "/images/photo1.jpg",
+    top: "20%",
+    left: "10%",
+    width: 300,
+    height: 200,
+  },
+  {
+    src: "/images/photo2.jpg",
+    top: "60%",
+    left: "50%",
+    width: 250,
+    height: 300,
+  },
+];
+
+<DraggableCanvas items={imageItems} />;
+```
+
+### Custom Content Items
+
+```tsx
+const customItems = [
+  {
+    render: (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <h3 className="text-xl font-bold mb-2">Card Title</h3>
+        <p>Custom card content with any React components</p>
+        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+          Action
+        </button>
+      </div>
+    ),
+    top: "30%",
+    left: "40%",
+    width: 280,
+    height: 180,
+  },
+];
+
+<DraggableCanvas items={customItems} />;
+```
+
+### High-Performance Setup
+
+```tsx
+<DraggableCanvas
+  items={items}
+  friction={0.95}
+  elasticity={0.1}
+  reboundDamping={0.9}
+  stopThreshold={0.005}
+  className="bg-gray-50"
+/>
+```
+
+### Development Mode with Boundaries
+
+```tsx
+<DraggableCanvas
+  items={items}
+  showBoundary={true}
+  showCornerLabels={true}
+  width="400vw"
+  height="300vh"
+/>
+```
+
+## Physics Parameters
+
+The Draggable Canvas uses realistic physics simulation:
+
+- **Friction**: Controls how quickly momentum decays (0.9 = more momentum, 0.8 = less momentum)
+- **Elasticity**: How much items bounce when hitting boundaries (0 = no bounce, 0.5 = strong bounce)
+- **Rebound Damping**: Velocity reduction on boundary collision (0.5 = loses half velocity, 1 = no reduction)
+- **Stop Threshold**: Minimum velocity before animation stops (lower = more precision, higher = better performance)
+
+## Accessibility
+
+The Draggable Canvas is designed with accessibility in mind:
+
+- Supports both mouse and touch interactions
+- Maintains focus states during dragging
+- Respects user's motion preferences
+- Works with screen readers for static content
+
+## Performance Tips
+
+- Use `transform3d` for hardware acceleration (built-in)
+- Limit the number of items for better performance
+- Consider using `will-change: transform` for frequently moved items
+- Use appropriate `stopThreshold` values to prevent unnecessary animations
