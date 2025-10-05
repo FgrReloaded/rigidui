@@ -8,64 +8,123 @@ import ImageLoaderPreview from "@/components/previews/image-loader";
 
 ## Usage
 
-<Tabs items={["Preview", "Code"]}>
-  <Tab value="Preview">
-    <ImageLoaderPreview />
-  </Tab>
-  <Tab value="Code">
-    ```tsx title="image-loader.tsx"
+<Tabs items={["Web", "React Native"]}>
+  <Tab value="Web">
+  <Tabs items={["Preview", "Code"]}>
+    <Tab value="Preview">
+      <ImageLoaderPreview />
+    </Tab>
+    <Tab value="Code">
+      ```tsx title="image-loader-demo.tsx"
 import { ImageLoader } from "@/components/image-loader"
 
 export default function MyComponent() {
-      return (
+        return (
+          <ImageLoader
+            src="https://example.com/image.jpg"
+            alt="Description of the image"
+            width={400}
+            height={300}
+          />
+        )
+}
+```
+    </Tab>
+  </Tabs>
+</Tab>
+<Tab value="React Native">
+  ```tsx title="image-loader-demo.tsx"
+import { ImageLoader } from "@/components/image-loader-rn"
+import { View } from "react-native"
+
+export default function MyScreen() {
+    return (
+      <View>
         <ImageLoader
           src="https://example.com/image.jpg"
           alt="Description of the image"
           width={400}
           height={300}
+          resizeMode="cover"
         />
-      )
+      </View>
+    )
 }
-```
-  </Tab>
+  ```
+</Tab>
 </Tabs>
 
 ## Installation
 
 <p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
-  Install the Image Loader component using your preferred package manager.
+  Install the Image Loader component for your platform using your preferred
+  package manager.
 </p>
 
+<Tabs items={["Web", "React Native"]}>
+<Tab value="Web">
+  ```npm
+  npx shadcn@latest add @rigidui/image-loader
+  ```
+</Tab>
+<Tab value="React Native">
+  ### Prerequisites [!toc]
+
+First, ensure you have React Native Reusables properly set up in your project. Follow the complete setup guide at [React Native Reusables Installation](https://reactnativereusables.com/docs/installation).
+
+You'll also need to install `react-native-svg`:
+
 ```npm
-npx shadcn@latest add @rigidui/image-loader
+npx expo install react-native-svg
 ```
+
+### Install Component [!toc]
+
+```npm
+npx shadcn@latest add @rigidui/image-loader-rn
+```
+
+</Tab>
+</Tabs>
 
 ## Features
 
 <p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
   The Image Loader component is packed with powerful features designed to
-  provide an exceptional user experience.
+  provide an exceptional user experience across both Web and React Native
+  platforms.
 </p>
 
 <Cards>
   <Card title="Beautiful Loading States">
-    Dynamic SVG patterns with gradient effects provide visually appealing
-    loading experiences.
+    Dynamic gradient patterns with smooth animations provide visually appealing
+    loading experiences across platforms.
+  </Card>
+  <Card title="Cross-Platform Support">
+    Available for both Web and React Native with platform-specific optimizations
+    and native rendering capabilities.
   </Card>
   <Card title="Optimized Performance">
-    Lazy loading, async decoding, and efficient pattern generation for optimal
-    performance.
+    Lazy loading for web, native animations for React Native, and efficient
+    pattern generation for optimal performance.
   </Card>
   <Card title="Responsive Design">
-    Automatically adapts to different screen sizes and container dimensions.
+    Automatically adapts to different screen sizes and container dimensions on
+    all platforms.
   </Card>
   <Card title="Error Handling">
     Graceful fallback states with customizable error components for failed image
-    loads.
+    loads on both platforms.
+  </Card>
+  <Card title="Smooth Animations">
+    Native Animated API for React Native and CSS transitions for web ensure
+    buttery smooth fade-in effects.
   </Card>
 </Cards>
 
 ## Props
+
+### ImageLoader (Web)
 
 <TypeTable
   type={{
@@ -88,7 +147,7 @@ npx shadcn@latest add @rigidui/image-loader
       default: "''",
     },
     blurIntensity: {
-      description: "CSS blur-sm filter intensity for the loading state",
+      description: "CSS blur filter intensity for the loading state",
       type: "string",
       default: "'blur(50px)'",
     },
@@ -129,6 +188,70 @@ npx shadcn@latest add @rigidui/image-loader
     },
     customColors: {
       description: "Custom color combinations for the loading pattern",
+      type: "ColorCombination[]",
+      default: "undefined",
+    },
+    seed: {
+      description: "Seed value for generating consistent loading patterns",
+      type: "number",
+      default: "undefined",
+    },
+  }}
+/>
+
+### ImageLoader (React Native)
+
+<TypeTable
+  type={{
+    src: {
+      description: "The source URL of the image to load",
+      type: "string",
+      required: true,
+    },
+    alt: {
+      description:
+        "Alternative text for the image (required for accessibility)",
+      type: "string",
+      required: true,
+    },
+    className: {
+      description: "NativeWind classes for styling",
+      type: "string",
+      default: "undefined",
+    },
+    width: {
+      description: "Width of the image container in pixels",
+      type: "number",
+      default: "400",
+    },
+    height: {
+      description: "Height of the image container in pixels",
+      type: "number",
+      default: "300",
+    },
+    fallbackComponent: {
+      description: "Custom component to display when image fails to load",
+      type: "React.ReactNode",
+      default: "undefined",
+    },
+    onLoad: {
+      description: "Callback function called when image successfully loads",
+      type: "() => void",
+      default: "undefined",
+    },
+    onError: {
+      description: "Callback function called when image fails to load",
+      type: "() => void",
+      default: "undefined",
+    },
+    resizeMode: {
+      description: "How the image should be resized to fit its container",
+      type: "'cover' | 'contain' | 'stretch' | 'center'",
+      default: "'cover'",
+    },
+    customColors: {
+      description:
+        "Custom color combinations for the gradient loading pattern (uses hex colors)",
       type: "ColorCombination[]",
       default: "undefined",
     },

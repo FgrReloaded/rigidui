@@ -140,6 +140,19 @@
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },
     {
+      "name": "infinite-scroll-rn",
+      "type": "registry:component",
+      "title": "Infinite Scroll",
+      "description": "An infinite scroll component for react native",
+      "files": [
+        {
+          "path": "r/new-york/infinite-scroll/infinite-scroll.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com"
+    },
+    {
       "name": "use-location",
       "type": "registry:hook",
       "title": "Use Location",
@@ -247,6 +260,23 @@
           "path": "r/new-york/image-loader/image-loader.tsx",
           "type": "registry:component"
         }
+      ],
+      "author": "Nitish Singh <devxnitish@gmail.com>"
+    },
+    {
+      "name": "image-loader-rn",
+      "type": "registry:component",
+      "title": "Image Loader",
+      "description": "An advanced image loading component for React Native with beautiful gradient loading effect and error handling",
+      "files": [
+        {
+          "path": "r/new-york/image-loader/image-loader.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["react-native-svg"],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/text.json"
       ],
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },

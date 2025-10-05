@@ -1,6 +1,6 @@
 ---
 title: Infinite Scroll
-description: A high-performance infinite scroll component with optional virtualization that automatically loads more content as users scroll.
+description: A cross-platform infinite scroll component for Web and React Native with automatic loading, optional virtualization, and pull-to-refresh support.
 ---
 
 import { Code, Package, ListTree, Zap } from "lucide-react";
@@ -9,12 +9,14 @@ import { InfiniteScrollAdvancedExamples } from "@/components/previews/examples/i
 
 ## Usage
 
-<Tabs items={["Preview", "Code"]}>
-  <Tab value="Preview">
-    <InfiniteScrollPreview />
-  </Tab>
-  <Tab value="Code">
-    ```tsx title="infinite-scroll.tsx"
+<Tabs items={["Web", "React Native"]}>
+  <Tab value="Web">
+  <Tabs items={["Preview", "Code"]}>
+    <Tab value="Preview">
+      <InfiniteScrollPreview />
+    </Tab>
+    <Tab value="Code">
+      ```tsx title="infinite-scroll-demo.tsx"
 import { InfiniteScroll } from "@/components/infinite-scroll"
 import { useState, useCallback } from "react"
 
@@ -67,44 +69,113 @@ export default function MyComponent() {
 }
 
 ````
+    </Tab>
+  </Tabs>
+</Tab>
+<Tab value="React Native">
+  ```tsx title="infinite-scroll-demo.tsx"
+import { InfiniteScroll } from "@/components/infinite-scroll-rn"
+import { useState, useCallback } from "react"
+import { View, Text } from "react-native"
+
+export default function MyScreen() {
+  const [items, setItems] = useState([])
+  const [hasNext, setHasNext] = useState(true)
+  const [loading, setLoading] = useState(false)
+
+  const loadMore = useCallback(async () => {
+    setLoading(true)
+    try {
+      const response = await fetch(`/api/items?page=${Math.floor(items.length / 10) + 1}`)
+      const data = await response.json()
+      setItems(prev => [...prev, ...data.items])
+      setHasNext(data.hasMore)
+    } catch (error) {
+      console.error('Failed to load items:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [items.length])
+
+  return (
+      <InfiniteScroll
+        items={items}
+        hasNextPage={hasNext}
+        isLoading={loading}
+        onLoadMore={loadMore}
+        threshold={0.5}
+        initialLoad={true}
+        renderItem={(item, index) => (
+          <View>
+            <Text>{item.title}</Text>
+            <Text>{item.description}</Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+    )
+}
+  ```
 </Tab>
 </Tabs>
 
 ## Installation
 
 <p className="md:text-sm  text-gray-700 dark:text-gray-300 max-w-3xl">
-Install the Infinite Scroll component and its dependency using your preferred
-package manager.
+Install the Infinite Scroll component for your platform using your preferred package manager.
 </p>
 
-```npm
-npx shadcn@latest add @rigidui/infinite-scroll
-````
+<Tabs items={["Web", "React Native"]}>
+<Tab value="Web">
+  ```npm
+  npx shadcn@latest add @rigidui/infinite-scroll
+  ```
+</Tab>
+<Tab value="React Native">
+  ### Prerequisites [!toc]
+
+  First, ensure you have React Native Reusables properly set up in your project. Follow the complete setup guide at [React Native Reusables Installation](https://reactnativereusables.com/docs/installation).
+
+  ### Install Component [!toc]
+
+  ```npm
+  npx shadcn@latest add @rigidui/infinite-scroll-rn
+  ```
+</Tab>
+</Tabs>
 
 ## Features
 
 <p className="md:text-sm mb-4!  text-gray-700 dark:text-gray-300 max-w-3xl">
-  The Infinite Scroll component is packed with powerful features designed to
-  provide an exceptional user experience.
+The Infinite Scroll component is packed with powerful features designed to
+provide an exceptional user experience across both Web and React Native platforms.
 </p>
 
 <Cards>
-  <Card title="Automatic Loading">
-    Automatically loads more content when user scrolls near the bottom using
-    Intersection Observer API.
-  </Card>
-  <Card title="Virtual Scrolling">
-    Optional virtualization with TanStack Virtual for handling massive datasets
-    with thousands of items while maintaining smooth performance.
-  </Card>
-  <Card title="High Performance">
-    Uses efficient Intersection Observer instead of scroll events for better
-    performance and battery life.
-  </Card>
-  <Card title="Flexible Configuration">
-    Customizable loading triggers, custom loaders, error states, and support for
-    reverse loading with dual rendering modes.
-  </Card>
+<Card title="Automatic Loading">
+  Automatically loads more content when user scrolls near the bottom with smart
+  load triggering across platforms.
+</Card>
+<Card title="Cross-Platform Support">
+  Available for both Web and React Native with platform-specific optimizations
+  using Intersection Observer for Web and FlatList for React Native.
+</Card>
+<Card title="Virtual Scrolling">
+  Optional virtualization with TanStack Virtual for Web to handle massive datasets
+  with thousands of items while maintaining smooth performance.
+</Card>
+<Card title="High Performance">
+  Uses efficient rendering strategies - Intersection Observer for Web and
+  FlatList optimizations for React Native for better performance and battery life.
+</Card>
+<Card title="Pull to Refresh">
+  Built-in pull-to-refresh support for React Native with customizable refresh
+  handlers and loading states.
+</Card>
+<Card title="Flexible Configuration">
+  Customizable loading triggers, custom loaders, error states, and support for
+  reverse loading with dual rendering modes.
+</Card>
 </Cards>
 
 ## When to Use Virtualization
@@ -129,109 +200,190 @@ npx shadcn@latest add @rigidui/infinite-scroll
 
 ## Props
 
+### InfiniteScroll (Web)
+
 <TypeTable
-  type={{
-    items: {
-      description: "Array of items to display",
-      type: "T[]",
-      required: true,
-    },
-    hasNextPage: {
-      description: "Whether there are more items to load",
-      type: "boolean",
-      required: true,
-    },
-    isLoading: {
-      description: "Whether the component is currently loading",
-      type: "boolean",
-      required: true,
-    },
-    onLoadMore: {
-      description: "Function called when more items should be loaded",
-      type: "() => void | Promise<void>",
-      required: true,
-    },
-    renderItem: {
-      description: "Function to render each item",
-      type: "(item: T, index: number) => React.ReactNode",
-      required: true,
-    },
-    threshold: {
-      description: "Distance in pixels from bottom to trigger loading",
-      type: "number",
-      default: "100",
-    },
-    loader: {
-      description: "Custom loading component",
-      type: "React.ComponentType",
-      default: "DefaultLoader",
-    },
-    endMessage: {
-      description: "Message shown when all items are loaded",
-      type: "React.ReactNode",
-      default: "Default end message",
-    },
-    errorMessage: {
-      description: "Error message to display when loading fails",
-      type: "React.ReactNode",
-      default: "undefined",
-    },
-    className: {
-      description: "Additional CSS classes for the container",
-      type: "string",
-      default: "''",
-    },
-    itemClassName: {
-      description: "Additional CSS classes for each item wrapper",
-      type: "string",
-      default: "''",
-    },
-    reverse: {
-      description: "Whether to load items in reverse order (useful for chat)",
-      type: "boolean",
-      default: "false",
-    },
-    initialLoad: {
-      description: "Whether to automatically load initial data on mount",
-      type: "boolean",
-      default: "false",
-    },
-    scrollableTarget: {
-      description: "ID of custom scroll container element",
-      type: "string",
-      default: "undefined",
-    },
-    virtualized: {
-      description:
-        "Enable virtualization for better performance with large datasets",
-      type: "boolean",
-      default: "false",
-    },
-    estimateSize: {
-      description: "Function to estimate item size for virtualization",
-      type: "() => number",
-      default: "() => 50",
-    },
-    height: {
-      description:
-        "Container height when virtualized (required for virtualization)",
-      type: "number",
-      default: "400",
-    },
-    overscan: {
-      description:
-        "Number of items to render outside viewport for virtualization",
-      type: "number",
-      default: "5",
-    },
-  }}
+type={{
+  items: {
+    description: "Array of items to display",
+    type: "T[]",
+    required: true,
+  },
+  hasNextPage: {
+    description: "Whether there are more items to load",
+    type: "boolean",
+    required: true,
+  },
+  isLoading: {
+    description: "Whether the component is currently loading",
+    type: "boolean",
+    required: true,
+  },
+  onLoadMore: {
+    description: "Function called when more items should be loaded",
+    type: "() => void | Promise<void>",
+    required: true,
+  },
+  renderItem: {
+    description: "Function to render each item",
+    type: "(item: T, index: number) => React.ReactNode",
+    required: true,
+  },
+  threshold: {
+    description: "Distance in pixels from bottom to trigger loading",
+    type: "number",
+    default: "100",
+  },
+  loader: {
+    description: "Custom loading component",
+    type: "React.ComponentType",
+    default: "DefaultLoader",
+  },
+  endMessage: {
+    description: "Message shown when all items are loaded",
+    type: "React.ReactNode",
+    default: "Default end message",
+  },
+  errorMessage: {
+    description: "Error message to display when loading fails",
+    type: "React.ReactNode",
+    default: "undefined",
+  },
+  className: {
+    description: "Additional CSS classes for the container",
+    type: "string",
+    default: "undefined",
+  },
+  itemClassName: {
+    description: "Additional CSS classes for each item wrapper",
+    type: "string",
+    default: "undefined",
+  },
+  reverse: {
+    description: "Whether to load items in reverse order (useful for chat)",
+    type: "boolean",
+    default: "false",
+  },
+  initialLoad: {
+    description: "Whether to automatically load initial data on mount",
+    type: "boolean",
+    default: "false",
+  },
+  scrollableTarget: {
+    description: "ID of custom scroll container element",
+    type: "string",
+    default: "undefined",
+  },
+  virtualized: {
+    description:
+      "Enable virtualization for better performance with large datasets",
+    type: "boolean",
+    default: "false",
+  },
+  estimateSize: {
+    description: "Function to estimate item size for virtualization",
+    type: "() => number",
+    default: "() => 50",
+  },
+  height: {
+    description:
+      "Container height when virtualized (required for virtualization)",
+    type: "number",
+    default: "400",
+  },
+  overscan: {
+    description:
+      "Number of items to render outside viewport for virtualization",
+    type: "number",
+    default: "5",
+  },
+}}
+/>
+
+### InfiniteScroll (React Native)
+
+<TypeTable
+type={{
+  items: {
+    description: "Array of items to display",
+    type: "T[]",
+    required: true,
+  },
+  hasNextPage: {
+    description: "Whether there are more items to load",
+    type: "boolean",
+    required: true,
+  },
+  isLoading: {
+    description: "Whether the component is currently loading",
+    type: "boolean",
+    required: true,
+  },
+  onLoadMore: {
+    description: "Function called when more items should be loaded",
+    type: "() => void | Promise<void>",
+    required: true,
+  },
+  renderItem: {
+    description: "Function to render each item",
+    type: "(item: T, index: number) => React.ReactNode",
+    required: true,
+  },
+  threshold: {
+    description: "Distance threshold to trigger loading (0-1, represents percentage of list)",
+    type: "number",
+    default: "0.5",
+  },
+  loader: {
+    description: "Custom loading component",
+    type: "React.ComponentType",
+    default: "ActivityIndicator",
+  },
+  endMessage: {
+    description: "Message shown when all items are loaded",
+    type: "React.ReactNode",
+    default: "Default end message",
+  },
+  errorMessage: {
+    description: "Error message to display when loading fails",
+    type: "React.ReactNode",
+    default: "undefined",
+  },
+  className: {
+    description: "NativeWind classes for the container",
+    type: "string",
+    default: "undefined",
+  },
+  itemClassName: {
+    description: "NativeWind classes for each item wrapper",
+    type: "string",
+    default: "undefined",
+  },
+  reverse: {
+    description: "Whether to load items in reverse order (inverted FlatList)",
+    type: "boolean",
+    default: "false",
+  },
+  initialLoad: {
+    description: "Whether to automatically load initial data on mount",
+    type: "boolean",
+    default: "false",
+  },
+  estimateSize: {
+    description: "Estimated item size for FlatList optimization",
+    type: "number",
+    default: "50",
+  },
+  keyExtractor: {
+    description: "Function to extract unique key for each item",
+    type: "(item: T, index: number) => string",
+    default: "Uses index",
+  },
+}}
 />
 
 ## Advanced Examples
 
-<p className="md:text-sm mb-4  text-gray-700 dark:text-gray-300 max-w-3xl">
-  Explore advanced use cases including virtualization, performance optimization,
-  and handling large datasets.
-</p>
+Explore different configurations and specialized use cases for the Infinite Scroll component across Web and React Native platforms.
 
 <InfiniteScrollAdvancedExamples />
