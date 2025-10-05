@@ -34,8 +34,8 @@ export default function Home() {
 
       <Sidebar />
 
-      <main className="relative z-10 pt-20">
-        <div className="min-h-screen flex items-center">
+      <main className="relative z-10">
+        <div className="min-h-[100dvh] flex items-center py-24 md:py-24">
           <div className="container mx-auto md:px-6 px-2">
             <div className="grid lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-2 flex lg:flex-col items-center justify-center">
