@@ -264,23 +264,6 @@
       "author": "Nitish Singh <devxnitish@gmail.com>"
     },
     {
-      "name": "image-loader-rn",
-      "type": "registry:component",
-      "title": "Image Loader",
-      "description": "An advanced image loading component for React Native with beautiful gradient loading effect and error handling",
-      "files": [
-        {
-          "path": "r/new-york/image-loader/image-loader.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "dependencies": ["react-native-svg"],
-      "registryDependencies": [
-        "https://reactnativereusables.com/r/new-york/text.json"
-      ],
-      "author": "Nitish Singh <devxnitish@gmail.com>"
-    },
-    {
       "name": "guided-tour",
       "type": "registry:component",
       "title": "Guided Tour",
