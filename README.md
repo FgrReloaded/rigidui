@@ -16,21 +16,53 @@
 - 🎨 **Customizable** - Tailwind CSS for styling flexibility
 - 🌓 **Dark mode support** - Beautiful in light and dark
 - ⚡ **Fast development** - Speed up your workflow with pre-built complex components
-- 📱 **Responsive** - Mobile-first design approach
+- 📱 **Cross-platform** - Web and React Native support for many components
+- 🎭 **Creative components** - Beautiful animations and interactive elements
+- 🔒 **Security-focused** - Access control and permission management components
+- 🎯 **TypeScript first** - Full type safety with Zod integration
 - ♿ **Accessible** - Built with accessibility in mind
 
 ## Components
 
 RigidUI extends shadcn/ui with additional enterprise-grade components:
 
+### Creative Components
+
+- **Data Reveal** - Animated component that reveals sensitive content with smooth staggered animations and auto-hide functionality
+- **Draggable Canvas** - Smooth, physics-based draggable canvas with momentum, elastic bounds, and customizable items
+- **Text Shift** - Animated text component that smoothly transitions between two text strings with staggered letter animations
+- **Creative Buttons** - Collection of beautiful, animated button components
+
+### Core Components
+
 - **Currency Manager** - Multi-currency conversion and display system
-- **File Explorer** - Hierarchical file system browser with syntax highlighting
-- **File Uploader** - Drag and drop file upload with previews and validation
-- **Infinite Scroll** - Efficiently load large datasets with infinite scrolling
-- **Location Picker** - Geographic location selection with search functionality
-- **Multi-Step Form Wrapper** - Guided step-by-step form interfaces
-- **Notification Center** - Notification management system
-- **Password Strength Meter** - Visual password strength evaluation component
+- **Draggable Dashboard** - Interactive drag-and-drop dashboard with customizable widgets
+- **Image Loader** - Advanced image loading component with beautiful loading states, error handling, and performance optimizations (Web + React Native)
+- **Location Picker** - Geographic location selection with map integration and search functionality (Web + React Native)
+- **Guided Tour** - Comprehensive guided tour component for interactive step-by-step walkthroughs
+- **Smart Search** - Advanced search component with real-time results, filters, history, and keyboard navigation
+
+### Form Elements
+
+- **File Uploader** - Drag and drop file upload with previews, validation, and progress tracking (Web + React Native)
+- **Multi-Step Form Wrapper** - Guided step-by-step form interfaces with progress indicators
+- **Password Strength Meter** - Visual password strength evaluation component with customizable rules
+- **Smart Form** - Zod-powered form component with TanStack Query integration and automatic validation
+
+### Data Display
+
+- **Content Grid** - Flexible grid/list component with seamless view switching and customizable rendering
+- **File Explorer** - Hierarchical file system browser with syntax highlighting and file operations
+- **Infinite Scroll** - Efficiently load large datasets with infinite scrolling and virtual rendering (Web + React Native)
+- **Notification Center** - Comprehensive notification management system with categories and actions
+
+### Security & Access
+
+- **Access Manager** - Authentication and authorization system with session validation for controlling UI visibility and user permissions
+
+### Hooks
+
+- **useLocation** - Custom hook for location-based functionality and geolocation services
 
 ## Installation
 
@@ -46,39 +78,93 @@ RigidUI components require a project with the following setup:
 
 Add RigidUI components to your project with a single command:
 
+#### Creative Components
+
 ```bash
+# Data Reveal
+npx shadcn@latest add https://rigidui.com/r/data-reveal.json
+
+# Draggable Canvas
+npx shadcn@latest add https://rigidui.com/r/draggable-canvas.json
+
+# Text Shift
+npx shadcn@latest add https://rigidui.com/r/text-shift.json
+```
+
+#### Core Components
+
+```bash
+# Access Manager
+npx shadcn@latest add https://rigidui.com/r/access-manager.json
+
+# Content Grid
+npx shadcn@latest add https://rigidui.com/r/content-grid.json
+
 # Currency Manager
 npx shadcn@latest add https://rigidui.com/r/currency-manager.json
 
 # Draggable Dashboard
 npx shadcn@latest add https://rigidui.com/r/draggable-dashboard.json
 
-# File Explorer
-npx shadcn@latest add https://rigidui.com/r/file-explorer.json
+# Guided Tour
+npx shadcn@latest add https://rigidui.com/r/guided-tour.json
 
-# File Uploader
+# Image Loader (Web)
+npx shadcn@latest add https://rigidui.com/r/image-loader.json
+
+# Image Loader (React Native)
+npx shadcn@latest add https://rigidui.com/r/image-loader-rn.json
+
+# Location Picker (Web)
+npx shadcn@latest add https://rigidui.com/r/location-picker.json
+
+# Location Picker (React Native)
+npx shadcn@latest add https://rigidui.com/r/location-picker-rn.json
+
+# Smart Search
+npx shadcn@latest add https://rigidui.com/r/smart-search.json
+```
+
+#### Form Elements
+
+```bash
+# File Uploader (Web)
 npx shadcn@latest add https://rigidui.com/r/file-uploader.json
 
-# Infinite Scroll
-npx shadcn@latest add https://rigidui.com/r/infinite-scroll.json
-
-# Location Picker
-npx shadcn@latest add https://rigidui.com/r/location-picker.json
+# File Uploader (React Native)
+npx shadcn@latest add https://rigidui.com/r/file-uploader-rn.json
 
 # Multi-Step Form Wrapper
 npx shadcn@latest add https://rigidui.com/r/multi-step-form-wrapper.json
-
-# Notification Center
-npx shadcn@latest add https://rigidui.com/r/notification-center.json
 
 # Password Strength Meter
 npx shadcn@latest add https://rigidui.com/r/strength-meter.json
 
 # Smart Form
 npx shadcn@latest add https://rigidui.com/r/smart-form.json
+```
 
-# Smart Search
-npx shadcn@latest add https://rigidui.com/r/smart-search.json
+#### Data Display
+
+```bash
+# File Explorer
+npx shadcn@latest add https://rigidui.com/r/file-explorer.json
+
+# Infinite Scroll (Web)
+npx shadcn@latest add https://rigidui.com/r/infinite-scroll.json
+
+# Infinite Scroll (React Native)
+npx shadcn@latest add https://rigidui.com/r/infinite-scroll-rn.json
+
+# Notification Center
+npx shadcn@latest add https://rigidui.com/r/notification-center.json
+```
+
+#### Hooks
+
+```bash
+# useLocation Hook
+npx shadcn@latest add https://rigidui.com/r/use-location.json
 ```
 
 That's it! Components will be added to your `components/ui` directory and are fully customizable.
