@@ -5,164 +5,172 @@ import { z } from "zod"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form"
 import {
-  MultiStepFormWrapper,
-  Step,
-  useMultiStepForm
+    MultiStepFormWrapper,
+    Step,
+    useMultiStepForm
 } from "./multi-step-form-wrapper"
 import { Textarea } from "@/components/ui/textarea"
 
 const basicInfoSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email format" }),
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z.string().email({ message: "Invalid email format" }),
 })
 
 const messageSchema = z.object({
-  subject: z.string().min(1, { message: "Subject is required" }),
-  message: z.string().min(5, { message: "Message is too short" }),
+    subject: z.string().min(1, { message: "Subject is required" }),
+    message: z.string().min(5, { message: "Message is too short" }),
 })
 
 const formSchema = z.object({
-  ...basicInfoSchema.shape,
-  ...messageSchema.shape,
+    ...basicInfoSchema.shape,
+    ...messageSchema.shape,
 })
 
 type FormValues = z.infer<typeof formSchema>
 
 export function MultiStepFormDemo() {
-  const [, setResult] = useState<FormValues | null>(null)
+    const [, setResult] = useState<FormValues | null>(null)
 
-  const initialValues: Partial<FormValues> = {
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  };
+    const initialValues: Partial<FormValues> = {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    };
 
-  const handleComplete = (data: FormValues) => {
-    setResult(data)
-    toast.success("Form submitted!")
-  }
+    const handleComplete = (data: FormValues) => {
+        setResult(data)
+        toast.success("Form submitted!")
+    }
 
-  return (
-    <div className="max-w-sm mx-auto">
-      <MultiStepFormWrapper
-        onComplete={handleComplete}
-        completeButtonText="Submit"
-        className="border rounded p-4"
-        schema={formSchema}
-        initialData={initialValues}
-      >
-        <Step
-          title="Basic Info"
-          schema={basicInfoSchema}
-        >
-          <BasicInfoStep />
-        </Step>
-        <Step
-          title="Message"
-          schema={messageSchema}
-        >
-          <MessageStep />
-        </Step>
-      </MultiStepFormWrapper>
+    return (
+        <div className="max-w-sm mx-auto">
+            <MultiStepFormWrapper
+                onComplete={handleComplete}
+                completeButtonText="Submit"
+                className="border rounded p-4"
+                schema={formSchema}
+                initialData={initialValues}
+                completionStep={CompletionStep()}
+            >
+                <Step
+                    title="Basic Info"
+                    schema={basicInfoSchema}
+                >
+                    <BasicInfoStep />
+                </Step>
+                <Step
+                    title="Message"
+                    schema={messageSchema}
+                >
+                    <MessageStep />
+                </Step>
+            </MultiStepFormWrapper>
+        </div>
+    );
+}
+
+function CompletionStep() {
+    return <div className="flex flex-col items-center">
+        <h2>Success!</h2>
+        <span>Your data was successfully submitted</span>
     </div>
-  );
 }
 
 function BasicInfoStep() {
-  const { form } = useMultiStepForm<FormValues>()
+    const { form } = useMultiStepForm<FormValues>()
 
-  return (
-    <Form {...form}>
-      <div className="space-y-3">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Enter your name"
+    return (
+        <Form {...form}>
+            <div className="space-y-3">
+                <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    placeholder="Enter your name"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  placeholder="Enter your email"
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    type="email"
+                                    placeholder="Enter your email"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-    </Form>
-  )
+            </div>
+        </Form>
+    )
 }
 
 function MessageStep() {
-  const { form } = useMultiStepForm<FormValues>()
+    const { form } = useMultiStepForm<FormValues>()
 
-  return (
-    <Form {...form}>
-      <div className="space-y-3">
-        <FormField
-          control={form.control}
-          name="subject"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Subject</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Message subject"
+    return (
+        <Form {...form}>
+            <div className="space-y-3">
+                <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Subject</FormLabel>
+                            <FormControl>
+                                <Input
+                                    {...field}
+                                    placeholder="Message subject"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Your Message</FormLabel>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  placeholder="Type your message here"
-                  className="w-full p-2 text-sm border rounded min-h-[80px]"
+                <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Your Message</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    {...field}
+                                    placeholder="Type your message here"
+                                    className="w-full p-2 text-sm border rounded min-h-[80px]"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-    </Form>
-  )
+            </div>
+        </Form>
+    )
 }
